@@ -66,6 +66,5 @@ export default class Floor {
         this.physics.rigidBodies.push(rigidFloor)
 
         rigidFloor.threeMesh = this.mesh
-
     }
 }
