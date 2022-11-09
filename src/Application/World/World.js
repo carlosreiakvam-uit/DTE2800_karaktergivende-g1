@@ -14,7 +14,7 @@ export default class World {
         // Wait for resources
         this.resources.on('ready', () => {
             new Coordinates()
-            // new Floor()
+            new Floor()
             this.testObjects = new TestObjects()
             this.environment = new Environment()
             this.ready = true;

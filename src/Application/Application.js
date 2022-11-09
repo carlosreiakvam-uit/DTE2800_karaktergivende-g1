@@ -11,20 +11,18 @@ import sources from './sources.js'
 import Animations from "./Animations.js";
 import KeyPress from "./Utils/KeyPress.js";
 import GUI from "lil-gui";
+import Physics from "./World/Physics";
 
 let instance = null
 
-export default class Application
-{
-    constructor(_canvas)
-    {
+export default class Application {
+    constructor(_canvas) {
         // Singleton
-        if(instance)
-        {
+        if (instance) {
             return instance
         }
         instance = this
-        
+
         // Global access
         window.application = this
 
@@ -32,6 +30,7 @@ export default class Application
         this.canvas = _canvas
 
         // Setup
+        this.physics = new Physics()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
@@ -41,33 +40,29 @@ export default class Application
         this.world = new World()
         this.animations = new Animations()
         this.keypress = new KeyPress()
-
         this.setupLilGui();
 
         // Resize event
-        this.sizes.on('resize', () =>
-        {
+        this.sizes.on('resize', () => {
             this.resize()
         })
 
         // Time tick event
-        this.time.on('tick', () =>
-        {
+        this.time.on('tick', () => {
             this.update()
         })
     }
 
-    resize()
-    {
+    resize() {
         this.camera.resize()
         this.renderer.resize()
     }
 
-    update()
-    {
+    update() {
         this.animations.update(this.keypress.currentlyPressedKeys)
         this.camera.update()
         this.world.update()
+        this.physics.updatePhysics(this.time.delta)
         this.renderer.update()
     }
 
@@ -77,33 +72,28 @@ export default class Application
         const sunFolder = this.lilGui.addFolder("Sun light");
         sunFolder.add(this.animations, 'theSunIsShining').name("On/Off");
 
-        const ambientFolder = this.lilGui.addFolder( 'Ambient Light' );
+        const ambientFolder = this.lilGui.addFolder('Ambient Light');
         ambientFolder.add(this.animations, 'ambientVisible').name("On/Off");
         ambientFolder.add(this.animations, 'ambientIntensity').min(0).max(1).step(0.01).name("Intensity");
         ambientFolder.addColor(this.animations, 'ambientColor').name("Color");
     }
 
-    destroy()
-    {
+    destroy() {
         this.sizes.off('resize')
         this.time.off('tick')
 
         // Traverse the whole scene
-        this.scene.traverse((child) =>
-        {
+        this.scene.traverse((child) => {
             // Test if it's a mesh
-            if(child instanceof THREE.Mesh)
-            {
+            if (child instanceof THREE.Mesh) {
                 child.geometry.dispose()
 
                 // Loop through the material properties
-                for(const key in child.material)
-                {
+                for (const key in child.material) {
                     const value = child.material[key]
 
                     // Test if there is a dispose function
-                    if(value && typeof value.dispose === 'function')
-                    {
+                    if (value && typeof value.dispose === 'function') {
                         value.dispose()
                     }
                 }
@@ -113,7 +103,5 @@ export default class Application
         this.camera.controls.dispose()
         this.renderer.instance.dispose()
 
-        if(this.debug.active)
-            this.debug.ui.destroy()
     }
 }
