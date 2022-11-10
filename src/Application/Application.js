@@ -11,7 +11,7 @@ import sources from './sources.js'
 import Animations from "./Animations.js";
 import KeyPress from "./Utils/KeyPress.js";
 import GUI from "lil-gui";
-import Physics from "./World/Physics";
+import Physics from "./World/Physics.js";
 
 let instance = null
 
