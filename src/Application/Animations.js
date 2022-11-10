@@ -23,21 +23,20 @@ export default class Animations {
 
 
     update(currentlyPressedKeys) {
+        const hero = application.world.scene.getObjectByName('cubeHero')
+        const speed = 0.2
         if (currentlyPressedKeys["KeyW"]) {
-            // this.heroPos.z -= this.heroPos.speed
-            // let mesh = this.application.world.testObjects.cubeHero.mesh
-            // .moveRigidBody(mesh, {x: 0, y: 0, z: 1})
-
+            this.physics.moveRigidBody(hero, {x: 0, y: 0, z: -speed})
         }
-        // if (currentlyPressedKeys["KeyS"]) {
-        //     this.heroPos.z += this.heroPos.speed
-        // }
-        // if (currentlyPressedKeys["KeyD"]) {
-        //     this.heroPos.x += this.heroPos.speed
-        // }
-        // if (currentlyPressedKeys["KeyA"]) {
-        //     this.heroPos.x -= this.heroPos.speed
-        // }
+        if (currentlyPressedKeys["KeyS"]) {
+            this.physics.moveRigidBody(hero, {x: 0, y: 0, z: speed})
+        }
+        if (currentlyPressedKeys["KeyD"]) {
+            this.physics.moveRigidBody(hero, {x: speed, y: 0, z: 0})
+        }
+        if (currentlyPressedKeys["KeyA"]) {
+            this.physics.moveRigidBody(hero, {x: -speed, y: 0, z: 0})
+        }
     }
 
 

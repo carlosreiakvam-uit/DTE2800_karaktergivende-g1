@@ -61,4 +61,14 @@ export default class Physics {
         return rigidBody;
     }
 
+    moveRigidBody(movableMesh, direction) {
+        let transform = new Ammo.btTransform();
+        let motionState = movableMesh.userData.physicsBody.getMotionState();
+        motionState.getWorldTransform(transform);
+        let position = transform.getOrigin();
+        transform.setOrigin(new Ammo.btVector3(position.x() + direction.x, position.y() + direction.y, position.z() + direction.z));
+        motionState.setWorldTransform(transform);
+    }
+
+
 }
