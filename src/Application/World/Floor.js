@@ -7,13 +7,13 @@ export default class Floor {
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.physics = application.physics
-        this.pWorld = this.physics.world
 
         this.setGeometry()
         this.setTextures()
         this.setMaterial()
         this.setMesh()
         this.setAmmo()
+        this.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -46,25 +46,23 @@ export default class Floor {
         this.mesh.name = 'floor'
         this.mesh.rotation.x = -Math.PI * 0.5
         this.mesh.receiveShadow = true
-        this.scene.add(this.mesh)
     }
 
     setAmmo() {
         const mass = 0
         const position = {x: 0, y: 0, z: 0}
-        let width = this.mesh.geometry.parameters.width;
-        let depth = this.mesh.geometry.parameters.depth;
+        const width = this.mesh.geometry.parameters.width;
+        const depth = this.mesh.geometry.parameters.depth;
 
         // AMMO
-        let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, 0, depth / 2));
-        let rigidFloor = this.physics.createAmmoRigidBody(shape, this.mesh, 0.7, 0.8, position, mass);
+        const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, 0, depth / 2));
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, mass);
 
-        this.mesh.userData.physicsBody = rigidFloor;
+        this.mesh.userData.physicsBody = this.rigidBody;
 
-        this.pWorld.addRigidBody(rigidFloor, this.physics.colGroupPlane, this.physics.colGroupBox);
+        this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_PLANE, this.physics.COL_GROUP_BOX);
 
-        this.physics.rigidBodies.push(rigidFloor)
-
-        rigidFloor.threeMesh = this.mesh
+        this.physics.rigidBodies.push(this.mesh)
+        this.rigidBody.threeMesh = this.mesh
     }
 }

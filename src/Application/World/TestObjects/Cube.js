@@ -3,16 +3,15 @@ import Application from "../../Application.js";
 import Animations from "../../Animations.js";
 
 export default class Cube {
-    constructor(transform, scale, color) {
+    constructor(position, scale, color, mass, name, activationState = null) {
         this.application = new Application()
         this.physics = this.application.physics
-        this.pWorld = this.physics.world
-        this.x = transform.x
+        this.mass = mass
 
         this.setMaterial(color)
         this.setGeometry()
-        this.setMesh(transform, scale)
-        this.setPhysics(transform)
+        this.setMesh(position, scale, name)
+        this.setPhysics(position, activationState)
 
     }
 
@@ -21,34 +20,35 @@ export default class Cube {
     }
 
     setGeometry() {
-        this.geometry = new THREE.BoxGeometry(1, 1, 1)
+        this.geometry = new THREE.BoxGeometry(1, 1, 1, 1, 1)
     }
 
-    setMesh(transform, scale) {
+    setMesh(position, scale, name) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh.name = "cube"
-        this.mesh.receiveShadow = true;
+        this.mesh.name = name
+        // this.mesh.scale.set(scale.x, scale.y, scale.z)
+        this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
-        this.mesh.scale.set(scale.x, scale.y, scale.z)
-        this.mesh.position.set(transform.x, transform.y, transform.z)
+        this.mesh.receiveShadow = true;
     }
 
-
-    setPhysics(position) {
-        const mass = 1
+    setPhysics(position, activationState) {
         let width = this.mesh.geometry.parameters.width;
         let height = this.mesh.geometry.parameters.height;
         let depth = this.mesh.geometry.parameters.depth;
 
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
-        shape.setMargin(0.05);
-        let rigidBody = this.physics.createAmmoRigidBody(shape, this.mesh, 0.7, 0.8, position, mass);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
+        if (activationState != null) {
+            this.rigidBody.setActivationState(activationState);
+        }
 
-        rigidBody.setActivationState(4);
-        this.mesh.userData.physicsBody = rigidBody;
-        this.pWorld.addRigidBody(rigidBody, this.physics.colGroupPlane, this.physics.colGroupBox);
-        this.physics.rigidBodies.push(rigidBody)
-        rigidBody.threeMesh = this.mesh
+        this.mesh.userData.physicsBody = this.rigidBody;
+        this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_BOX, this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
+
+        this.application.scene.add(this.mesh);
+        this.physics.rigidBodies.push(this.mesh);
+        this.rigidBody.threeMesh = this.mesh;
     }
 
     update() {
