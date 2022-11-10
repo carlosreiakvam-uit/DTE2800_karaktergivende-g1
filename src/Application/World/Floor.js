@@ -13,7 +13,6 @@ export default class Floor {
         this.setMaterial()
         this.setMesh()
         this.setAmmo()
-        this.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -46,6 +45,7 @@ export default class Floor {
         this.mesh.name = 'floor'
         this.mesh.rotation.x = -Math.PI * 0.5
         this.mesh.receiveShadow = true
+        this.application.scene.add(this.mesh)
     }
 
     setAmmo() {

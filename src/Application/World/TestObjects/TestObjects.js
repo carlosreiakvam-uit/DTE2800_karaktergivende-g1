@@ -9,7 +9,7 @@ export default class TestObjects {
 
 
         this.cubeHero = new Cube(
-            {x: 0, y: 0.5, z: 0},
+            {x: -2, y: 0.5, z: 0},
             {x: 1.5, y: 1, z: 1},
             0xff0000,
             0,
@@ -23,7 +23,7 @@ export default class TestObjects {
             'fallingCube',
             null)
 
-        // this.scene.add(this.cubeHero.mesh, this.fallingBlock.mesh)
+        this.application.scene.add(this.cubeHero.mesh, this.fallingBlock.mesh)
     }
 
     update() {

@@ -46,7 +46,6 @@ export default class Cube {
         this.mesh.userData.physicsBody = this.rigidBody;
         this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_BOX, this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
 
-        this.application.scene.add(this.mesh);
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }
