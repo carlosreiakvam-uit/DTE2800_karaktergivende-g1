@@ -52,10 +52,11 @@ export default class Floor {
         const mass = 0
         const position = {x: 0, y: 0, z: 0}
         const width = this.mesh.geometry.parameters.width;
-        const depth = this.mesh.geometry.parameters.depth;
+        const height = this.mesh.geometry.parameters.height;
+        const depth = 0
 
         // AMMO
-        const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, 0, depth / 2));
+        const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth));
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;

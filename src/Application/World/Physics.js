@@ -26,7 +26,6 @@ export default class Physics {
             let rigidBody = mesh.userData.physicsBody;
             let motionState = rigidBody.getMotionState();
             if (motionState) {
-                console.log(mesh.name)
                 motionState.getWorldTransform(this.tmpTrans);
                 let p = this.tmpTrans.getOrigin();
                 let q = this.tmpTrans.getRotation();
