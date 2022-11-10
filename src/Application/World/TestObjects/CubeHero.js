@@ -3,10 +3,9 @@ import Application from "../../Application.js";
 import Animations from "../../Animations.js";
 
 export default class CubeHero {
-    constructor(position, color, mass) {
+    constructor(position, color) {
         this.application = new Application()
         this.physics = this.application.physics
-        this.mass = mass
 
         this.setMaterial(color)
         this.setGeometry()
@@ -38,16 +37,19 @@ export default class CubeHero {
         let depth = this.mesh.geometry.parameters.depth;
 
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
-        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, 0);
 
         // Følgende er avgjørende for å kunne flytte på objektet:
         // 2 = BODYFLAG_KINEMATIC_OBJECT: Betyr kinematic object, masse=0 men kan flyttes!
         this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | 2);
-        this.rigidBody.setActivationState(4);
+        this.rigidBody.setActivationState(4); // 4 = BODYSTATE_DISABLE_DEACTIVATION, dvs. "Never sleep".
 
 
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_BOX, this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
+        this.physics.world.addRigidBody(
+            this.rigidBody,
+            this.physics.COL_GROUP_BOX,
+            this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
 
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;

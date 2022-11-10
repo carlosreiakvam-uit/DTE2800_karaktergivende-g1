@@ -11,8 +11,7 @@ export default class TestObjects {
 
         this.cubeHero = new CubeHero(
             {x: -2, y: 0.5, z: 0},
-            0xff0000,
-            1
+            0xff0000
         )
         this.fallingBlock = new Cube(
             {x: 0, y: 10, z: 0},
