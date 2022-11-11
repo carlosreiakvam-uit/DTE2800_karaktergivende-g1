@@ -57,7 +57,7 @@ export default class Floor {
 
         // AMMO
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth));
-        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, mass);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 1.8, position, mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
 

@@ -37,12 +37,13 @@ export default class CubeHero {
         let depth = this.mesh.geometry.parameters.depth;
 
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
-        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, 0);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, 1);
 
         // Følgende er avgjørende for å kunne flytte på objektet:
         // 2 = BODYFLAG_KINEMATIC_OBJECT: Betyr kinematic object, masse=0 men kan flyttes!
-        this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | 2);
+        // this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | 2); // gjør at man ikke kan hoppe 🤔
         this.rigidBody.setActivationState(4); // 4 = BODYSTATE_DISABLE_DEACTIVATION, dvs. "Never sleep".
+        this.rigidBody.setAngularFactor(0) // Gjør at helten ikke "ruller" bortover ved påførte krefter
 
 
         this.mesh.userData.physicsBody = this.rigidBody;

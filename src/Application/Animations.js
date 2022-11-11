@@ -24,6 +24,7 @@ export default class Animations {
 
     update(currentlyPressedKeys) {
         const hero = application.world.scene.getObjectByName('cubeHero')
+        const fallingCube = application.world.scene.getObjectByName('fallingCube')
         const speed = 0.2
         if (currentlyPressedKeys["KeyW"]) {
             this.physics.moveRigidBody(hero, {x: 0, y: 0, z: -speed})
@@ -37,6 +38,11 @@ export default class Animations {
         if (currentlyPressedKeys["KeyA"]) {
             this.physics.moveRigidBody(hero, {x: -speed, y: 0, z: 0})
         }
+        if (currentlyPressedKeys["Space"]) {
+            console.log("HOPP")
+            this.physics.applyImpulse(hero.userData.physicsBody, 1, {x: 0, y: 1, z: 0})
+        }
+
     }
 
 

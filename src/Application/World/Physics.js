@@ -32,7 +32,6 @@ export default class Physics {
                 mesh.position.set(p.x(), p.y(), p.z());
                 mesh.quaternion.set(q.x(), q.y(), q.z(), q.w());
             }
-            console.log(this.world.getDispatcher().getNumManifolds()) // er 0!!!!???!?!?!?!?!?
         }
 
     }
@@ -69,6 +68,16 @@ export default class Physics {
         transform.setOrigin(new Ammo.btVector3(position.x() + direction.x, position.y() + direction.y, position.z() + direction.z));
         motionState.setWorldTransform(transform);
     }
+
+    applyImpulse(rigidBody, force, direction = {x:0, y:1, z:0}) {
+        if (!rigidBody)
+            return;
+        console.log(rigidBody)
+        rigidBody.activate(true);
+        let impulseVector = new Ammo.btVector3(direction.x * force , direction.y * force , direction.z * force );
+        rigidBody.applyCentralImpulse(impulseVector);
+    }
+
 
 
 }
