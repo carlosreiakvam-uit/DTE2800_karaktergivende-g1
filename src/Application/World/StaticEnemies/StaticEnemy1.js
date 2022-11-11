@@ -1,17 +1,18 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import * as CONS from "../../Utils/constants.js";
+import * as Constant from "../../Utils/constants.js";
 
 export default class StaticEnemy1 {
-    constructor(position, scale, color, mass, name) {
+    constructor(startPos, scale, color, mass, name) {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
+        this.x = startPos.x
 
         this.setMaterial(color)
         this.setGeometry()
-        this.setMesh(position, scale, name)
-        this.setPhysics(position)
+        this.setMesh(startPos, scale, name)
+        this.setPhysics(startPos)
 
     }
 
@@ -26,7 +27,7 @@ export default class StaticEnemy1 {
     setMesh(position, scale, name) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = name
-        // this.mesh.scale.set(scale.x, scale.y, scale.z)
+        this.mesh.scale.set(scale.x, scale.y, scale.z)
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
@@ -40,9 +41,9 @@ export default class StaticEnemy1 {
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
-        // 2 = BODYFLAG_KINEMATIC_OBJECT: Betyr kinematic object, masse=0 men kan flyttes!
-        this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | CONS.BODYSTATE_KINEMATIC_OBJECT);
-        this.rigidBody.setActivationState(CONS.BODYSTATE_DISABLE_DEACTIVATION);
+        // Collision
+        this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | Constant.BODYSTATE_KINEMATIC_OBJECT);
+        // this.rigidBody.setActivationState(Constant.BODYSTATE_DISABLE_DEACTIVATION);
 
         this.mesh.userData.physicsBody = this.rigidBody;
         this.physics.world.addRigidBody(
@@ -55,6 +56,14 @@ export default class StaticEnemy1 {
     }
 
     update() {
+        let speed = 0.9
+        let distance = 0.1
+        this.physics.moveRigidBody(this.mesh, {
+            x: Math.cos(this.x * speed) * distance,
+            y: 0,
+            z: Math.sin(this.x * speed) * distance
+        })
+        this.x += 0.1
     }
 
 }

@@ -23,9 +23,9 @@ export default class TestObjects {
 
         this.staticEnemy1 = new StaticEnemy1(
             {x: -4, y: 0.5, z: 0},
-            {x: 1, y: 1, z: 1},
+            {x: 4, y: 1, z: 1},
             0xffff00,
-            0,
+            1,
             'staticEnemy1'
         )
 
@@ -34,5 +34,6 @@ export default class TestObjects {
     }
 
     update() {
+        this.staticEnemy1.update()
     }
 }

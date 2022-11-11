@@ -2,21 +2,21 @@ import * as THREE from 'three'
 import Application from '../Application.js'
 
 export default class Floor {
-    constructor() {
+    constructor(size) {
         this.application = new Application()
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.physics = application.physics
 
-        this.setGeometry()
+        this.setGeometry(size)
         this.setTextures()
         this.setMaterial()
         this.setMesh()
         this.setAmmo()
     }
 
-    setGeometry() {
-        this.geometry = new THREE.PlaneGeometry(30, 30, 1, 1)
+    setGeometry(size) {
+        this.geometry = new THREE.PlaneGeometry(size, size, 1, 1)
     }
 
     setTextures() {
