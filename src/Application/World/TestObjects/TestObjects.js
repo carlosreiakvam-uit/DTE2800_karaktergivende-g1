@@ -24,7 +24,7 @@ export default class TestObjects {
     }
 
     update() {
-        this.cubeHero.mesh.position.setX(this.application.animations.heroPos.x)
-        this.cubeHero.mesh.position.setZ(this.application.animations.heroPos.z)
+        this.cubeHero.mesh.position.setX(this.application.animations.hero.x)
+        this.cubeHero.mesh.position.setZ(this.application.animations.hero.z)
     }
 }

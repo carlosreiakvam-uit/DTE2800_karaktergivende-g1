@@ -12,36 +12,47 @@ export default class Animations {
 
         this.theSunIsShining = true;
 
-        this.heroPos = {
+        this.hero = {
             x: 0,
             z: 0,
-            speed: 0.1
+            moveForce: 1,
+            jumpForce: 5,
+            isJumping: false
         }
 
 
     }
 
+    updateHero(currentlyPressedKeys) {
+        const heroObject = application.world.scene.getObjectByName('cubeHero') // finn en måte å initialisere på forhånd?
 
-    update(currentlyPressedKeys) {
-        const hero = application.world.scene.getObjectByName('cubeHero')
-        const fallingCube = application.world.scene.getObjectByName('fallingCube')
-        const speed = 0.2
         if (currentlyPressedKeys["KeyW"]) {
-            this.physics.moveRigidBody(hero, {x: 0, y: 0, z: -speed})
+            this.physics.applyImpulse(heroObject.userData.physicsBody, this.hero.moveForce, {x: 0, y: 0, z: -1})
+            // console.log('ape',heroObject.userData.physicsBody.getLinearVelocity())
         }
         if (currentlyPressedKeys["KeyS"]) {
-            this.physics.moveRigidBody(hero, {x: 0, y: 0, z: speed})
+            this.physics.applyImpulse(heroObject.userData.physicsBody, this.hero.moveForce, {x: 0, y: 0, z: 1})
         }
         if (currentlyPressedKeys["KeyD"]) {
-            this.physics.moveRigidBody(hero, {x: speed, y: 0, z: 0})
+            this.physics.applyImpulse(heroObject.userData.physicsBody, this.hero.moveForce, {x: 1, y: 0, z: 0})
         }
         if (currentlyPressedKeys["KeyA"]) {
-            this.physics.moveRigidBody(hero, {x: -speed, y: 0, z: 0})
+            this.physics.applyImpulse(heroObject.userData.physicsBody, this.hero.moveForce, {x: -1, y: 0, z: 0})
         }
+
         if (currentlyPressedKeys["Space"]) {
-            console.log("HOPP")
-            this.physics.applyImpulse(hero.userData.physicsBody, 1, {x: 0, y: 1, z: 0})
+            if (this.hero.isJumping === false) {
+                this.physics.applyImpulse(heroObject.userData.physicsBody, this.hero.jumpForce, {x: 0, y: 1, z: 0})
+                this.hero.isJumping = true
+            }
+        } else {
+            this.hero.isJumping = false
         }
+
+    }
+
+    update(currentlyPressedKeys) {
+        const fallingCube = application.world.scene.getObjectByName('fallingCube')
 
     }
 

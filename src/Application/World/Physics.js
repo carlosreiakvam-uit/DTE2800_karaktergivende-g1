@@ -60,6 +60,10 @@ export default class Physics {
         return rigidBody;
     }
 
+    createCharacter(){
+        this.character = new Ammo.cha
+    }
+
     moveRigidBody(movableMesh, direction) {
         let transform = new Ammo.btTransform();
         let motionState = movableMesh.userData.physicsBody.getMotionState();
@@ -72,7 +76,6 @@ export default class Physics {
     applyImpulse(rigidBody, force, direction = {x:0, y:1, z:0}) {
         if (!rigidBody)
             return;
-        console.log(rigidBody)
         rigidBody.activate(true);
         let impulseVector = new Ammo.btVector3(direction.x * force , direction.y * force , direction.z * force );
         rigidBody.applyCentralImpulse(impulseVector);

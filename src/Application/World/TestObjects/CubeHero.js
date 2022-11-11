@@ -41,7 +41,7 @@ export default class CubeHero {
 
         // Følgende er avgjørende for å kunne flytte på objektet:
         // 2 = BODYFLAG_KINEMATIC_OBJECT: Betyr kinematic object, masse=0 men kan flyttes!
-        // this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags() | 2); // gjør at man ikke kan hoppe 🤔
+        // this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags()|0); // gjør at man ikke kan hoppe 🤔
         this.rigidBody.setActivationState(4); // 4 = BODYSTATE_DISABLE_DEACTIVATION, dvs. "Never sleep".
         this.rigidBody.setAngularFactor(0) // Gjør at helten ikke "ruller" bortover ved påførte krefter
 
