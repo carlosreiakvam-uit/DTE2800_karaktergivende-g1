@@ -53,18 +53,15 @@ export default class CubeHero {
         this.rigidBody.setActivationState(4); // 4 = BODYSTATE_DISABLE_DEACTIVATION, dvs. "Never sleep".
         this.rigidBody.setAngularFactor(0) // Gjør at helten ikke "ruller" bortover ved påførte krefter
 
+        // set rigidBody userdata
+        this.rigidBody.velX = 0
+        this.rigidBody.velZ = 0
+        this.rigidBody.maxVel = 10
+        this.rigidBody.moveForce = 1
+        this.rigidBody.jumpForce = 5
+        this.rigidBody.isJumping = false
 
         this.mesh.userData.physicsBody = this.rigidBody;
-
-        // set physics userdata
-        this.mesh.userData.physicsBody.velX = 0
-        this.mesh.userData.physicsBody.velZ = 0
-        this.mesh.userData.physicsBody.maxVel = 10
-        this.mesh.userData.physicsBody.moveForce = 1
-        this.mesh.userData.physicsBody.jumpForce = 5
-        this.mesh.userData.physicsBody.isJumping = false
-
-
         this.physics.world.addRigidBody(
             this.rigidBody,
             this.physics.COL_GROUP_BOX,
