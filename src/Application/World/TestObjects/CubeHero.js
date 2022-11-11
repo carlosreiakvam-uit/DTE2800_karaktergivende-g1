@@ -12,6 +12,14 @@ export default class CubeHero {
         this.setMesh(position)
         this.setPhysics(position)
 
+        this.velX = 0
+        this.velZ = 0
+        this.maxVel = 20
+        this.moveForce = 1
+        this.jumpForce = 5
+        this.isJumping = false
+
+
     }
 
     setMaterial(color) {
@@ -47,6 +55,16 @@ export default class CubeHero {
 
 
         this.mesh.userData.physicsBody = this.rigidBody;
+
+        // set physics userdata
+        this.mesh.userData.physicsBody.velX = 0
+        this.mesh.userData.physicsBody.velZ = 0
+        this.mesh.userData.physicsBody.maxVel = 10
+        this.mesh.userData.physicsBody.moveForce = 1
+        this.mesh.userData.physicsBody.jumpForce = 5
+        this.mesh.userData.physicsBody.isJumping = false
+
+
         this.physics.world.addRigidBody(
             this.rigidBody,
             this.physics.COL_GROUP_BOX,

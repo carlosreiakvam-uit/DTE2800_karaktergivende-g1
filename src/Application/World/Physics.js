@@ -1,5 +1,9 @@
+import Application from "../Application";
+
 export default class Physics {
     constructor() {
+
+
         this.tmpTrans = new Ammo.btTransform();
 
         let collisionConfiguration = new Ammo.btDefaultCollisionConfiguration(),
@@ -70,14 +74,20 @@ export default class Physics {
         motionState.setWorldTransform(transform);
     }
 
-    applyImpulse(rigidBody, force, direction = {x:0, y:1, z:0}) {
+    applyImpulse(rigidBody, force, direction = {x: 0, y: 1, z: 0}) {
         if (!rigidBody)
             return;
         rigidBody.activate(true);
-        let impulseVector = new Ammo.btVector3(direction.x * force , direction.y * force , direction.z * force );
+        let impulseVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
         rigidBody.applyCentralImpulse(impulseVector);
     }
 
+    applyForce(rigidBody, force, direction) {
+        if (!rigidBody)
+            return;
+        let forceVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
+
+    }
 
 
 }
