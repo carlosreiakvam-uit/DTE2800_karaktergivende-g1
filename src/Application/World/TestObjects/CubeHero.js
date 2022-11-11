@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Animations from "../../Animations.js";
+import * as Constant from "../../Utils/constants.js";
 
 export default class CubeHero {
     constructor(position, color) {
@@ -11,15 +12,6 @@ export default class CubeHero {
         this.setGeometry()
         this.setMesh(position)
         this.setPhysics(position)
-
-        this.velX = 0
-        this.velZ = 0
-        this.maxVel = 20
-        this.moveForce = 1
-        this.jumpForce = 5
-        this.isJumping = false
-
-
     }
 
     setMaterial(color) {
@@ -33,7 +25,6 @@ export default class CubeHero {
     setMesh(position) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = 'cubeHero'
-        // this.mesh.scale.set(scale.x, scale.y, scale.z)
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
@@ -47,10 +38,7 @@ export default class CubeHero {
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, 1);
 
-        // Følgende er avgjørende for å kunne flytte på objektet:
-        // 2 = BODYFLAG_KINEMATIC_OBJECT: Betyr kinematic object, masse=0 men kan flyttes!
-        // this.rigidBody.setCollisionFlags(this.rigidBody.getCollisionFlags()|0); // gjør at man ikke kan hoppe 🤔
-        this.rigidBody.setActivationState(4); // 4 = BODYSTATE_DISABLE_DEACTIVATION, dvs. "Never sleep".
+        this.rigidBody.setActivationState(Constant.BODYSTATE_DISABLE_DEACTIVATION);
         this.rigidBody.setAngularFactor(0) // Gjør at helten ikke "ruller" bortover ved påførte krefter
 
         // set rigidBody userdata
