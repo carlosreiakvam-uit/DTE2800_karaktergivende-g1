@@ -60,9 +60,6 @@ export default class Physics {
         return rigidBody;
     }
 
-    createCharacter(){
-        this.character = new Ammo.cha
-    }
 
     moveRigidBody(movableMesh, direction) {
         let transform = new Ammo.btTransform();
