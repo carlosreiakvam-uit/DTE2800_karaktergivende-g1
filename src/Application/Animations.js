@@ -13,6 +13,10 @@ export default class Animations {
 
     }
 
+    update(currentlyPressedKeys) {
+        this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
+    }
+
     updateHero(currentlyPressedKeys) {
         const hero = application.world.scene.getObjectByName('cubeHero') // initialisere utenfra?
 
@@ -48,11 +52,6 @@ export default class Animations {
                 heroPhysBod.isJumping = false
             }
         }
-
-    }
-
-    update(currentlyPressedKeys) {
-        const fallingCube = application.world.scene.getObjectByName('fallingCube')
 
     }
 
