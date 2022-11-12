@@ -48,7 +48,7 @@ export default class Player {
 
         ghostObject.setWorldTransform(transform);
         ghostObject.setCollisionShape(shape);
-        ghostObject.setCollisionFlags(16);
+        ghostObject.setCollisionFlags(BODYSTATE_KINEMATIC_OBJECT);
         ghostObject.setActivationState(4);
         ghostObject.activate(true);
 
