@@ -10,36 +10,53 @@ export default class Animations {
         this.physics = this.application.physics
 
         this.theSunIsShining = true;
-
+        this.lastPosZ = 0
+        this.lastPosX = 0
+        // this.lastPos = 0.1 // temp variable
     }
 
-    update(currentlyPressedKeys) {
-        this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
+    update(currentlyPressedKeys, deltaTime) {
+        this.updateHero(currentlyPressedKeys, deltaTime) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
     }
 
-    updateHero(currentlyPressedKeys) {
+    getVel(thisPos, lastPos, deltaTime) {
+        return Math.abs((lastPos - thisPos) / deltaTime)
+    }
+
+    move(object, direction, deltaTime, posNow, lastPos) {
+        const physBod = object.userData.physicsBody
+        let vel = this.getVel(posNow, lastPos, deltaTime)
+        console.log(vel)
+        if (vel < physBod.maxVel) {
+            this.physics.applyImpulse(physBod, physBod.moveForce, direction)
+        }
+    }
+
+    updateHero(currentlyPressedKeys, deltaTime) {
         const hero = application.world.scene.getObjectByName('cubeHero') // initialisere utenfra?
 
         if (hero) {
             const heroPhysBod = hero.userData.physicsBody
+            // console.log(hero.position.z)
             if (currentlyPressedKeys["KeyW"]) {
-                // prøver å finne velocity for hero for å sette max speed
-                // forsøk så langt gjør kun at hero stopper etter en viss tid med nedpresset w
-                if (heroPhysBod.velZ < heroPhysBod.maxVel) {
-                    this.physics.applyImpulse(heroPhysBod, heroPhysBod.moveForce, {x: 0, y: 0, z: -1})
-                    heroPhysBod.velZ += 1
-                }
-            } else if (heroPhysBod.velZ > 0) {
-                heroPhysBod.velZ -= 1
+                let posNow = hero.position.z
+                this.move(hero, {x: 0, y: 0, z: -1}, deltaTime, posNow, this.lastPosZ)
+                this.lastPosZ = posNow
             }
             if (currentlyPressedKeys["KeyS"]) {
-                this.physics.applyImpulse(heroPhysBod, heroPhysBod.moveForce, {x: 0, y: 0, z: 1})
+                let posNow = hero.position.z
+                this.move(hero, {x: 0, y: 0, z: 1}, deltaTime, posNow, this.lastPosZ)
+                this.lastPosZ = posNow
             }
             if (currentlyPressedKeys["KeyD"]) {
-                this.physics.applyImpulse(heroPhysBod, heroPhysBod.moveForce, {x: 1, y: 0, z: 0})
+                let posNow = hero.position.x
+                this.move(hero, {x: 1, y: 0, z: 0}, deltaTime, posNow, this.lastPosX)
+                this.lastPosX = posNow
             }
             if (currentlyPressedKeys["KeyA"]) {
-                this.physics.applyImpulse(heroPhysBod, heroPhysBod.moveForce, {x: -1, y: 0, z: 0})
+                let posNow = hero.position.x
+                this.move(hero, {x: -1, y: 0, z: 0}, deltaTime, posNow, this.lastPosX)
+                this.lastPosX = posNow
             }
 
             if (currentlyPressedKeys["Space"]) {
