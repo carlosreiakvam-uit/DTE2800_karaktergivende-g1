@@ -3,6 +3,7 @@ import Environment from './Environment.js'
 import Floor from './Floor.js'
 import Coordinates from "./coordinates";
 import TestObjects from "./TestObjects/TestObjects.js";
+import Player from "./Player/Player.js";
 
 export default class World {
     constructor() {
@@ -17,6 +18,7 @@ export default class World {
             new Floor(75)
             this.testObjects = new TestObjects()
             this.environment = new Environment()
+            this.player = new Player()
             this.ready = true;
         })
         console.log(application)
@@ -26,6 +28,7 @@ export default class World {
         if (this.ready) {
             this.environment.update();
             this.testObjects.update();
+            this.player.update();
         }
     }
 }

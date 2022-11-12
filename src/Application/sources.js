@@ -33,5 +33,10 @@ export default [
         name: "blackDirtyDisplacementTexture",
         type: "texture",
         path: "textures/blackDirtyMetal/displacement_map.jpg"
+    },
+    {
+        name: "soldier",
+        type: "gltfModel",
+        path: "assets/models/soldier/Soldier.glb"
     }
 ]
