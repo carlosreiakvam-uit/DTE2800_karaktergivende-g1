@@ -43,9 +43,13 @@ export default class CubeHero {
 
         // set rigidBody userdata
         this.rigidBody.velX = 0
-        this.rigidBody.velZ = 0
-        this.rigidBody.maxVel = 10
+        this.rigidBody.velZPos = 0
+        this.rigidBody.velZNeg = 0
+        this.rigidBody.velXPos = 0
+        this.rigidBody.velXNeg = 0
+        this.rigidBody.maxVel = 8
         this.rigidBody.moveForce = 0.5
+        this.rigidBody.stopForce = 0.8
         this.rigidBody.jumpForce = 5
         this.rigidBody.isJumping = false
 

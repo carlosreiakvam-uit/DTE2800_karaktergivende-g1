@@ -12,7 +12,6 @@ export default class Animations {
         this.theSunIsShining = true;
         this.lastPosZ = 0
         this.lastPosX = 0
-        // this.lastPos = 0.1 // temp variable
     }
 
     update(currentlyPressedKeys, deltaTime) {
@@ -20,42 +19,73 @@ export default class Animations {
     }
 
     getVel(thisPos, lastPos, deltaTime) {
-        return Math.abs((lastPos - thisPos) / deltaTime)
+        return Math.abs((lastPos - thisPos) / deltaTime) // not absolute value in order to also determine direction
     }
 
-    move(object, direction, deltaTime, posNow, lastPos) {
-        const physBod = object.userData.physicsBody
-        let vel = this.getVel(posNow, lastPos, deltaTime)
-        console.log(vel)
-        if (vel < physBod.maxVel) {
-            this.physics.applyImpulse(physBod, physBod.moveForce, direction)
+    move(physBod, direction, force, velocity) {
+        if (velocity < physBod.maxVel) {
+            this.physics.applyImpulse(physBod, force, direction)
         }
     }
+
 
     updateHero(currentlyPressedKeys, deltaTime) {
         const hero = application.world.scene.getObjectByName('cubeHero') // initialisere utenfra?
 
         if (hero) {
             const heroPhysBod = hero.userData.physicsBody
-            // console.log(hero.position.z)
+            console.log('velZPos', heroPhysBod.velZPos)
+            console.log('velZNeg', heroPhysBod.velZNeg)
+
+            // MOVE UP
             if (currentlyPressedKeys["KeyW"]) {
                 let posNow = hero.position.z
-                this.move(hero, {x: 0, y: 0, z: -1}, deltaTime, posNow, this.lastPosZ)
+                heroPhysBod.velZPos = this.getVel(posNow, this.lastPosZ, deltaTime)
+                this.move(heroPhysBod, {x: 0, y: 0, z: -1}, heroPhysBod.moveForce, heroPhysBod.velZPos)
+                this.lastPosZ = posNow
+            } else if (heroPhysBod.velZPos > 0.5) {
+                let posNow = hero.position.z
+                heroPhysBod.velZPos = this.getVel(hero.position.z, this.lastPosZ, deltaTime)
+                this.move(heroPhysBod, {x: 0, y: 0, z: 1}, heroPhysBod.stopForce, heroPhysBod.velZPos)
                 this.lastPosZ = posNow
             }
+
+            // MOVE DOWN
             if (currentlyPressedKeys["KeyS"]) {
                 let posNow = hero.position.z
-                this.move(hero, {x: 0, y: 0, z: 1}, deltaTime, posNow, this.lastPosZ)
+                heroPhysBod.velZNeg = this.getVel(posNow, this.lastPosZ, deltaTime)
+                this.move(heroPhysBod, {x: 0, y: 0, z: 1}, heroPhysBod.moveForce, heroPhysBod.velZNeg)
+                this.lastPosZ = posNow
+            } else if (heroPhysBod.velZNeg > 0.5) {
+                let posNow = hero.position.z
+                heroPhysBod.velZNeg = this.getVel(hero.position.z, this.lastPosZ, deltaTime)
+                this.move(heroPhysBod, {x: 0, y: 0, z: -1}, heroPhysBod.stopForce, heroPhysBod.velZNeg)
                 this.lastPosZ = posNow
             }
+
+            // MOVE RIGHT
             if (currentlyPressedKeys["KeyD"]) {
                 let posNow = hero.position.x
-                this.move(hero, {x: 1, y: 0, z: 0}, deltaTime, posNow, this.lastPosX)
+                heroPhysBod.velXPos = this.getVel(posNow, this.lastPosX, deltaTime)
+                this.move(heroPhysBod, {x: 1, y: 0, z: 0}, heroPhysBod.moveForce, heroPhysBod.velXPos)
+                this.lastPosX = posNow
+            } else if (heroPhysBod.velXPos > 0.5) {
+                let posNow = hero.position.x
+                heroPhysBod.velXPos = this.getVel(hero.position.x, this.lastPosX, deltaTime)
+                this.move(heroPhysBod, {x: -1, y: 0, z: 0}, heroPhysBod.stopForce, heroPhysBod.velXPos)
                 this.lastPosX = posNow
             }
+
+            // MOVE LEFT
             if (currentlyPressedKeys["KeyA"]) {
                 let posNow = hero.position.x
-                this.move(hero, {x: -1, y: 0, z: 0}, deltaTime, posNow, this.lastPosX)
+                heroPhysBod.velXNeg = this.getVel(posNow, this.lastPosX, deltaTime)
+                this.move(heroPhysBod, {x: -1, y: 0, z: 0}, heroPhysBod.moveForce, heroPhysBod.velXNeg)
+                this.lastPosX = posNow
+            } else if (heroPhysBod.velXNeg > 0.5) {
+                let posNow = hero.position.x
+                heroPhysBod.velXNeg = this.getVel(hero.position.x, this.lastPosX, deltaTime)
+                this.move(heroPhysBod, {x: 1, y: 0, z: 0}, heroPhysBod.stopForce, heroPhysBod.velXNeg)
                 this.lastPosX = posNow
             }
 
