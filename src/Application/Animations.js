@@ -10,8 +10,6 @@ export default class Animations {
         this.physics = this.application.physics
 
         this.theSunIsShining = true;
-        this.lastPosZ = 0
-        this.lastPosX = 0;
         this.direction = {x: 0, y: 0, z: 0};
         this.directionSpeed = 0.05;
         this.isJumping = false;
@@ -47,11 +45,7 @@ export default class Animations {
             this.directionSpeed = 0.05
         }
 
-        if (currentlyPressedKeys["Space"]) {
-            this.isJumping = true
-        } else {
-            this.isJumping = false
-        }
+        this.isJumping = !!currentlyPressedKeys["Space"];
     }
 
 
