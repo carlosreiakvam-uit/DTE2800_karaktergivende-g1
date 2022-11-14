@@ -4,13 +4,13 @@ import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 0, y: 0, z: 0}) {
+    constructor(position = {x: 5, y: 0, z: 5}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
         this.defaultDirection = {x: 0, y: 0, z: 0}
         this.position = position
-
+        this.t = undefined
         this.player = this.importModel()
         this.application.scene.add(this.player)
         this.activeAction.play();
@@ -98,8 +98,8 @@ export default class Player {
 
         let speed = this.application.animations.directionSpeed;
         this.controller.setWalkDirection(new Ammo.btVector3(direction.x * speed, direction.y * speed, direction.z * speed));
-        let t = this.controller.getGhostObject().getWorldTransform();
-        this.player.position.set(t.getOrigin().x(), t.getOrigin().y() - 0.85, t.getOrigin().z());
+        this.t = this.controller.getGhostObject().getWorldTransform();
+        this.player.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() - 0.85, this.t.getOrigin().z());
 
 
         this.application.animations.direction.x = this.defaultDirection.x;

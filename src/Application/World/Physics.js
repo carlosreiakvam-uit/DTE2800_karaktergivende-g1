@@ -1,4 +1,5 @@
 import Application from "../Application";
+import * as THREE from 'three'
 
 export default class Physics {
     constructor() {
@@ -64,6 +65,14 @@ export default class Physics {
         return rigidBody;
     }
 
+    applyCentralForce(rigidBody, direction = {x:0, y:1, z:0}) {
+        if (!rigidBody)
+            return;
+        rigidBody.activate(true);
+        let forceVector = new Ammo.btVector3(direction.x, direction.y, direction.z);
+        rigidBody.activate(true);
+        rigidBody.applyCentralForce(forceVector);
+    }
 
     moveRigidBody(movableMesh, direction) {
         let transform = new Ammo.btTransform();
@@ -74,12 +83,22 @@ export default class Physics {
         motionState.setWorldTransform(transform);
     }
 
-    applyImpulse(rigidBody, force, direction = {x: 0, y: 1, z: 0}) {
+    // applyImpulse(rigidBody, force, direction = {x: 0, y: 1, z: 0}) {
+    //     if (!rigidBody)
+    //         return;
+    //     rigidBody.activate(true);
+    //     let impulseVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
+    //     rigidBody.applyCentralImpulse(impulseVector);
+    // }
+
+    applyImpulse(rigidBody, direction = {x:0, y:1, z:0}) {
         if (!rigidBody)
             return;
         rigidBody.activate(true);
-        let impulseVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
-        rigidBody.applyCentralImpulse(impulseVector);
+        let relativeVector = new Ammo.btVector3(0, 1, 0);
+        let impulseVector = new Ammo.btVector3(direction.x, direction.y, direction.z);
+        rigidBody.activate(true);
+        rigidBody.applyImpulse(impulseVector, relativeVector);
     }
 
     applyForce(rigidBody, force, direction) {
