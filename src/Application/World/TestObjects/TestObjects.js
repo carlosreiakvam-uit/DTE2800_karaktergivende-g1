@@ -3,8 +3,6 @@ import Application from "../../Application.js";
 import Cube from "./Cube";
 import CubeHero from "./CubeHero";
 import StaticEnemy1 from "../StaticEnemies/StaticEnemy1";
-import SphereEnemy from "../Moving Enemies/SphereEnemy";
-import TestEnemy from "../Moving Enemies/TestEnemy";
 import NewTestEnemy from "../Moving Enemies/NewTestEnemy";
 
 export default class TestObjects {
@@ -13,52 +11,61 @@ export default class TestObjects {
         this.x = 0
 
 
-        this.cubeHero = new CubeHero(
-            {x: -2, y: 0.5, z: 0},
-            0xff0000
-        )
-        this.fallingBlock = new Cube(
-            {x: 0, y: 10, z: 0},
-            {x: 1, y: 1, z: 1},
-            0xff00ff,
-            1,
-            'fallingCube')
+        // this.cubeHero = new CubeHero(
+        //     {x: -2, y: 0.5, z: 0},
+        //     0xff0000
+        // )
+        // this.fallingBlock = new Cube(
+        //     {x: 0, y: 10, z: 0},
+        //     {x: 1, y: 1, z: 1},
+        //     0xff00ff,
+        //     1,
+        //     'fallingCube')
 
-        this.staticEnemy1 = new StaticEnemy1(
-            {x: -4, y: 0.5, z: 0},
-            {x: 4, y: 1, z: 1},
-            0xffff00,
-            1,
-            'staticEnemy1'
-        )
+        // this.staticEnemy1 = new StaticEnemy1(
+        //     {x: -4, y: 0.5, z: 0},
+        //     {x: 4, y: 1, z: 1},
+        //     0xffff00,
+        //     1,
+        //     'staticEnemy1'
+        // )
 
 
         this.movingEnemy1 = new NewTestEnemy(
-            {x: -3, y: 2, z: 3},
+            {x: 17, y: 5, z: 3},
             1,0xffff00,1,
             "movingEnemy1"
         )
 
-        this.movingEnemy2 = new NewTestEnemy(
-            {x: 3, y: 2, z: 3},
-            1,0xffff00,1,
-            "movingEnemy2"
-        )
+        // this.movingEnemy2 = new NewTestEnemy(
+        //     {x: 18, y: 5, z: 3},
+        //     1,0xffff00,1,
+        //     "movingEnemy2"
+        // )
+        //
+        // this.movingEnemy3 = new NewTestEnemy(
+        //     {x:16, y: 5, z: 3},
+        //     1,0xffff00,1,
+        //     "movingEnemy3"
+        // )
 
-        this.movingEnemy3 = new NewTestEnemy(
-            {x: 0, y: 3, z: 3},
-            1,0xffff00,1,
-            "movingEnemy3"
-        )
+
 
         // this.application.scene.add(this.movingEnemy.mesh)
-        this.application.scene.add(this.cubeHero.mesh, this.fallingBlock.mesh, this.staticEnemy1.mesh, this.movingEnemy1.mesh, this.movingEnemy2.mesh, this.movingEnemy3.mesh)
+        this.application.scene.add(
+            //this.cubeHero.mesh,
+            //this.fallingBlock.mesh,
+            //this.staticEnemy1.mesh,
+            this.movingEnemy1.mesh,
+           // this.movingEnemy2.mesh,
+           // this.movingEnemy3.mesh
+        )
     }
 
     update() {
-        this.staticEnemy1.update()
+        //this.staticEnemy1.update()
         this.movingEnemy1.update();
-        this.movingEnemy2.update();
-        this.movingEnemy3.update();
+        //this.movingEnemy2.update();
+        //this.movingEnemy3.update();
     }
 }

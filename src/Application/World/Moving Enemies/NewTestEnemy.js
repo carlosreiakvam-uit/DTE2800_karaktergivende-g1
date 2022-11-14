@@ -7,6 +7,7 @@ export default class NewTestEnemy {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
+        this.isActivated = false
 
         this.setMaterial(color)
         this.setGeometry()
@@ -26,17 +27,12 @@ export default class NewTestEnemy {
     setMesh(position, scale, name) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = name
-        // this.mesh.scale.set(scale.x, scale.y, scale.z)
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
     }
 
     setPhysics(position, activationState) {
-        let width = this.mesh.geometry.parameters.width;
-        let height = this.mesh.geometry.parameters.height;
-        let depth = this.mesh.geometry.parameters.depth;
-
         let shape = new Ammo.btSphereShape(1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
@@ -51,22 +47,27 @@ export default class NewTestEnemy {
         if(this.application.world.player.t !== undefined) {
             let heroPosX = this.application.world.player.t.getOrigin().x();
             let xDifference = heroPosX - this.mesh.position.x;
-
-            if(xDifference > 0) {
-                this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.05, y: 0, z: 0})
-
-            } else  {
-                this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.05, y: 0, z: 0})
-            }
-
             let heroPosZ = this.application.world.player.t.getOrigin().z();
             let zDifference = heroPosZ - this.mesh.position.z;
 
-            if(zDifference > 0) {
-                this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.05})
-            } else  {
-                this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.05})
+            if(xDifference >= -5 && xDifference < 0 && zDifference >= -5 && zDifference < 0) {
+                this.isActivated = true
             }
+
+            if(this.isActivated) {
+                if(xDifference > 0 )  {
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.05, y: 0, z: 0})
+                } else  {
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.05, y: 0, z: 0})
+                }
+
+                if( zDifference > 0 && this.isActivated)  {
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.05})
+                } else  {
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.05})
+                }
+            }
+
         }
     }
 

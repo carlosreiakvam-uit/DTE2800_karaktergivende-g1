@@ -4,7 +4,7 @@ import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 5, y: 0, z: 5}) {
+    constructor(position = {x: 0, y: 0, z: 0}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
