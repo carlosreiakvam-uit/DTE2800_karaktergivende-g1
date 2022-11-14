@@ -77,7 +77,6 @@ export default class RollingBallEnemy {
                 if((xDifference > 0 && xDifference < 0.05 || xDifference < 0 && xDifference > -0.05 &&
                     zDifference > 0 && zDifference < 0.05 || zDifference < 0 && zDifference > -0.05)) {
                     this.application.world.player.t.setOrigin({x: 0, y: 0, z: 0})
-                    this.application.world.player.notDead = false
                     this.isActivated = false
                 }
 

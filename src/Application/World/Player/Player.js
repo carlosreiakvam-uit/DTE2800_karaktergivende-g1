@@ -9,7 +9,8 @@ export default class Player {
         this.resources = this.application.resources
         this.physics = this.application.physics
         this.defaultDirection = {x: 0, y: 0, z: 0}
-        this.position = position
+        this.startPosition = position
+        this.position = this.startPosition
         this.t = undefined
         this.player = this.importModel()
         this.application.scene.add(this.player)
@@ -107,6 +108,11 @@ export default class Player {
 
         if (this.application.animations.isJumping) {
             this.controller.jump()
+        }
+
+        if(this.player.position.y < -2) {
+            console.log("respawn")
+            this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
         }
 
         this.mixer.update(this.application.time.delta)
