@@ -10,8 +10,10 @@ export default class Animations {
         this.physics = this.application.physics
 
         this.theSunIsShining = true;
-        this.direction = {x: 0, y: 0, z: 0};
+        this.direction = 0;
         this.directionSpeed = 0.05;
+        this.rotationSpeed = 0.05;
+        this.rotation = 0;
         this.isJumping = false;
         // this.lastPos = 0.1 // temp variable
     }
@@ -24,19 +26,18 @@ export default class Animations {
     updateHero(currentlyPressedKeys) {
 
         if (currentlyPressedKeys["KeyW"]) {
-            this.direction.z -= 1
-
+            this.direction -= 1
         }
         if (currentlyPressedKeys["KeyS"]) {
-            this.direction.z += 1
+            this.direction += 1
 
         }
         if (currentlyPressedKeys["KeyD"]) {
-            this.direction.x += 1
+            this.rotation -= 1
 
         }
         if (currentlyPressedKeys["KeyA"]) {
-            this.direction.x -= 1
+            this.rotation += 1
 
         }
         if (currentlyPressedKeys["ShiftLeft"]) {
