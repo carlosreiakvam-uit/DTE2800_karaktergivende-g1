@@ -1,19 +1,21 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import Animations from "../../Animations.js";
 
-export default class NewTestEnemy {
+export default class RollingBallEnemy {
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
         this.isActivated = false
+        this.position = position
+        this.scale = scale
+        this.name = name
 
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
-
+        this.application.scene.add(this.mesh)
     }
 
     setMaterial(color) {
@@ -30,6 +32,9 @@ export default class NewTestEnemy {
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
+        this.mesh.collisionResponse = (mesh1) => {
+            mesh1.material.color.setHex(Math.random() * 0xffffff);
+        };
     }
 
     setPhysics(position, activationState) {
@@ -45,6 +50,8 @@ export default class NewTestEnemy {
 
     update() {
         if(this.application.world.player.t !== undefined) {
+            let hero = this.application.world.player.t
+
             let heroPosX = this.application.world.player.t.getOrigin().x();
             let xDifference = heroPosX - this.mesh.position.x;
             let heroPosZ = this.application.world.player.t.getOrigin().z();
@@ -53,21 +60,31 @@ export default class NewTestEnemy {
             if((xDifference >= -5 && xDifference < 0
                 || xDifference <= 5 && xDifference > 0)
                 && (zDifference <= 5 && zDifference > 0
-                || zDifference >= -5 && zDifference < 0)) {
+                || zDifference >= -5 && zDifference < 0)
+            ) {
                 this.isActivated = true
+            } else {
+
             }
 
-            if(this.isActivated) {
+            if(this.isActivated && this.application.world.player.notDead) {
                 if(xDifference > 0 )  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.05, y: 0, z: 0})
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.015, y: 0, z: 0})
                 } else  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.05, y: 0, z: 0})
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.015, y: 0, z: 0})
                 }
 
-                if( zDifference > 0 && this.isActivated)  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.05})
+                if((xDifference > 0 && xDifference < 0.05 || xDifference < 0 && xDifference > -0.05 &&
+                    zDifference > 0 && zDifference < 0.05 || zDifference < 0 && zDifference > -0.05)) {
+                    this.application.world.player.t.setOrigin({x: 0, y: 0, z: 0})
+                    this.application.world.player.notDead = false
+                    this.isActivated = false
+                }
+
+                if( zDifference > 0)  {
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.015})
                 } else  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.05})
+                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.015})
                 }
             }
 
