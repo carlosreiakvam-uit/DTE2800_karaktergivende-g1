@@ -32,19 +32,19 @@ export default class TestObjects {
 
 
         this.movingEnemy1 = new NewTestEnemy(
-            {x: 17, y: 5, z: 3},
+            {x: 20, y: 5, z: 3},
             1,0xffff00,1,
             "movingEnemy1"
         )
 
         // this.movingEnemy2 = new NewTestEnemy(
-        //     {x: 18, y: 5, z: 3},
+        //     {x: 20, y: 5, z: -5},
         //     1,0xffff00,1,
         //     "movingEnemy2"
         // )
         //
         // this.movingEnemy3 = new NewTestEnemy(
-        //     {x:16, y: 5, z: 3},
+        //     {x:20, y: 5, z: -0},
         //     1,0xffff00,1,
         //     "movingEnemy3"
         // )
@@ -58,14 +58,14 @@ export default class TestObjects {
             //this.staticEnemy1.mesh,
             this.movingEnemy1.mesh,
            // this.movingEnemy2.mesh,
-           // this.movingEnemy3.mesh
+          //  this.movingEnemy3.mesh
         )
     }
 
     update() {
         //this.staticEnemy1.update()
         this.movingEnemy1.update();
-        //this.movingEnemy2.update();
+       // this.movingEnemy2.update();
         //this.movingEnemy3.update();
     }
 }

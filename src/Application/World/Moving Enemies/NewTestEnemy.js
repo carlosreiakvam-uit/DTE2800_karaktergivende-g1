@@ -50,7 +50,10 @@ export default class NewTestEnemy {
             let heroPosZ = this.application.world.player.t.getOrigin().z();
             let zDifference = heroPosZ - this.mesh.position.z;
 
-            if(xDifference >= -5 && xDifference < 0 && zDifference >= -5 && zDifference < 0) {
+            if((xDifference >= -5 && xDifference < 0
+                || xDifference <= 5 && xDifference > 0)
+                && (zDifference <= 5 && zDifference > 0
+                || zDifference >= -5 && zDifference < 0)) {
                 this.isActivated = true
             }
 

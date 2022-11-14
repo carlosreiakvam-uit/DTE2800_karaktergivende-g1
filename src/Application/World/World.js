@@ -16,6 +16,7 @@ export default class World {
         this.resources.on('ready', () => {
             new Coordinates()
             new Floor(5, 5)
+            new Floor(5, 5, {x: 25, y: 0, z: 15})
             new Floor(20, 20, {x: 15, y: 0, z: 0})
             this.testObjects = new TestObjects()
             this.environment = new Environment()
