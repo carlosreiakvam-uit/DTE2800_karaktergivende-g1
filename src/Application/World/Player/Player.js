@@ -110,11 +110,18 @@ export default class Player {
             this.controller.jump()
         }
 
-        if(this.player.position.y < -2) {
-            console.log("respawn")
-            this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
+        if (this.playerFellOfPlatform()) {
+            this.makePlayerRespawn()
         }
 
         this.mixer.update(this.application.time.delta)
+    }
+
+    makePlayerRespawn(position) {
+        this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
+    }
+
+    playerFellOfPlatform() {
+        return this.player.position.y < -2;
     }
 }
