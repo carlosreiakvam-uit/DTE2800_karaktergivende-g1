@@ -3,8 +3,6 @@ import * as THREE from 'three'
 
 export default class Physics {
     constructor() {
-
-
         this.tmpTrans = new Ammo.btTransform();
 
         let collisionConfiguration = new Ammo.btDefaultCollisionConfiguration(),
@@ -107,7 +105,6 @@ export default class Physics {
         if (!rigidBody)
             return;
         let forceVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
-
     }
 
     checkCollisions(deltaTime) {
