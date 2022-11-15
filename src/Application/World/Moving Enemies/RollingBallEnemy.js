@@ -11,6 +11,11 @@ export default class RollingBallEnemy {
         this.scale = scale
         this.name = name
 
+        this.aggroRange = [-5, 5]
+        this.killRange = [-1.3,1.3]
+        this.xDifference = undefined
+        this.zDifference = undefined
+
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
@@ -40,56 +45,77 @@ export default class RollingBallEnemy {
     setPhysics(position, activationState) {
         let shape = new Ammo.btSphereShape(1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
-
         this.mesh.userData.physicsBody = this.rigidBody;
         this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_BOX, this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
-
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }
 
     update() {
-        if(this.application.world.player.t !== undefined) {
+        let hero = this.application.world.player.t
 
-            let heroPosX = this.application.world.player.t.getOrigin().x();
-            let xDifference = heroPosX - this.mesh.position.x;
-            let heroPosZ = this.application.world.player.t.getOrigin().z();
-            let zDifference = heroPosZ - this.mesh.position.z;
-
-
-            if((xDifference >= -5 && xDifference < 0
-                || xDifference <= 5 && xDifference > 0)
-                && (zDifference <= 5 && zDifference > 0
-                || zDifference >= -5 && zDifference < 0)
-            ) {
-                this.isActivated = true
-            }
-
-            if(this.isActivated && this.application.world.player.notDead) {
-                if(xDifference > 0 )  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.015, y: 0, z: 0})
-                } else  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.015, y: 0, z: 0})
-                }
-
-                console.log(xDifference)
-                console.log(zDifference)
-                if(((xDifference > 0 && xDifference < 1.5) || (xDifference < 0 && xDifference > -1.5)) &&
-                    ((zDifference > 0 && zDifference < 1.5) || (zDifference < 0 && zDifference > -1.5))) {
-                    console.log("x   "+xDifference)
-                    console.log("y   "+zDifference)
-                    this.application.world.player.t.setOrigin({x: 0, y: 0, z: 0})
-                    this.isActivated = false
-                }
-
-                if( zDifference > 0)  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.015})
-                } else  {
-                    this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.015})
-                }
-            }
-
+        if(hero !== undefined) {
+            this.checkHeroAndThisInteraction(hero)
         }
     }
 
+    updatePositions(hero) {
+        this.xDifference = this.getXPositionDifference(hero)
+        this.zDifference = this.getZPositionDifference(hero)
+    }
+
+    checkIfHeroAndThisEntityAreClose(range) {
+        return (this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) && this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1]));
+    }
+
+    checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
+        return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
+    }
+
+    adjustTrajectoryOfThis() {
+        if(this.xDifference > 0 )  {
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.015, y: 0, z: 0})
+        } else  {
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.015, y: 0, z: 0})
+        }
+
+        if(this.zDifference > 0)  {
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.015})
+        } else  {
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.015})
+        }
+    }
+
+    respawnHero() {
+        this.application.world.player.t.setOrigin({x: 0, y: 0, z: 0})
+    }
+
+    deactivateEnemy() {
+        this.isActivated = false
+    }
+
+    getXPositionDifference(hero) {
+        return hero.getOrigin().x() - this.mesh.position.x;
+    }
+
+    getZPositionDifference(hero) {
+        return hero.getOrigin().z() - this.mesh.position.z;
+    }
+
+
+    checkHeroAndThisInteraction(hero) {
+        this.updatePositions(hero)
+
+        if(!this.isActivated) {
+            this.isActivated = this.checkIfHeroAndThisEntityAreClose(this.aggroRange)
+        }
+
+        if(this.isActivated) {
+            this.adjustTrajectoryOfThis();
+            if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
+                this.respawnHero()
+                this.deactivateEnemy();
+            }
+        }
+    }
 }

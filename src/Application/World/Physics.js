@@ -161,10 +161,10 @@ export default class Physics {
                                         localPos: {x: localPos1.x(), y: localPos1.y(), z: localPos1.z()}
                                     }
                                 });
-                                // if (typeof threeMesh0.collisionResponse === 'function')
-                                //     threeMesh0.collisionResponse(threeMesh0);
-                                // if (typeof threeMesh1.collisionResponse === 'function')
-                                //     threeMesh1.collisionResponse(threeMesh1);
+                                if (typeof threeMesh0.collisionResponse === 'function')
+                                    threeMesh0.collisionResponse(threeMesh0);
+                                if (typeof threeMesh1.collisionResponse === 'function')
+                                    threeMesh1.collisionResponse(threeMesh1);
                             }
                         }
                     }

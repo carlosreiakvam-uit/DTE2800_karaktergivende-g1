@@ -49,31 +49,45 @@ export default class RollingBallEnemy {
     }
 
     update() {
-        if(this.application.world.player.t !== undefined) {
+        this.doFloatingAnimation()
 
-            let heroPosX = this.application.world.player.t.getOrigin().x();
-            let xDifference = heroPosX - this.mesh.position.x;
-            let heroPosZ = this.application.world.player.t.getOrigin().z();
-            let zDifference = heroPosZ - this.mesh.position.z;
+        let hero = this.application.world.player.t
 
-            if((xDifference >= -1 && xDifference < 0
-                    || xDifference <= 1 && xDifference > 0)
-                && (zDifference <= 1 && zDifference > 0
-                    || zDifference >= -1 && zDifference < 0)
-            ) {
-                this.isActivated = true
-            }
-
-            if(this.rigidBody.threeMesh.position.y < 1) {
-                this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.02, z:0});
-            }
-
-            if(this.isActivated) {
-                this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.1, z:0});
-            }
-
-
+        if(hero !== undefined) {
+            this.doPhysics(hero);
         }
     }
 
+    doPhysics(hero) {
+        if(!this.isActivated) {
+            this.isActivated = this.checkIfHeroAndThisEntityAreClose(hero);
+        } else {
+            this.makeThisFloatAway();
+        }
+    }
+
+    checkIfHeroAndThisEntityAreClose(hero) {
+        let heroPosX = hero.getOrigin().x();
+        let xDifference = heroPosX - this.mesh.position.x;
+        let heroPosZ = hero.getOrigin().z();
+        let zDifference = heroPosZ - this.mesh.position.z;
+
+        return (this.checkDifferenceWhenNegativeAndPositiveInput(xDifference, -1, 1) && this.checkDifferenceWhenNegativeAndPositiveInput(zDifference, -1, 1));
+    }
+
+    checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
+        return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
+    }
+
+
+    doFloatingAnimation() {
+        if(this.rigidBody.threeMesh.position.y < 1) {
+            this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.02, z:0});
+        }
+    }
+
+    makeThisFloatAway() {
+        this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.1, z:0});
+        //Burde remove from scene når den er langt nok unna
+    }
 }

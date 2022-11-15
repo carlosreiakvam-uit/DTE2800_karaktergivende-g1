@@ -16,7 +16,6 @@ export default class Player {
         this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics({x: 2, y: 0, z: 0})
-        this.notDead = true
     }
 
 
@@ -117,11 +116,18 @@ export default class Player {
             this.controller.jump()
         }
 
-        if (this.player.position.y < -2) {
-            console.log("respawn")
-            this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z);
+        if (this.playerFellOfPlatform()) {
+            this.makePlayerRespawn()
         }
 
         this.mixer.update(this.application.time.delta)
+    }
+
+    makePlayerRespawn() {
+        this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
+    }
+
+    playerFellOfPlatform() {
+        return this.player.position.y < -2;
     }
 }

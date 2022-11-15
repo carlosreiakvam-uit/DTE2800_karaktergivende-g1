@@ -30,6 +30,7 @@ export default class World {
 
     update() {
         if (this.ready) {
+
             this.environment.update();
             this.testObjects.update();
             this.player.update();
