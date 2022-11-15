@@ -2,21 +2,24 @@ import * as THREE from 'three'
 import Application from '../Application.js'
 
 export default class Floor {
-    constructor(size) {
+    constructor(width, length, position = {x: 0, y: 0, z: 0}) {
         this.application = new Application()
+        this.position = position
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.physics = application.physics
+        this.width = width;
+        this.length = length;
 
-        this.setGeometry(size)
+        this.setGeometry()
         this.setTextures()
         this.setMaterial()
         this.setMesh()
         this.setAmmo()
     }
 
-    setGeometry(size) {
-        this.geometry = new THREE.PlaneGeometry(size, size, 1, 1)
+    setGeometry() {
+        this.geometry = new THREE.PlaneGeometry(this.width, this.length, 1, 1)
     }
 
     setTextures() {
@@ -50,14 +53,13 @@ export default class Floor {
 
     setAmmo() {
         const mass = 0
-        const position = {x: 0, y: 0, z: 0}
         const width = this.mesh.geometry.parameters.width;
         const height = this.mesh.geometry.parameters.height;
         const depth = 0
 
         // AMMO
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth));
-        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 1.8, position, mass);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 1.8,  this.position , mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
 

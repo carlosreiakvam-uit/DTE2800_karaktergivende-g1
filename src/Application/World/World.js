@@ -15,10 +15,14 @@ export default class World {
         // Wait for resources
         this.resources.on('ready', () => {
             new Coordinates()
-            new Floor(75)
+            new Floor(5, 5)
+            new Floor(5, 5, {x: 25, y: 0, z: 15})
+            new Floor(20, 20, {x: 15, y: 0, z: 0})
+            new Floor(5, 5, {x: 30, y: 0, z: 0})
             this.testObjects = new TestObjects()
             this.environment = new Environment()
             this.player = new Player()
+
             this.ready = true;
         })
         console.log(application)

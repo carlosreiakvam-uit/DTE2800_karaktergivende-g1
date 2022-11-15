@@ -38,5 +38,5 @@ export default [
         name: "soldier",
         type: "gltfModel",
         path: "assets/models/soldier/Soldier.glb"
-    }
+    },
 ]
