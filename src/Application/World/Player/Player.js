@@ -126,6 +126,7 @@ export default class Player {
 
     makePlayerRespawn() {
         this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
+        this.health = 100
     }
 
     playerFellOfPlatform() {

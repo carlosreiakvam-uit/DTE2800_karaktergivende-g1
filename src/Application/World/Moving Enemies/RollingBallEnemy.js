@@ -10,6 +10,7 @@ export default class RollingBallEnemy {
         this.position = position
         this.scale = scale
         this.name = name
+        this.color = color
 
         this.aggroRange = [-5, 5]
         this.killRange = [-1.4,1.4]
@@ -26,6 +27,15 @@ export default class RollingBallEnemy {
 
     setMaterial(color) {
         this.material = new THREE.MeshStandardMaterial({color: color})
+    }
+
+    reset() {
+        this.application.scene.remove(this.mesh)
+        this.setMaterial(this.color)
+        this.setGeometry()
+        this.setMesh(this.position, this.scale, this.name)
+        this.setPhysics(this.position)
+        this.application.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -129,8 +139,11 @@ export default class RollingBallEnemy {
 
             }
         }
-    }
 
+        if(this.application.world.player.health <= 0) {
+            this.reset();
+        }
+    }
 
     takeDamageOnHero() {
         if(this.application.world.player.health > 0) {
@@ -139,7 +152,7 @@ export default class RollingBallEnemy {
             this.respawnHero()
             this.deactivateEnemy();
             this.application.world.player.health = 100
+            this.reset();
         }
-
     }
 }

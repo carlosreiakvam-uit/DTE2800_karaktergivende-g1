@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Application from "../../Application.js";
 
 export default class Healthbar {
+
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
         this.physics = this.application.physics
@@ -10,6 +11,8 @@ export default class Healthbar {
         this.position = position
         this.scale = scale
         this.name = name
+
+        this.lasthealh = undefined
 
         this.aggroRange = [-5, 5]
         this.killRange = [-1.3,1.3]
@@ -67,29 +70,32 @@ export default class Healthbar {
         let hero = this.application.world.player.t
 
         if(hero !== undefined) {
-             this.setHealthBarPosition(hero);
+            this.setHealthBarPosition(hero);
 
-            if(this.application.world.player.health >= 75 && this.application.world.player.health <= 100) {
-                this.application.scene.remove( this.sprite1 );
-                const spriteMap1 = this.application.resources.items.healthbar100
-                this.updateView(spriteMap1)
-            } else if(this.application.world.player.health >= 50 && this.application.world.player.health <= 75) {
-                console.log("health 75")
-                this.application.scene.remove( this.sprite1 );
-                const spriteMap1 = this.application.resources.items.healthbar75
-                this.updateView(spriteMap1)
-            } else if(this.application.world.player.health >= 25 && this.application.world.player.health <= 49) {
-                this.application.scene.remove( this.sprite1 );
-                const spriteMap1 = this.application.resources.items.healthbar50
-                this.updateView(spriteMap1)
-            } else if(this.application.world.player.health <= 24) {
-                this.application.scene.remove( this.sprite1 );
-                const spriteMap1 = this.application.resources.items.healthbar25
-                this.updateView(spriteMap1)
+            if(this.healthChanged()) {
+                if(this.application.world.player.health >= 75 && this.application.world.player.health <= 100) {
+                    console.log("no no")
+                    this.application.scene.remove( this.sprite1 );
+                    const spriteMap1 = this.application.resources.items.healthbar100
+                    this.updateView(spriteMap1)
+                } else if(this.application.world.player.health >= 50 && this.application.world.player.health <= 75) {
+                    console.log("health 75")
+                    this.application.scene.remove( this.sprite1 );
+                    const spriteMap1 = this.application.resources.items.healthbar75
+                    this.updateView(spriteMap1)
+                } else if(this.application.world.player.health >= 25 && this.application.world.player.health <= 49) {
+                    this.application.scene.remove( this.sprite1 );
+                    const spriteMap1 = this.application.resources.items.healthbar50
+                    this.updateView(spriteMap1)
+                } else if(this.application.world.player.health <= 24) {
+                    this.application.scene.remove( this.sprite1 );
+                    const spriteMap1 = this.application.resources.items.healthbar25
+                    this.updateView(spriteMap1)
+                }
             }
         }
 
-
+        this.updateHealthHasChanged()
     }
 
     updateView(spriteMap1) {
@@ -108,7 +114,13 @@ export default class Healthbar {
         let y = hero.getOrigin().y()
         let z = hero.getOrigin().z()
         this.sprite1.position.set( x, y+1.5, z);
+    }
 
+    healthChanged() {
+        return this.application.world.player.health !== this.lasthealh;
+    }
 
+    updateHealthHasChanged() {
+        this.lasthealh = this.application.world.player.health
     }
 }
