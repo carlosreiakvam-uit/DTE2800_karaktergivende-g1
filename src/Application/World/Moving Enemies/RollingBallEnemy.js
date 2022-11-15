@@ -136,13 +136,9 @@ export default class RollingBallEnemy {
                 console.log(this.xDifference)
                 console.log(this.zDifference)
                 this.takeDamageOnHero(hero)
-
             }
         }
 
-        if(this.application.world.player.health <= 0) {
-            this.reset();
-        }
     }
 
     takeDamageOnHero() {
