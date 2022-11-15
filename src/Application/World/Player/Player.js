@@ -16,6 +16,7 @@ export default class Player {
         this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics({x: 2, y: 0, z: 0})
+        this.playerIsAlive = true
     }
 
 

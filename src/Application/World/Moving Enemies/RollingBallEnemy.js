@@ -113,9 +113,12 @@ export default class RollingBallEnemy {
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
             if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
+                this.killHero()
                 this.respawnHero()
                 this.deactivateEnemy();
             }
         }
     }
+
+
 }
