@@ -39,4 +39,24 @@ export default [
         type: "gltfModel",
         path: "assets/models/soldier/Soldier.glb"
     },
+    {
+        name: "healthbar75",
+        type: "texture",
+        path: "textures//healthbar/healthbar75.png"
+    },
+    {
+        name: "healthbar50",
+        type: "texture",
+        path: "textures//healthbar/healthbar50.png"
+    },
+    {
+        name: "healthbar25",
+        type: "texture",
+        path: "textures//healthbar/healthbar25.png"
+    },
+    {
+        name: "healthbar100",
+        type: "texture",
+        path: "textures//healthbar/healthbar100.png"
+    },
 ]

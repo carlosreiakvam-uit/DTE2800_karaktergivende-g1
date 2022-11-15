@@ -10,11 +10,13 @@ export default class RollingBallEnemy {
         this.position = position
         this.scale = scale
         this.name = name
+        this.color = color
 
         this.aggroRange = [-5, 5]
-        this.killRange = [-1.3,1.3]
+        this.killRange = [-1.4,1.4]
         this.xDifference = undefined
         this.zDifference = undefined
+        this.yDifference = undefined
 
         this.setMaterial(color)
         this.setGeometry()
@@ -25,6 +27,15 @@ export default class RollingBallEnemy {
 
     setMaterial(color) {
         this.material = new THREE.MeshStandardMaterial({color: color})
+    }
+
+    reset() {
+        this.application.scene.remove(this.mesh)
+        this.setMaterial(this.color)
+        this.setGeometry()
+        this.setMesh(this.position, this.scale, this.name)
+        this.setPhysics(this.position)
+        this.application.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -53,19 +64,24 @@ export default class RollingBallEnemy {
 
     update() {
         let hero = this.application.world.player.t
-
         if(hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
         }
+
     }
 
     updatePositions(hero) {
         this.xDifference = this.getXPositionDifference(hero)
         this.zDifference = this.getZPositionDifference(hero)
+        this.yDifference = this.getYPositionDifference(hero)
     }
 
     checkIfHeroAndThisEntityAreClose(range) {
-        return (this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) && this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1]));
+        return (
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1]) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.yDifference, range[0], range[1])
+        );
     }
 
     checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
@@ -98,6 +114,10 @@ export default class RollingBallEnemy {
         return hero.getOrigin().x() - this.mesh.position.x;
     }
 
+    getYPositionDifference(hero) {
+        return hero.getOrigin().y() - this.mesh.position.y;
+    }
+
     getZPositionDifference(hero) {
         return hero.getOrigin().z() - this.mesh.position.z;
     }
@@ -113,9 +133,26 @@ export default class RollingBallEnemy {
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
             if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
-                this.respawnHero()
-                this.deactivateEnemy();
+                console.log(this.xDifference)
+                console.log(this.zDifference)
+                this.takeDamageOnHero(hero)
+
             }
+        }
+
+        if(this.application.world.player.health <= 0) {
+            this.reset();
+        }
+    }
+
+    takeDamageOnHero() {
+        if(this.application.world.player.health > 0) {
+            this.application.world.player.health -= 1
+        } else {
+            this.respawnHero()
+            this.deactivateEnemy();
+            this.application.world.player.health = 100
+            this.reset();
         }
     }
 }

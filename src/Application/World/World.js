@@ -4,6 +4,7 @@ import Floor from './Floor.js'
 import Coordinates from "./coordinates";
 import TestObjects from "./TestObjects/TestObjects.js";
 import Player from "./Player/Player.js";
+import Healthbar from "./HUD/HealthBar";
 
 export default class World {
     constructor() {
@@ -14,11 +15,12 @@ export default class World {
 
         // Wait for resources
         this.resources.on('ready', () => {
-            new Coordinates()
+            //new Coordinates()
             new Floor(5, 5)
             new Floor(5, 5, {x: 25, y: 0, z: 15})
             new Floor(20, 20, {x: 15, y: 0, z: 0})
             new Floor(5, 5, {x: 30, y: 0, z: 0})
+            this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.testObjects = new TestObjects()
             this.environment = new Environment()
             this.player = new Player()
@@ -34,6 +36,7 @@ export default class World {
             this.environment.update();
             this.testObjects.update();
             this.player.update();
+            this.healthbar.update();
         }
     }
 }

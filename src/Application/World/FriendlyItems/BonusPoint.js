@@ -10,6 +10,7 @@ export default class RollingBallEnemy {
         this.position = position
         this.scale = scale
         this.name = name
+        this.notFloatedAway = true
 
         this.setMaterial(color)
         this.setGeometry()
@@ -59,11 +60,16 @@ export default class RollingBallEnemy {
     }
 
     doPhysics(hero) {
-        if(!this.isActivated) {
+        if(!this.isActivated && this.notFloatedAway) {
             this.isActivated = this.checkIfHeroAndThisEntityAreClose(hero);
+            if(this.application.world.player.health < 90) {
+
+            }
+
         } else {
             this.makeThisFloatAway();
         }
+
     }
 
     checkIfHeroAndThisEntityAreClose(hero) {
@@ -87,7 +93,9 @@ export default class RollingBallEnemy {
     }
 
     makeThisFloatAway() {
+        this.notFloatedAway = false
         this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.1, z:0});
+
         //Burde remove from scene når den er langt nok unna
     }
 }
