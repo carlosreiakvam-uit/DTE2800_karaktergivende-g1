@@ -17,6 +17,7 @@ export default class Player {
         this.activeAction.play();
         this.setPhysics({x: 2, y: 0, z: 0})
         this.playerIsAlive = true
+        this.health = 100
     }
 
 
@@ -96,7 +97,6 @@ export default class Player {
             this.setAction(action)
             this.player.rotation.z += rotation * this.application.animations.rotationSpeed;
             this.player.rotation.z %= (2 * Math.PI);
-            console.log(this.player.rotation.z)
         } else {
             this.setAction(this.animationActions.idle)
         }

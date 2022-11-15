@@ -12,7 +12,7 @@ export default class RollingBallEnemy {
         this.name = name
 
         this.aggroRange = [-5, 5]
-        this.killRange = [-1.3,1.3]
+        this.killRange = [-1.4,1.4]
         this.xDifference = undefined
         this.zDifference = undefined
 
@@ -53,6 +53,7 @@ export default class RollingBallEnemy {
 
     update() {
         let hero = this.application.world.player.t
+        console.log(this.application.world.player.health)
 
         if(hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
@@ -113,12 +114,21 @@ export default class RollingBallEnemy {
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
             if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
-                this.killHero()
-                this.respawnHero()
-                this.deactivateEnemy();
+                this.takeDamageOnHero(hero)
+
             }
         }
     }
 
 
+    takeDamageOnHero() {
+        if(this.application.world.player.health > 0) {
+            this.application.world.player.health -= 1
+        } else {
+            this.respawnHero()
+            this.deactivateEnemy();
+            this.application.world.player.health = 100
+        }
+
+    }
 }
