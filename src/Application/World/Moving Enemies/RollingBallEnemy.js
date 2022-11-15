@@ -15,6 +15,7 @@ export default class RollingBallEnemy {
         this.killRange = [-1.4,1.4]
         this.xDifference = undefined
         this.zDifference = undefined
+        this.yDifference = undefined
 
         this.setMaterial(color)
         this.setGeometry()
@@ -53,20 +54,24 @@ export default class RollingBallEnemy {
 
     update() {
         let hero = this.application.world.player.t
-        console.log(this.application.world.player.health)
-
         if(hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
         }
+
     }
 
     updatePositions(hero) {
         this.xDifference = this.getXPositionDifference(hero)
         this.zDifference = this.getZPositionDifference(hero)
+        this.yDifference = this.getYPositionDifference(hero)
     }
 
     checkIfHeroAndThisEntityAreClose(range) {
-        return (this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) && this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1]));
+        return (
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1]) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.yDifference, range[0], range[1])
+        );
     }
 
     checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
@@ -99,6 +104,10 @@ export default class RollingBallEnemy {
         return hero.getOrigin().x() - this.mesh.position.x;
     }
 
+    getYPositionDifference(hero) {
+        return hero.getOrigin().y() - this.mesh.position.y;
+    }
+
     getZPositionDifference(hero) {
         return hero.getOrigin().z() - this.mesh.position.z;
     }
@@ -114,6 +123,8 @@ export default class RollingBallEnemy {
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
             if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
+                console.log(this.xDifference)
+                console.log(this.zDifference)
                 this.takeDamageOnHero(hero)
 
             }
