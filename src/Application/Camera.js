@@ -9,17 +9,19 @@ export default class Camera {
         this.scene = this.application.scene
         this.canvas = this.application.canvas
         this.cameraOffset = new THREE.Vector3(-5.0, 5.0, 0.0);
-
+        this.instance = undefined
         this.currentPosition = new THREE.Vector3();
         this.currentLookAt = new THREE.Vector3();
+        this.lookAtHero = false
 
         this.setInstance()
-        // this.setControls()
+        this.setControls()
     }
 
     setInstance() {
         this.instance = new THREE.PerspectiveCamera(60, this.sizes.width / this.sizes.height, 1, 1000)
-        this.instance.position.set(-15, 20, 30)
+        //this.instance.position.set(-15, 20, 30)
+        this.instance.position.set(200, 100, 200)
         this.scene.add(this.instance)
     }
 
@@ -36,9 +38,12 @@ export default class Camera {
     update() {
 
         const player = this.scene.getObjectByName("hero");
-        if (player !== undefined) {
+        console.log(this.lookAtHero)
+        if (player !== undefined && this.lookAtHero) {
+            console.log("updated")
             const idealOffset = this.calculateIdealOffset(player);
             const idealLookAt = this.calculateIdealLookAt(player);
+            console.log(idealLookAt)
             const t = 1.0 - Math.pow(0.001, this.application.time.elapsed);
             this.currentPosition.lerp(idealOffset, t);
             this.currentLookAt.lerp(idealLookAt, t);
