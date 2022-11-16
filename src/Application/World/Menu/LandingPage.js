@@ -24,14 +24,21 @@ export async function addLandingPageMenu(application) {
     let modeHardText = "Hard"
     let modeMediumText = "Medium"
 
+    let headerPosition = {x:-200, y:60, z:-100}
+    let startPosition = {x:-60, y:20, z:-100}
+    let menuPosition= {x:-65, y:-20, z:-100}
+    let modePosition = {x:-200, y:60, z:-100}
+    let modeHardPosition = {x:-200, y:20, z:-100}
+    let modeMediumPosition = {x:-200, y:-20, z:-100}
+
 
     fontLoader.load(
         url3,
         (loadedFont) => {
             addMouseEvents();
-            header = addTextElement(30, headerText,{x:-200, y:60, z:-100}, headerName)
-            start = addTextElement(20, startText,{x:-60, y:20, z:-100}, startName)
-            menu = addTextElement(20, menuText,{x:-65, y:-20, z:-100}, menuName)
+            header = addTextElement(30, headerText,headerPosition, headerName)
+            start = addTextElement(20, startText,startPosition, startName)
+            menu = addTextElement(20, menuText,menuPosition, menuName)
 
             function addTextElement(size, text, position, name, height = 10) {
                 const textGeometry = new TextGeometry(
@@ -93,16 +100,16 @@ export async function addLandingPageMenu(application) {
                             application.scene.remove(header)
                             application.scene.remove(start)
                             application.scene.remove(menu)
-                            mode = addTextElement(30, modeText,{x:-200, y:60, z:-100}, modeName)
-                            hard = addTextElement(20, modeHardText,{x:-200, y:20, z:-100}, modeHardName)
-                            medium = addTextElement(20, modeMediumText,{x:-200, y:-20, z:-100}, modeMediumName)
+                            mode = addTextElement(30, modeText,modePosition, modeName)
+                            hard = addTextElement(20, modeHardText,modeHardPosition, modeHardName)
+                            medium = addTextElement(20, modeMediumText,modeMediumPosition, modeMediumName)
                         } else if(intersects[0].object.name === modeHardName|| intersects[0].object.name === modeMediumName) {
                             application.scene.remove(mode)
                             application.scene.remove(hard)
                             application.scene.remove(medium)
-                            header = addTextElement(30, headerText,{x:-200, y:60, z:-100}, headerName)
-                            start = addTextElement(20, startText,{x:-60, y:20, z:-100}, startName)
-                            menu = addTextElement(20, menuText,{x:-65, y:-20, z:-100}, menuName)
+                            header = addTextElement(30, headerText,headerPosition, headerName)
+                            start = addTextElement(20, startText,startPosition, startName)
+                            menu = addTextElement(20, menuText,menuPosition, menuName)
                         }
                     }
 
