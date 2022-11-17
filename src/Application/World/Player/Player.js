@@ -119,6 +119,11 @@ export default class Player {
         }
 
         if (this.playerFellOfPlatform()) {
+            console.log('AAAAAAAAAAAAAH')
+            // play sccream sound 😎
+        }
+
+        if (this.playerFellOfPlatformAndFinallyDied()) {
             this.makePlayerRespawn()
         }
 
@@ -126,7 +131,7 @@ export default class Player {
     }
 
     makePlayerRespawn() {
-        this.t.setOrigin( this.startPosition.x, this.startPosition.y, this.startPosition.z);
+        this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z);
         this.health = 100
     }
 
@@ -134,9 +139,14 @@ export default class Player {
         return this.player.position.y < -2;
     }
 
+    playerFellOfPlatformAndFinallyDied() {
+        return this.player.position.y < -25;
+    }
+
+
     checkCollisions() {
         let numContacts = this.ghostObject.getNumOverlappingObjects();
-        if(numContacts > 0) {
+        if (numContacts > 0) {
             for (let index = 0; index < numContacts; index++) {
                 const contactObject = this.ghostObject.getOverlappingObject(index);
                 if (contactObject != null) {
