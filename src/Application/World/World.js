@@ -13,6 +13,7 @@ import {addAdvancedFireWall} from "./Moving Enemies/FireWallAdvanced";
 import * as THREE from "three";
 import Time from "../Utils/Time";
 import Lava from "./Moving Enemies/Lava";
+import FireWall from "./Moving Enemies/FireWall";
 
 export default class World {
     constructor() {
@@ -27,7 +28,7 @@ export default class World {
             //new Coordinates()
             await addLandingPageMenu(this.application)
             await addSkyBox(this.scene)
-            addMovingWall(this.application)
+            new FireWall(this.application)
             this.lava = new Lava(this.application)
 
             new Floor(5, 5)

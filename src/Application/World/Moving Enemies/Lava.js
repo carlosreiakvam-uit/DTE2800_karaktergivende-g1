@@ -15,9 +15,9 @@ export default class Lava {
     }
 
     setup() {
-        const waterTexture = application.resources.items.lava1
-        waterTexture.wrapS = THREE.RepeatWrapping;
-        waterTexture.wrapT = THREE.RepeatWrapping;
+        const lavaTexture = application.resources.items.lava1
+        lavaTexture.wrapS = THREE.RepeatWrapping;
+        lavaTexture.wrapT = THREE.RepeatWrapping;
         const noiseTexture = application.resources.items.cloud
         noiseTexture.wrapS = THREE.RepeatWrapping;
         noiseTexture.wrapT = THREE.RepeatWrapping;
@@ -28,7 +28,7 @@ export default class Lava {
 
         //Definerer ekstra uniform-variabler:
         let uniforms = {
-            baseTexture: { type: "t", value: waterTexture },
+            baseTexture: { type: "t", value: lavaTexture },
             baseSpeed: { type: "f", value: 0.02 },
             noiseTexture: { type: "t", value: noiseTexture },
             noiseScale: { type: "f", value: 0.1 },
