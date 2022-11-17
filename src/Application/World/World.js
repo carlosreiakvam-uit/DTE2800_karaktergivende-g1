@@ -1,14 +1,14 @@
 import Application from '../Application.js'
 import Environment from './Environment.js'
 import Floor from './Floor.js'
-import TestObjects from "./TestObjects/TestObjects.js";
 import Player from "./Player/Player.js";
 import Healthbar from "./HUD/HealthBar";
 import {addLandingPageMenu} from "./Menu/LandingPage";
 import {addSkyBox} from "./BackGroundSkyBox";
 import Time from "../Utils/Time";
-import FireWall from "./Moving Enemies/FireWall.js";
 import Lava from "./StaticEnemies/Lava.js";
+import FireWall from "./Moving Enemies/FireWall.js";
+import TestObjects from "./TestObjects/TestObjects";
 
 export default class World {
     constructor() {

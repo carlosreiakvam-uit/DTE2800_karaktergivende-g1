@@ -7,7 +7,6 @@ export default class TestObjects {
     constructor() {
         this.application = new Application()
 
-
         // this.cubeHero = new CubeHero(
         //     {x: -2, y: 0.5, z: 0},
         //     0xff0000
