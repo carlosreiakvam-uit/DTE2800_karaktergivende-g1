@@ -13,6 +13,8 @@ export default class Physics {
         this.world = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
         this.world.setGravity(new Ammo.btVector3(0, -9.80665, 0));
 
+        this.world.getBroadphase().getOverlappingPairCache().setInternalGhostPairCallback(new Ammo.btGhostPairCallback())
+
         this.rigidBodies = []
         this.COL_GROUP_PLANE = 1;
         this.COL_GROUP_BOX = 2;

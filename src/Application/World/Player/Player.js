@@ -41,33 +41,33 @@ export default class Player {
     setPhysics() {
 
         let shape = new Ammo.btCapsuleShape(0.5, 0.8);
-        let ghostObject = new Ammo.btPairCachingGhostObject();
+        this.ghostObject = new Ammo.btPairCachingGhostObject();
 
         let transform = new Ammo.btTransform();
         transform.setIdentity();
         transform.setOrigin(new Ammo.btVector3(this.position.x, this.position.y, this.position.z));
         transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1));
 
-        ghostObject.setWorldTransform(transform);
-        ghostObject.setCollisionShape(shape);
-        ghostObject.setCollisionFlags(BODYSTATE_KINEMATIC_OBJECT);
-        ghostObject.setActivationState(4);
-        ghostObject.activate(true);
+        this.ghostObject.setWorldTransform(transform);
+        this.ghostObject.setCollisionShape(shape);
+        this.ghostObject.setCollisionFlags(16);
+        this.ghostObject.setActivationState(4);
+        this.ghostObject.activate(true);
         // let btVecUserData = new Ammo.btVector3( 0, 0, 0 );
         // btVecUserData.myData = {id:'ghost',name:"player"};
         // ghostObject.setUserPointer(btVecUserData)
 
         this.controller = new Ammo.btKinematicCharacterController(
-            ghostObject,
+            this.ghostObject,
             shape,
             0.35,
             1,
         );
-        this.controller.setUseGhostSweepTest(shape);
+        this.controller.setUseGhostSweepTest(true);
 
         this.controller.setGravity(9.81)
 
-        this.physics.world.addCollisionObject(ghostObject, this.physics.COL_GROUP_BOX,
+        this.physics.world.addCollisionObject(this.ghostObject, this.physics.COL_GROUP_BOX,
             this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
@@ -90,6 +90,7 @@ export default class Player {
     }
 
     update() {
+        this.checkCollisions()
         let direction = this.application.animations.direction;
         let rotation = this.application.animations.rotation;
         if (direction !== 0 || rotation !== 0) {
@@ -131,5 +132,24 @@ export default class Player {
 
     playerFellOfPlatform() {
         return this.player.position.y < -2;
+    }
+
+    checkCollisions() {
+        let numContacts = this.ghostObject.getNumOverlappingObjects();
+        if(numContacts > 0) {
+            for (let index = 0; index < numContacts; index++) {
+                const contactObject = this.ghostObject.getOverlappingObject(index);
+                if (contactObject != null) {
+                    const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
+                    if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
+
+                        console.log(contactBody.threeMesh.name)
+                        if (typeof contactBody.threeMesh.collisionResponse === 'function')
+                            contactBody.threeMesh.collisionResponse(contactBody.threeMesh)
+
+                    }
+                }
+            }
+        }
     }
 }
