@@ -38,12 +38,9 @@ export default class Camera {
     update() {
 
         const player = this.scene.getObjectByName("hero");
-        console.log(this.lookAtHero)
         if (player !== undefined && this.lookAtHero) {
-            console.log("updated")
             const idealOffset = this.calculateIdealOffset(player);
             const idealLookAt = this.calculateIdealLookAt(player);
-            console.log(idealLookAt)
             const t = 1.0 - Math.pow(0.001, this.application.time.elapsed);
             this.currentPosition.lerp(idealOffset, t);
             this.currentLookAt.lerp(idealLookAt, t);

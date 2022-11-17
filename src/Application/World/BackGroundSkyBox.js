@@ -4,7 +4,7 @@ import Application from '../Application.js'
 export async function addSkyBox(scene) {
 
     const cubeTextureLoader = new THREE.CubeTextureLoader();
-    // Mer rekkfølgen:
+    // Merk rekkfølgen:
     const environmentMapTexture = await cubeTextureLoader.load([
         '../../../textures/cubemaps/GardenNook/px.png',   //positiv x (høyre)
         '../../../textures/cubemaps/GardenNook/nx.png',   //negativ x (venstre)

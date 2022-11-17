@@ -49,6 +49,4 @@ export default class Animations {
         this.isJumping = !!currentlyPressedKeys["Space"];
     }
 
-
-
 }

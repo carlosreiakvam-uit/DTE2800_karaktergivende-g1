@@ -32,7 +32,7 @@ export default class TestObjects {
         for(let i = -5; i< 10; i++) {
             let name = "bonus"+i
             this.allBonusPoints[i] = new BonusPoint(
-                {x: 20-i, y: 2, z: i},
+                {x: 20-i, y: 10, z: i},
                 1,0x00FF00,0.1,
                 name)
         }
@@ -43,13 +43,6 @@ export default class TestObjects {
             0.5,0xffff00,0.1,
             "movingEnemy1"
         )
-
-        // this.application.scene.add(this.movingEnemy.mesh)
-        // this.application.scene.add(
-        //     //this.cubeHero.mesh,
-        //     //this.fallingBlock.mesh,
-        //     //this.staticEnemy1.mesh,
-        // )
     }
 
     update() {

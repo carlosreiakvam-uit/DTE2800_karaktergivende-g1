@@ -67,7 +67,6 @@ export default class RollingBallEnemy {
         if(hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
         }
-
     }
 
     updatePositions(hero) {

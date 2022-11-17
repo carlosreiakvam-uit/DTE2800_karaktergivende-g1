@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
+import TWEEN from "@tweenjs/tween.js";
 
-export default class RollingBallEnemy {
+export default class BonusPoint {
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
         this.physics = this.application.physics
@@ -11,12 +12,10 @@ export default class RollingBallEnemy {
         this.scale = scale
         this.name = name
         this.notFloatedAway = true
-
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
-        this.application.scene.add(this.mesh)
     }
 
     setMaterial(color) {
@@ -33,9 +32,7 @@ export default class RollingBallEnemy {
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
-        this.mesh.collisionResponse = (mesh1) => {
-            mesh1.material.color.setHex(Math.random() * 0xffffff);
-        };
+        this.application.scene.add(this.mesh)
     }
 
     setPhysics(position, activationState) {
