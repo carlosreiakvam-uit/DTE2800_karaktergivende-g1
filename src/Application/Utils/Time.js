@@ -1,38 +1,30 @@
 import EventEmitter from './EventEmitter.js'
 import * as THREE from 'three'
 import Application from "../Application";
+import Stats from 'stats.js'
 
-export default class Time extends EventEmitter
-{
-    constructor()
-    {
+export default class Time extends EventEmitter {
+    constructor() {
         super()
 
         // Setup
         this.application = new Application()
-        this.start = Date.now()
-        this.current = this.start
-        this.elapsed = 0
         this.delta = 0 // var 16
         this.clock = new THREE.Clock();
-        window.requestAnimationFrame(() =>
-        {
+        window.requestAnimationFrame(() => {
             this.tick()
         })
     }
 
-    tick()
-    {
-        const currentTime = Date.now()
-        // this.delta = currentTime - this.current
-        this.delta = this.clock.getDelta()
-        this.current = currentTime
-        this.elapsed = this.current - this.start
+    tick() {
+        this.application.stats.begin() // fps measurement start
 
+        this.delta = this.clock.getDelta()
         this.trigger('tick')
 
-        window.requestAnimationFrame(() =>
-        {
+        this.application.stats.end() // fps measurement end
+
+        window.requestAnimationFrame(() => {
             this.tick()
         })
     }

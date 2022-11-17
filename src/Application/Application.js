@@ -12,6 +12,7 @@ import Animations from "./Animations.js";
 import KeyPress from "./Utils/KeyPress.js";
 import GUI from "lil-gui";
 import Physics from "./World/Physics.js";
+import Stats from 'stats.js'
 
 let instance = null
 
@@ -28,6 +29,12 @@ export default class Application {
 
         // Options
         this.canvas = _canvas
+
+        // Stats
+        this.stats = new Stats()
+        console.log(this.stats)
+        this.stats.showPanel(0, 1, 2); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
 
         // Setup
         this.physics = new Physics()

@@ -11,7 +11,7 @@ export default class Lava {
     }
 
     update() {
-        this.lavaMesh.material.uniforms.uTime.value = this.time.clock.getElapsedTime();
+        this.lavaMesh.material.uniforms.uTime.value = this.time.delta;
     }
 
     setup() {

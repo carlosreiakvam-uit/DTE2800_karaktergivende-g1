@@ -41,7 +41,7 @@ export default class Camera {
         if (player !== undefined && this.lookAtHero) {
             const idealOffset = this.calculateIdealOffset(player);
             const idealLookAt = this.calculateIdealLookAt(player);
-            const t = 1.0 - Math.pow(0.001, this.application.time.elapsed);
+            const t = 1.0 - Math.pow(0.001, this.application.time.delta);
             this.currentPosition.lerp(idealOffset, t);
             this.currentLookAt.lerp(idealLookAt, t);
 
