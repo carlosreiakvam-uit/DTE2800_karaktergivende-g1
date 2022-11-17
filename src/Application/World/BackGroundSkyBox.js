@@ -6,12 +6,13 @@ export async function addSkyBox(scene) {
     const cubeTextureLoader = new THREE.CubeTextureLoader();
     // Merk rekkfølgen:
     const environmentMapTexture = await cubeTextureLoader.load([
-        '../../../textures/cubemaps/GardenNook/px.png',   //positiv x (høyre)
-        '../../../textures/cubemaps/GardenNook/nx.png',   //negativ x (venstre)
-        '../../../textures/cubemaps/GardenNook/py.png',   //positiv y (opp)
-        '../../../textures/cubemaps/GardenNook/ny.png',   //negativ y (ned)
-        '../../../textures/cubemaps/GardenNook/pz.png',   //positiv z (ut)
-        '../../../textures/cubemaps/GardenNook/nz.png',   //negativ z (inn)
+        '../../../textures/cubemaps/BlueSpace/bkg1_right.png',   //positiv x (høyre)
+        '../../../textures/cubemaps/BlueSpace/bkg1_left.png',   //negativ x (venstre)
+        '../../../textures/cubemaps/BlueSpace/bkg1_top.png',   //positiv y (opp)
+        '../../../textures/cubemaps/BlueSpace/bkg1_bot.png',   //negativ y (ned)
+        '../../../textures/cubemaps/BlueSpace/bkg1_front.png',   //positiv z (ut)
+        '../../../textures/cubemaps/BlueSpace/bkg1_back.png',   //negativ z (inn)
+
     ]);
     scene.background = environmentMapTexture;
 
