@@ -132,8 +132,8 @@ export default class RollingBallEnemy {
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
             if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
-                console.log(this.xDifference)
-                console.log(this.zDifference)
+                // console.log(this.xDifference)
+                // console.log(this.zDifference)
                 this.takeDamageOnHero(hero)
             }
         }

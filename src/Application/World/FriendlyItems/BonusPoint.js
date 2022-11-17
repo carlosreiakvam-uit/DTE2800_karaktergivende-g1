@@ -1,17 +1,14 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import TWEEN from "@tweenjs/tween.js";
 
 export default class BonusPoint {
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
-        this.isActivated = false
         this.position = position
         this.scale = scale
         this.name = name
-        this.notFloatedAway = true
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
@@ -23,7 +20,7 @@ export default class BonusPoint {
     }
 
     setGeometry() {
-        this.geometry =new THREE.SphereGeometry(0.3, 32, 32);
+        this.geometry = new THREE.SphereGeometry(0.3, 32, 32);
     }
 
     setMesh(position, scale, name) {
@@ -33,6 +30,9 @@ export default class BonusPoint {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.application.scene.add(this.mesh)
+        this.mesh.collisionResponse = (mesh1) => {
+            this.makeThisFloatAway(mesh1.userData.physicsBody)
+        };
     }
 
     setPhysics(position, activationState) {
@@ -48,51 +48,20 @@ export default class BonusPoint {
 
     update() {
         this.doFloatingAnimation()
-
-        let hero = this.application.world.player.t
-
-        if(hero !== undefined) {
-            this.doPhysics(hero);
+        if (this.mesh.position.y > 10) {
+            this.physics.rigidBodies = this.physics.rigidBodies.filter(x => x !== this.mesh);
+            this.application.scene.remove(this.mesh);
         }
-    }
-
-    doPhysics(hero) {
-        if(!this.isActivated && this.notFloatedAway) {
-            this.isActivated = this.checkIfHeroAndThisEntityAreClose(hero);
-            if(this.application.world.player.health < 90) {
-
-            }
-
-        } else {
-            this.makeThisFloatAway();
-        }
-
-    }
-
-    checkIfHeroAndThisEntityAreClose(hero) {
-        let heroPosX = hero.getOrigin().x();
-        let xDifference = heroPosX - this.mesh.position.x;
-        let heroPosZ = hero.getOrigin().z();
-        let zDifference = heroPosZ - this.mesh.position.z;
-
-        return (this.checkDifferenceWhenNegativeAndPositiveInput(xDifference, -1, 1) && this.checkDifferenceWhenNegativeAndPositiveInput(zDifference, -1, 1));
-    }
-
-    checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
-        return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
     }
 
 
     doFloatingAnimation() {
-        if(this.rigidBody.threeMesh.position.y < 1) {
-            this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.02, z:0});
+        if (this.rigidBody.threeMesh.position.y < 1) {
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0.02, z: 0});
         }
     }
 
-    makeThisFloatAway() {
-        this.notFloatedAway = false
-        this.application.physics.applyImpulse(this.rigidBody, {x:0, y:0.1, z:0});
-
-        //Burde remove from scene når den er langt nok unna
+    makeThisFloatAway(rigidBody) {
+        this.application.physics.applyImpulse(rigidBody, {x: 0, y: 1, z: 0});
     }
 }
