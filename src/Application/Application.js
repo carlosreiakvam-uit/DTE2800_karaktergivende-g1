@@ -33,8 +33,10 @@ export default class Application {
         this.physics = new Physics()
         this.sizes = new Sizes()
         this.time = new Time()
+
         this.scene = new THREE.Scene()
         this.resources = new Resources(sources)
+        this.tween = require('@tweenjs/tween.js');
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.world = new World()
@@ -50,6 +52,7 @@ export default class Application {
         // Time tick event
         this.time.on('tick', () => {
             this.update()
+
         })
     }
 
@@ -64,11 +67,11 @@ export default class Application {
         this.world.update()
         this.physics.updatePhysics(this.time.delta)
         this.renderer.update()
+        this.tween.update();
     }
 
     setupLilGui() {
         this.lilGui = new GUI();
-
 
         const sunFolder = this.lilGui.addFolder("Sun light");
         sunFolder.add(this.animations, 'theSunIsShining').name("On/Off");

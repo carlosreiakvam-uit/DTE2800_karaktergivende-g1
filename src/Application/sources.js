@@ -59,4 +59,14 @@ export default [
         type: "texture",
         path: "textures//healthbar/healthbar100.png"
     },
+    {
+        name: "lava1",
+        type: "texture",
+        path: "textures/traps/lava.jpg"
+    },
+    {
+        name: "cloud",
+        type: "texture",
+        path: "textures/traps/cloud.png"
+    },
 ]
