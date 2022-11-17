@@ -6,14 +6,9 @@ import Player from "./Player/Player.js";
 import Healthbar from "./HUD/HealthBar";
 import {addLandingPageMenu} from "./Menu/LandingPage";
 import {addSkyBox} from "./BackGroundSkyBox";
-import Cube from "./TestObjects/Cube";
-import {addMovingWall} from "./Moving Enemies/MovingWall";
-import {addNewBonusPoint} from "./FriendlyItems/NewBonusPoints";
-import {addAdvancedFireWall} from "./Moving Enemies/FireWallAdvanced";
-import * as THREE from "three";
 import Time from "../Utils/Time";
-import Lava from "./Moving Enemies/Lava";
-import FireWall from "./Moving Enemies/FireWall";
+import FireWall from "./Moving Enemies/FireWall.js";
+import Lava from "./StaticEnemies/Lava.js";
 
 export default class World {
     constructor() {

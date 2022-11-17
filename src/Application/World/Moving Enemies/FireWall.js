@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Time from "../../Utils/Time";
-import TWEEN from "@tweenjs/tween.js";
 
 export default class FireWall {
     constructor(position, scale, color, mass, name) {
