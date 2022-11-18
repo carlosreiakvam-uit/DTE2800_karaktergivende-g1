@@ -84,7 +84,7 @@ export default class Lava {
 
         let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
         //let shape = new Ammo.btStaticPlaneShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
-        this.rigidBody = this.application.physics.createRigidBody(shape, this.lavaMesh, 0.7, 0.8, this.position, 100000000);
+#        this.rigidBody = this.application.physics.createRigidBody(shape, this.lavaMesh, 0.7, 0.8, this.position, 100000);
         this.lavaMesh.userData.physicsBody = this.rigidBody;
         this.application.physics.world.addRigidBody(this.rigidBody, this.application.physics.COL_GROUP_BOX, this.application.physics.COL_GROUP_BOX | this.application.physics.COL_GROUP_PLANE);
         this.application.physics.rigidBodies.push(this.lavaMesh);
