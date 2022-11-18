@@ -117,7 +117,6 @@ export default class Player {
         }
 
         if (this.playerFellOfPlatform()) {
-            console.log(this.player.position.y < -5)
             if (!this.application.audio.fallScream.isPlaying) {
                 this.application.audio.fallScream.play()
             }

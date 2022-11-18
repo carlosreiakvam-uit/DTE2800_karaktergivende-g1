@@ -6,10 +6,8 @@ export default class FireWall {
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
         this.time = new Time();
+        this.mesh = undefined
         this.setup()
-    }
-
-    update() {
     }
 
     setup() {
@@ -34,19 +32,14 @@ export default class FireWall {
         material.shininess = 0.6;
         const geo = new THREE.BoxGeometry(10, 10, 1);
         let fireWallMesh = new THREE.Mesh(geo, material);
+        this.mesh = fireWallMesh
 
         const position = {x:10, y:5, z:-9}
         fireWallMesh.name="fireWall1";
         fireWallMesh.position.y = position.y;
         fireWallMesh.position.x = position.x;
         fireWallMesh.position.z = position.z;
-        fireWallMesh.collisionResponse = (mesh1) => {
-            console.log("bam")
-            let hero = this.application.world.player.t
-            if(hero !== undefined) {
-                this.takeDamageOnHero(hero)
-            }
-        };
+
         application.scene.add(fireWallMesh)
 
         const TWEEN = require('/node_modules/@tweenjs/tween.js');
@@ -84,7 +77,60 @@ export default class FireWall {
 
     takeDamageOnHero() {
         if(this.application.world.player.health > 0) {
-            this.application.world.player.health -= 50
+            this.application.world.player.health -= 1
+        }
+    }
+
+    update() {
+        let hero = this.application.world.player.t
+        if(hero !== undefined) {
+            this.checkHeroAndThisInteraction(hero)
+        }
+    }
+
+    updatePositions(hero) {
+        this.xDifference = this.getXPositionDifference(hero)
+        this.zDifference = this.getZPositionDifference(hero)
+        this.yDifference = this.getYPositionDifference(hero)
+    }
+
+    checkIfHeroAndThisEntityAreClose(range) {
+        return (
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, -5, 5) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, -1, 1) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.yDifference, -5, 5)
+        );
+    }
+
+    checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
+        return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
+    }
+
+
+    getXPositionDifference(hero) {
+        let diff = hero.getOrigin().x() - this.mesh.position.x;
+        return diff
+    }
+
+    getYPositionDifference(hero) {
+        let diff = hero.getOrigin().y() - this.mesh.position.y;
+        return diff
+    }
+
+    getZPositionDifference(hero) {
+        let diff = hero.getOrigin().z() - this.mesh.position.z;
+        return diff
+    }
+
+
+    checkHeroAndThisInteraction(hero) {
+        this.updatePositions(hero)
+        // console.log("x  "+ this.xDifference)
+        // console.log("z  "+ this.zDifference)
+        // console.log("y  "+ this.yDifference)
+
+        if(this.checkIfHeroAndThisEntityAreClose()) {
+            this.takeDamageOnHero(hero)
         }
     }
 }

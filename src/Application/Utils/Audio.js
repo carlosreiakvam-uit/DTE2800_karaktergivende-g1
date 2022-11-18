@@ -20,7 +20,7 @@ export default class Audio {
         audioLoader.load('/audio/hero/fallScream.ogg', function (buffer) {
             fallScream.setBuffer(buffer)
             fallScream.setVolume(0.9)
-            fallScream.play()
+            //fallScream.play()
         })
 
     }
