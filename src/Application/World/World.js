@@ -23,8 +23,8 @@ export default class World {
             //new Coordinates()
             await addLandingPageMenu(this.application)
             await addSkyBox(this.scene)
-            new FireWall(this.application)
-            this.lava = new Lava(this.application)
+            this.fireWall = new FireWall(this.application)
+            this.lava = new Lava({x: 10, y: 0.2, z: 5})
 
             new Floor(5, 5)
             new Floor(5, 5, {x: 25, y: 0, z: 15})
@@ -46,6 +46,7 @@ export default class World {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
+            this.fireWall.update();
         }
     }
 }

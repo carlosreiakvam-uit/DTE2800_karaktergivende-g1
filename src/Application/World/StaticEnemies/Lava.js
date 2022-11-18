@@ -7,11 +7,15 @@ export default class Lava {
         this.application = new Application()
         this.time = new Time();
         this.lavaMesh = undefined
+        this.position = position
         this.setup()
     }
 
     update() {
         this.lavaMesh.material.uniforms.uTime.value = this.time.clock.getElapsedTime();
+        console.log(this.rigidBody.threeMesh.position.x)
+        console.log(this.rigidBody.threeMesh.position.y)
+        console.log(this.rigidBody.threeMesh.position.z)
     }
 
     setup() {
@@ -61,11 +65,35 @@ export default class Lava {
 
         geometry.rotateX(-Math.PI/2);
         this.lavaMesh = new THREE.Mesh(geometry, fireMaterial);
+
         this.lavaMesh.name = "myLava";
-        this.lavaMesh.position.y = 0.2
-        this.lavaMesh.position.x = 10
-        this.lavaMesh.position.z = 5
+        this.lavaMesh.position.set(this.position.x, this.position.y, this.position.z)
+        this.lavaMesh.collisionResponse = (mesh1) => {
+            console.log("lava dmg response")
+            console.log(this.application.world.player.health)
+            if(this.application.world.player.health !== undefined) {
+                this.takeDamageOnHero()
+            }
+        };
 
         application.scene.add(this.lavaMesh);
+
+        let width = this.lavaMesh.geometry.parameters.width;
+        let height = 0.4
+        let depth = this.lavaMesh.geometry.parameters.height;
+
+        let shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
+        //let shape = new Ammo.btStaticPlaneShape(new Ammo.btVector3(width / 2, height / 2, depth / 2));
+#        this.rigidBody = this.application.physics.createRigidBody(shape, this.lavaMesh, 0.7, 0.8, this.position, 100000);
+        this.lavaMesh.userData.physicsBody = this.rigidBody;
+        this.application.physics.world.addRigidBody(this.rigidBody, this.application.physics.COL_GROUP_BOX, this.application.physics.COL_GROUP_BOX | this.application.physics.COL_GROUP_PLANE);
+        this.application.physics.rigidBodies.push(this.lavaMesh);
+        this.rigidBody.threeMesh = this.lavaMesh;
+    }
+
+    takeDamageOnHero() {
+        if(this.application.world.player.health > 0) {
+            this.application.world.player.health -= 1
+        }
     }
 }
