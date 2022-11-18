@@ -16,7 +16,6 @@ export default class Player {
         this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics({x: 2, y: 0, z: 0})
-        this.playerIsAlive = true
         this.health = 100
     }
 
@@ -75,7 +74,6 @@ export default class Player {
         this.controller.setJumpSpeed(4);
         this.controller.setFallSpeed(55);
         this.controller.setMaxSlope(45);
-
     }
 
     setAction(toAction) {
@@ -119,12 +117,17 @@ export default class Player {
         }
 
         if (this.playerFellOfPlatform()) {
+            console.log(this.player.position.y < -5)
             if (!this.application.audio.fallScream.isPlaying) {
                 this.application.audio.fallScream.play()
             }
         }
 
         if (this.playerFellOfPlatformAndFinallyDied()) {
+            this.makePlayerRespawn()
+        }
+
+        if(this.health <= 0) {
             this.makePlayerRespawn()
         }
 
@@ -137,7 +140,7 @@ export default class Player {
     }
 
     playerFellOfPlatform() {
-        return this.player.position.y < -1;
+        return this.player.position.y < -5;
     }
 
     playerFellOfPlatformAndFinallyDied() {

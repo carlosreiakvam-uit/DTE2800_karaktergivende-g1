@@ -13,7 +13,6 @@ export default class RollingBallEnemy {
         this.color = color
 
         this.aggroRange = [-5, 5]
-        this.killRange = [-1.4,1.4]
         this.xDifference = undefined
         this.zDifference = undefined
         this.yDifference = undefined
@@ -50,6 +49,10 @@ export default class RollingBallEnemy {
         this.mesh.receiveShadow = true;
         this.mesh.collisionResponse = (mesh1) => {
             mesh1.material.color.setHex(Math.random() * 0xffffff);
+            let hero = this.application.world.player.t
+            if(hero !== undefined) {
+                this.takeDamageOnHero(hero)
+            }
         };
     }
 
@@ -101,10 +104,6 @@ export default class RollingBallEnemy {
         }
     }
 
-    respawnHero() {
-        this.application.world.player.t.setOrigin({x: 0, y: 0, z: 0})
-    }
-
     deactivateEnemy() {
         this.isActivated = false
     }
@@ -131,11 +130,6 @@ export default class RollingBallEnemy {
 
         if(this.isActivated) {
             this.adjustTrajectoryOfThis();
-            if(this.checkIfHeroAndThisEntityAreClose(this.killRange)) {
-                // console.log(this.xDifference)
-                // console.log(this.zDifference)
-                this.takeDamageOnHero(hero)
-            }
         }
 
     }
@@ -144,9 +138,7 @@ export default class RollingBallEnemy {
         if(this.application.world.player.health > 0) {
             this.application.world.player.health -= 1
         } else {
-            this.respawnHero()
             this.deactivateEnemy();
-            this.application.world.player.health = 100
             this.reset();
         }
     }

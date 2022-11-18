@@ -36,10 +36,17 @@ export default class FireWall {
         let fireWallMesh = new THREE.Mesh(geo, material);
 
         const position = {x:10, y:5, z:-9}
-        fireWallMesh.name="mySphere";
+        fireWallMesh.name="fireWall1";
         fireWallMesh.position.y = position.y;
         fireWallMesh.position.x = position.x;
         fireWallMesh.position.z = position.z;
+        fireWallMesh.collisionResponse = (mesh1) => {
+            console.log("bam")
+            let hero = this.application.world.player.t
+            if(hero !== undefined) {
+                this.takeDamageOnHero(hero)
+            }
+        };
         application.scene.add(fireWallMesh)
 
         const TWEEN = require('/node_modules/@tweenjs/tween.js');
@@ -73,5 +80,11 @@ export default class FireWall {
         tween2.chain(tween3)
         tween3.chain(tween4)
         tween4.chain(tween1)
+    }
+
+    takeDamageOnHero() {
+        if(this.application.world.player.health > 0) {
+            this.application.world.player.health -= 50
+        }
     }
 }
