@@ -24,7 +24,7 @@ export default class World {
             await addLandingPageMenu(this.application)
             await addSkyBox(this.scene)
             this.fireWall = new FireWall(this.application)
-            this.lava = new Lava(this.application)
+            this.lava = new Lava({x: 10, y: 0.2, z: 5})
 
             new Floor(5, 5)
             new Floor(5, 5, {x: 25, y: 0, z: 15})
