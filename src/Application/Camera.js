@@ -16,6 +16,7 @@ export default class Camera {
 
         this.setInstance()
         this.setControls()
+        this.instance.add(this.application.audio.listener)
     }
 
     setInstance() {
@@ -57,7 +58,7 @@ export default class Camera {
         return idealOffset;
     }
 
-    calculateIdealLookAt(target){
+    calculateIdealLookAt(target) {
         const idealLookAt = new THREE.Vector3(0, 0, 0);
         // idealLookAt.applyQuaternion(target.quaternion);
         idealLookAt.add(target.position);

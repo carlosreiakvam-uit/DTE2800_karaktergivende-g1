@@ -119,8 +119,9 @@ export default class Player {
         }
 
         if (this.playerFellOfPlatform()) {
-            console.log('AAAAAAAAAAAAAH')
-            // play sccream sound 😎
+            if (!this.application.audio.fallScream.isPlaying) {
+                this.application.audio.fallScream.play()
+            }
         }
 
         if (this.playerFellOfPlatformAndFinallyDied()) {
@@ -136,7 +137,7 @@ export default class Player {
     }
 
     playerFellOfPlatform() {
-        return this.player.position.y < -2;
+        return this.player.position.y < -1;
     }
 
     playerFellOfPlatformAndFinallyDied() {
@@ -152,8 +153,12 @@ export default class Player {
                 if (contactObject != null) {
                     const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
                     if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
+                        if (!this.application.audio.point.isPlaying) {
+                            this.application.audio.point.play();
+                        }
 
-                        console.log(contactBody.threeMesh.name)
+
+                        console.log("contact:", contactBody.threeMesh.name)
                         if (typeof contactBody.threeMesh.collisionResponse === 'function')
                             contactBody.threeMesh.collisionResponse(contactBody.threeMesh)
 

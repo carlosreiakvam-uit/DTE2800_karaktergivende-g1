@@ -20,7 +20,7 @@ export default class BonusPoint {
     }
 
     setGeometry() {
-        this.geometry = new THREE.SphereGeometry(0.3, 32, 32);
+        this.geometry = new THREE.SphereGeometry(0.2, 32, 32);
     }
 
     setMesh(position, scale, name) {

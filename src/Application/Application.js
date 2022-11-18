@@ -12,6 +12,7 @@ import Animations from "./Animations.js";
 import KeyPress from "./Utils/KeyPress.js";
 import GUI from "lil-gui";
 import Physics from "./World/Physics.js";
+import Audio from "./Utils/Audio.js"
 import Stats from 'stats.js'
 
 let instance = null
@@ -30,17 +31,17 @@ export default class Application {
         // Options
         this.canvas = _canvas
 
+
         // Stats
         this.stats = new Stats()
-        console.log(this.stats)
         this.stats.showPanel(0, 1, 2); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
 
         // Setup
+        this.audio = new Audio()
         this.physics = new Physics()
         this.sizes = new Sizes()
         this.time = new Time()
-
         this.scene = new THREE.Scene()
         this.resources = new Resources(sources)
         this.tween = require('@tweenjs/tween.js');
