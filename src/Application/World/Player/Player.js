@@ -1,6 +1,5 @@
 import Application from "../../Application.js";
 import * as THREE from 'three'
-import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
 
 
 export default class Player {
@@ -126,7 +125,7 @@ export default class Player {
             this.makePlayerRespawn()
         }
 
-        if(this.health <= 0) {
+        if (this.health <= 0) {
             this.makePlayerRespawn()
         }
 
