@@ -1,31 +1,41 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import * as Constant from "../../Utils/constants.js";
-import Box from "../../Shapes/Box.js"
-import Sphere from "../../Shapes/Sphere.js"
-import * as arrowHelper from "../../Utils/ArrowHelper.js"
+import CustomShape from "../../Shapes/CustomShape.js"
+import ThreeAmmoGlobalObjects from "../../Shapes/ThreeAmmoGlobalObjects";
 
 export default class BalancingPlatform {
-    constructor(startPos = {x: 0, y: 0, z: 0}, scale = {x: 1, y: 1, z: 1}, color = 0xff00ff, name) {
+    constructor(startPos = {x: 0, y: 0, z: 0}, color = 0xff00ff, name) {
         this.application = new Application()
+        this.globs = new ThreeAmmoGlobalObjects()
         this.physics = this.application.physics
         this.mass = 1
         this.x = startPos.x
 
-        let platform = new Box(
+        let platform = new CustomShape(
             {
                 position: startPos,
-                scale: scale,
+                scale: {x: 8, y: 1, z: 1},
                 mass: 1,
-                name: 'platform'
+                name: 'platform',
+                geometry: new THREE.BoxGeometry(1, 1, 1, 128, 128)
             })
 
-        let anchor = new Sphere(
-            {x: startPos.x, y: startPos.y - scale.y, z: startPos.z},
-            {x: scale.x / 12, y: scale.x / 12, z: scale.x / 12}, color, 0, 'anchor')
+        let anchor = new CustomShape(
+            {
+                position: {x: startPos.x, y: startPos.y - 0.5, z: startPos.z},
+                scale: {x: 1, y: 1, z: 1},
+                mass: 0,
+                name: 'anchor',
+                geometry: this.globs.cylinderGeometry
+            })
 
-        anchor.rigidBody.setFriction(0)
-        platform.rigidBody.setFriction(0.9)
+
+        // const height = platform.mesh.geometry.height
+        // let anchor = new Sphere(
+        //     {x: startPos.x, y: startPos.y - scale.y, z: startPos.z},
+        //     {x: scale.x / 12, y: scale.x / 12, z: scale.x / 12}, color, 0, 'anchor')
+
+        platform.rigidBody.setFriction(0)
 
         this.addHingeConstraints(platform, anchor)
         // arrowHelper.addArrowToWorldPositiveZ(platform.mesh)

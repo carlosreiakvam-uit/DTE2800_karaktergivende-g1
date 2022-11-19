@@ -4,7 +4,7 @@ import Sizes from './Utils/Sizes.js'
 import Time from './Utils/Time.js'
 import Camera from './Camera.js'
 import Renderer from './Renderer.js'
-import World from './World/World.js'
+import World_01 from './World/World_01.js'
 import Resources from './Utils/Resources.js'
 
 import sources from './sources.js'
@@ -14,6 +14,7 @@ import GUI from "lil-gui";
 import Physics from "./World/Physics.js";
 import Audio from "./Utils/Audio.js"
 import Stats from 'stats.js'
+import ThreeAmmoGlobalObjects from "./Shapes/ThreeAmmoGlobalObjects";
 
 let instance = null
 
@@ -37,6 +38,9 @@ export default class Application {
         this.stats.showPanel(0, 1, 2); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
 
+        // global
+        this.globs = new ThreeAmmoGlobalObjects()
+
         // Setup
         this.audio = new Audio()
         this.physics = new Physics()
@@ -47,7 +51,7 @@ export default class Application {
         this.tween = require('@tweenjs/tween.js');
         this.camera = new Camera()
         this.renderer = new Renderer()
-        this.world = new World()
+        this.world = new World_01()
         this.animations = new Animations()
         this.keypress = new KeyPress()
         this.setupLilGui();

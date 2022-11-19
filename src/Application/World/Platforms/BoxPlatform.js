@@ -1,7 +1,7 @@
-import Box from "../../Shapes/Box.js"
+import CustomShape from "../../Shapes/CustomShape.js"
 import * as arrowHelper from "../../Utils/ArrowHelper.js"
 
-export default class BoxPlatform extends Box {
+export default class BoxPlatform extends CustomShape {
     constructor(startPos = {x: 0, y: 0, z: 0}, scale = {
         x: 1,
         y: 1,

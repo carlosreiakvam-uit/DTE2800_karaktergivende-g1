@@ -1,19 +1,29 @@
 import * as THREE from 'three'
-import Box from "../../Shapes/Box";
-import MaterialCustom from "../../Utils/MaterialCustom.js"
-import Application from "../../Application";
+import CustomShape from "../../Shapes/CustomShape";
+import CustomMaterial from "../../Utils/CustomMaterial.js"
+import ThreeAmmoGlobalObjects from "../../Shapes/ThreeAmmoGlobalObjects";
 
 export default class ComplexPlatform {
-    constructor({position, scale, name}) {
-        this.application = new Application()
-        this.physics = this.application.physics
+    constructor({position: inPos, scale = {x: 1, y: 1, z: 1}, name}) {
+        this.globshapes = new ThreeAmmoGlobalObjects()
 
-        const material = new MaterialCustom()
+        // const material = new CustomMaterial()
+        this.scale = scale
 
-        const b1 = new Box({position: position, scale: scale})
-        console.log(b1.mesh)
-        // b1.mesh.add(new Box({position: {x: 3, y: 2.5, z: 0}, material: material}))
-        this.application.scene.add(b1.mesh)
+
+        const p1 = new CustomShape({
+            position: inPos,
+            material: material.material,
+            dims: {width: 0.5, height: 2, depth: 0.5},
+            geometry: this.globshapes.boxGeometry
+
+        })
+        const p2 = new CustomShape({
+            material: material.material,
+            geometry: this.globshapes.boxGeometry
+        })
+        p1.mesh.add(p2.mesh)
+        this.mesh = p1.mesh
     }
 
 
