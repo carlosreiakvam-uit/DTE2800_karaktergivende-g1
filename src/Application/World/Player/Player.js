@@ -155,9 +155,10 @@ export default class Player {
                 if (contactObject != null) {
                     const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
                     if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
-                        if (!this.application.audio.point.isPlaying) {
-                            this.application.audio.point.play();
-                        }
+                        // play hit-sound
+                        // if (!this.application.audio.point.isPlaying) {
+                        //     this.application.audio.point.play();
+                        // }
 
 
                         console.log("contact:", contactBody.threeMesh.name)

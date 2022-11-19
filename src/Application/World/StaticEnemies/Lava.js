@@ -13,9 +13,9 @@ export default class Lava {
 
     update() {
         this.lavaMesh.material.uniforms.uTime.value = this.time.clock.getElapsedTime();
-        console.log(this.rigidBody.threeMesh.position.x)
-        console.log(this.rigidBody.threeMesh.position.y)
-        console.log(this.rigidBody.threeMesh.position.z)
+        // console.log(this.rigidBody.threeMesh.position.x)
+        // console.log(this.rigidBody.threeMesh.position.y)
+        // console.log(this.rigidBody.threeMesh.position.z)
     }
 
     setup() {

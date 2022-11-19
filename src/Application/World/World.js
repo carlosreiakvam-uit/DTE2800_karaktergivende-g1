@@ -9,6 +9,8 @@ import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
 import FireWall from "./Moving Enemies/FireWall.js";
 import TestObjects from "./TestObjects/TestObjects";
+import BalancingPlatform from "./Platforms/BalancingPlatform";
+import BoxPlatform from "./Platforms/BoxPlatform";
 
 export default class World {
     constructor() {
@@ -25,6 +27,8 @@ export default class World {
             await addSkyBox(this.scene)
             this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 10, y: 0.2, z: 5})
+            this.balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0}, {x: 9, y: 0.2, z: 2})
+            new BoxPlatform({x: -20, y: 2.5, z: 0}, {x: 8, y: 0.2, z: 8}, 0x00ff00)
 
             new Floor(5, 5)
             new Floor(5, 5, {x: 25, y: 0, z: 15})
