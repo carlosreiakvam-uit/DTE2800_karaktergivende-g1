@@ -70,12 +70,14 @@ export default class Application {
     }
 
     update() {
+        this.stats.begin();
         this.animations.update(this.keypress.currentlyPressedKeys, this.time.delta)
         this.camera.update()
         this.world.update()
         this.physics.updatePhysics(this.time.delta)
         this.renderer.update()
         this.tween.update();
+        this.stats.end();
     }
 
     setupLilGui() {
