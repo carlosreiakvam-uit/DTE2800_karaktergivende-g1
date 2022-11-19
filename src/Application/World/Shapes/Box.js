@@ -3,21 +3,26 @@ import Application from "../../Application.js";
 import Animations from "../../Animations.js";
 
 export default class Box {
-    constructor(position, scale, color, mass, name) {
+    constructor(position, scale, mass, texture, textureNormal, name) {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
+        this.texture = texture
+        console.log(this.texture)
+        this.textureNormal = textureNormal
 
-        this.setMaterial(color)
         this.setGeometry()
+        this.setTextures(texture, textureNormal)
+        this.setMaterial()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
 
     }
 
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
+    setMaterial() {
+        this.material = new THREE.MeshStandardMaterial({map: this.textures.color, normalMap: this.textures.normal})
     }
+
 
     setGeometry() {
         this.geometry = new THREE.BoxGeometry(1, 1, 1, 1, 1)
@@ -31,6 +36,21 @@ export default class Box {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
     }
+
+    setTextures() {
+        this.textures = {}
+        this.textures.color = this.texture
+        this.textures.color.encoding = THREE.sRGBEncoding
+        this.textures.color.repeat.set(1.5, 1.5)
+        this.textures.color.wrapS = THREE.RepeatWrapping
+        this.textures.color.wrapT = THREE.RepeatWrapping
+
+        this.textures.normal = this.textureNormal
+        this.textures.normal.repeat.set(1.5, 1.5)
+        this.textures.normal.wrapS = THREE.RepeatWrapping
+        this.textures.normal.wrapT = THREE.RepeatWrapping
+    }
+
 
     setPhysics(position) {
         let width = this.mesh.geometry.parameters.width;

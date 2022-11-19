@@ -24,13 +24,13 @@ export default class Floor {
 
     setTextures() {
         this.textures = {}
-        this.textures.color = this.resources.items.grassColorTexture
+        this.textures.color = this.resources.items.dirtTexture
         this.textures.color.encoding = THREE.sRGBEncoding
         this.textures.color.repeat.set(1.5, 1.5)
         this.textures.color.wrapS = THREE.RepeatWrapping
         this.textures.color.wrapT = THREE.RepeatWrapping
 
-        this.textures.normal = this.resources.items.grassNormalTexture
+        this.textures.normal = this.resources.items.dirtNormal
         this.textures.normal.repeat.set(1.5, 1.5)
         this.textures.normal.wrapS = THREE.RepeatWrapping
         this.textures.normal.wrapT = THREE.RepeatWrapping
@@ -59,7 +59,7 @@ export default class Floor {
 
         // AMMO
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(width / 2, height / 2, depth));
-        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 1.8,  this.position , mass);
+        this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 1.8, this.position, mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
 

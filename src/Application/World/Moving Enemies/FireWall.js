@@ -18,7 +18,7 @@ export default class FireWall {
         textures.color.wrapS = THREE.RepeatWrapping
         textures.color.wrapT = THREE.RepeatWrapping
 
-        textures.normal = application.resources.items.grassNormalTexture
+        textures.normal = application.resources.items.dirtNormal
         textures.normal.repeat.set(1.5, 1.5)
         textures.normal.wrapS = THREE.RepeatWrapping
         textures.normal.wrapT = THREE.RepeatWrapping

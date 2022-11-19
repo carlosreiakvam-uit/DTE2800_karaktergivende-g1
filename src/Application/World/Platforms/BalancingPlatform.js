@@ -11,10 +11,19 @@ export default class BalancingPlatform {
         this.physics = this.application.physics
         this.mass = 1
         this.x = startPos.x
-        let platform = new Box(startPos, scale, color, 1, 'platform')
+
+        let platform = new Box(
+            startPos,
+            scale,
+            1,
+            this.application.resources.items.dirtTexture,
+            this.application.resources.items.dirtNormal,
+            'platform')
+
         let anchor = new Sphere(
             {x: startPos.x, y: startPos.y - scale.y, z: startPos.z},
             {x: scale.x / 12, y: scale.x / 12, z: scale.x / 12}, color, 0, 'anchor')
+
         anchor.rigidBody.setFriction(0)
 
         this.addHingeConstraints(platform, anchor)
