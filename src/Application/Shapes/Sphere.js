@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import Application from "../../Application.js";
-import Animations from "../../Animations.js";
+import Application from "../Application.js";
+import Animations from "../Animations.js";
 
 export default class Sphere {
     constructor(position, scale, color, mass, name) {

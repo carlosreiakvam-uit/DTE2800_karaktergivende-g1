@@ -1,6 +1,6 @@
 import Application from '../Application.js'
 import Environment from './Environment.js'
-import Floor from './Floor.js'
+import Floor from './Platforms/Floor.js'
 import Player from "./Player/Player.js";
 import Healthbar from "./HUD/HealthBar";
 import {addLandingPageMenu} from "./Menu/LandingPage";

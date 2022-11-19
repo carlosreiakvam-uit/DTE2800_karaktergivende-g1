@@ -25,6 +25,12 @@ export default [
         path: 'textures/dirt/normal.jpg'
     },
     {
+        name: 'dirtDisplacement',
+        type: 'texture',
+        path: 'textures/displacementFromMap/jotunheimen_01.png'
+    },
+
+    {
         name: "blackDirtyTexture",
         type: "texture",
         path: "textures/blackDirtyMetal/texture.jpg"

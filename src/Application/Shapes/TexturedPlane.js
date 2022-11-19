@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import Application from '../Application.js'
 
-export default class Floor {
-    constructor(width, length, position = {x: 0, y: 0, z: 0}) {
+export default class TexturedPlane {
+    constructor(width, length, position = {x: 0, y: 0, z: 0}, textures={},segments = {w: 512, h: 512}) {
         this.application = new Application()
         this.position = position
         this.scene = this.application.scene
@@ -10,22 +10,22 @@ export default class Floor {
         this.physics = application.physics
         this.width = width;
         this.length = length;
+        this.textures = textures
 
-        this.setGeometry()
+        this.setGeometry(segments)
         this.setTextures()
         this.setMaterial()
         this.setMesh()
         this.setAmmo()
     }
 
-    setGeometry() {
-        this.geometry = new THREE.PlaneGeometry(this.width, this.length, 1, 1)
+    setGeometry(segments) {
+        this.geometry = new THREE.PlaneGeometry(this.width, this.length, segments.w, segments.h)
     }
 
     setTextures() {
-        this.textures = {}
-        this.textures.color = this.resources.items.dirtTexture
-        this.textures.color.encoding = THREE.sRGBEncoding
+        this.textures.color =
+            this.textures.color.encoding = THREE.sRGBEncoding
         this.textures.color.repeat.set(1.5, 1.5)
         this.textures.color.wrapS = THREE.RepeatWrapping
         this.textures.color.wrapT = THREE.RepeatWrapping
@@ -34,6 +34,9 @@ export default class Floor {
         this.textures.normal.repeat.set(1.5, 1.5)
         this.textures.normal.wrapS = THREE.RepeatWrapping
         this.textures.normal.wrapT = THREE.RepeatWrapping
+
+        this.textures.displacement = this.resources.items.dirtDisplacement
+
     }
 
     setMaterial() {
@@ -41,6 +44,8 @@ export default class Floor {
             map: this.textures.color,
             normalMap: this.textures.normal
         })
+        this.material.displacementMap = this.textures.displacement
+        this.material.displacementScale = 3.6
     }
 
     setMesh() {
