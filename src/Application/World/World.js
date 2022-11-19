@@ -28,15 +28,11 @@ export default class World {
             this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 10, y: 0.2, z: 5})
             new BalancingPlatform({x: -10, y: -0.5, z: 0}, {x: 9, y: 0.2, z: 2})
-            new BoxPlatform({x: -20, y: 2.5, z: 0}, {x: 8, y: 0.2, z: 8},
-                this.resources.items.dirtTexture,
-                this.resources.items.dirtNormal)
-
-            new Floor(5, 5)
-            new Floor(5, 5, {x: 25, y: 0, z: 15})
-            new Floor(20, 20, {x: 15, y: 0, z: 0})
-            new Floor(5, 5, {x: 25, y: 0, z: 15})
-            new Floor(5, 5, {x: 30, y: 0, z: 0})
+            new BoxPlatform({x: -20, y: 2.5, z: 0}, {x: 8, y: 0.2, z: 8})
+            new BoxPlatform({x: 0, y: -0.2, z: 0}, {x: 5, y: 0.2, z: 5})
+            new BoxPlatform({x: 25, y: -0.2, z: 15}, {x: 5, y: 0.2, z: 5})
+            new BoxPlatform({x: 15, y: -0.2, z: 0}, {x: 20, y: 0.2, z: 20})
+            new BoxPlatform({x: 30, y: -0.2, z: 0}, {x: 5, y: 0.2, z: 5})
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.testObjects = new TestObjects()
             this.environment = new Environment()

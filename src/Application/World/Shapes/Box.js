@@ -3,13 +3,11 @@ import Application from "../../Application.js";
 import Animations from "../../Animations.js";
 
 export default class Box {
-    constructor(position, scale, mass, texture, textureNormal, name) {
+    constructor(position, scale, mass, texture = null, textureNormal = null, name) {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
-        this.texture = texture
-        console.log(this.texture)
-        this.textureNormal = textureNormal
+
 
         this.setGeometry()
         this.setTextures(texture, textureNormal)
@@ -37,7 +35,20 @@ export default class Box {
         this.mesh.receiveShadow = true;
     }
 
-    setTextures() {
+    setTextures(texture, textureNormal) {
+        console.log(texture)
+        if (texture == null) {
+            this.texture = this.application.resources.items.dirtTexture
+        } else {
+            this.texture = texture
+        }
+        if (textureNormal == null) {
+            this.textureNormal = this.application.resources.items.dirtNormal
+        } else {
+            this.textureNormal = textureNormal
+        }
+
+
         this.textures = {}
         this.textures.color = this.texture
         this.textures.color.encoding = THREE.sRGBEncoding
