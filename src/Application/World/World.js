@@ -11,6 +11,8 @@ import FireWall from "./Moving Enemies/FireWall.js";
 import TestObjects from "./TestObjects/TestObjects";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import BoxPlatform from "./Platforms/BoxPlatform";
+import ComplexPlatform from "./Platforms/ComplexPlatform.js";
+import Box from "../Shapes/Box";
 
 export default class World {
     constructor() {
@@ -28,17 +30,23 @@ export default class World {
             this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 10, y: 0.2, z: 5})
             new BalancingPlatform({x: -10, y: -0.5, z: 0}, {x: 9, y: 0.2, z: 2})
-            new BoxPlatform({x: -20, y: 2.5, z: 0}, {x: 8, y: 0.2, z: 8})
-            new BoxPlatform({x: 0, y: -0.2, z: 0}, {x: 5, y: 0.2, z: 5})
-            new BoxPlatform({x: 25, y: -0.2, z: 15}, {x: 5, y: 0.2, z: 5})
-            new BoxPlatform({x: 15, y: -0.2, z: 0}, {x: 20, y: 0.2, z: 20})
-            new BoxPlatform({x: 30, y: -0.2, z: 0}, {x: 5, y: 0.2, z: 5})
+            this.addPlatforms()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.testObjects = new TestObjects()
             this.environment = new Environment()
             this.player = new Player()
             this.ready = true;
         })
+    }
+
+    addPlatforms() {
+        const a = new Box({position: {x: -20, y: 2.5, z: 0}, scale: {x: 8, y: 0.2, z: 8}, mass: 0, name: 'ape'})
+        const b = new Box({position: {x: 25, y: -0.2, z: 15}, scale: {x: 5, y: 0.2, z: 5}})
+        const c = new Box({position: {x: 15, y: -0.2, z: 0}, scale: {x: 20, y: 0.2, z: 20}})
+        const d = new Box({position: {x: 0, y: -0.2, z: 0}, scale: {x: 5, y: 0.2, z: 5}})
+        this.application.scene.add(a.mesh, b.mesh, c.mesh, d.mesh)
+        // new BoxPlatform({x: 30, y: -0.2, z: 0}, {x: 5, y: 0.2, z: 5})
+
     }
 
     update() {

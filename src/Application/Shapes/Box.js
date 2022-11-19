@@ -5,10 +5,10 @@ export default class Box {
     constructor({
                     position = {x: 0, y: 0, z: 0},
                     scale = {x: 0, y: 0, z: 0},
-                    mass,
                     name,
-                    geometry = undefined,
-                    material = undefined,
+                    mass = 0,
+                    geometry,
+                    material,
                 }) {
 
         this.application = new Application()
@@ -17,6 +17,7 @@ export default class Box {
 
         material === undefined ? this.setMaterial() : this.material = material
         geometry === undefined ? this.setGeometry() : this.geometry = geometry
+
         this.setMesh(position, scale, name)
         this.setPhysics(position)
 
