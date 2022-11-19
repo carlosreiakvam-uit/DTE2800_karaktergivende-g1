@@ -27,7 +27,7 @@ export default class BalancingPlatform {
         anchor.rigidBody.setFriction(0)
 
         this.addHingeConstraints(platform, anchor)
-        arrowHelper.addArrowToWorldPositiveZ(platform.mesh)
+        // arrowHelper.addArrowToWorldPositiveZ(platform.mesh)
 
         this.application.scene.add(platform.mesh, anchor.mesh)
     }
