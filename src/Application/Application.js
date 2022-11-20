@@ -4,17 +4,16 @@ import Sizes from './Utils/Sizes.js'
 import Time from './Utils/Time.js'
 import Camera from './Camera.js'
 import Renderer from './Renderer.js'
-import World_01 from './World/World_01.js'
+import WorldA from './World/WorldA.js'
 import Resources from './Utils/Resources.js'
 
-import sources from './sources.js'
 import Animations from "./Animations.js";
 import KeyPress from "./Utils/KeyPress.js";
 import GUI from "lil-gui";
 import Physics from "./World/Physics.js";
 import Audio from "./Utils/Audio.js"
 import Stats from 'stats.js'
-import ThreeAmmoGlobalObjects from "./Shapes/ThreeAmmoGlobalObjects";
+import ThreeAmmoGlobalObjects from "./Utils/ThreeAmmoGlobalObjects";
 
 let instance = null
 
@@ -26,47 +25,43 @@ export default class Application {
         }
         instance = this
 
-        // Global access
-        window.application = this
-
-        // Options
+        window.application = this // global access
         this.canvas = _canvas
 
-
-        // Stats
+        // fps stats
         this.stats = new Stats()
         this.stats.showPanel(0, 1, 2); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
 
-        // global
-        this.globs = new ThreeAmmoGlobalObjects()
-
-        // Setup
+        // setup
         this.audio = new Audio()
         this.physics = new Physics()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
-        this.resources = new Resources(sources)
+        this.resources = new Resources()
         this.tween = require('@tweenjs/tween.js');
         this.camera = new Camera()
         this.renderer = new Renderer()
-        this.world = new World_01()
+        this.world = new WorldA()
         this.animations = new Animations()
         this.keypress = new KeyPress()
         this.setupLilGui();
+
+
+
 
         // Resize event
         this.sizes.on('resize', () => {
             this.resize()
         })
 
-        // Time tick event
+        // Run animation loop on tick
         this.time.on('tick', () => {
             this.update()
-
         })
     }
+
 
     resize() {
         this.camera.resize()

@@ -1,5 +1,3 @@
-// texture sources
-
 export default [
     {
         name: 'environmentMapTexture',

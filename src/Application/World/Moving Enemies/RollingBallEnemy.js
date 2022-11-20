@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
+import * as Constant from "../../Utils/constants.js";
+
 
 export default class RollingBallEnemy {
     constructor(position, scale, color, mass, name) {
@@ -38,7 +40,7 @@ export default class RollingBallEnemy {
     }
 
     setGeometry() {
-        this.geometry =new THREE.SphereGeometry(1, 32, 32);
+        this.geometry = new THREE.SphereGeometry(1, 32, 32);
     }
 
     setMesh(position, scale, name) {
@@ -50,7 +52,7 @@ export default class RollingBallEnemy {
         this.mesh.collisionResponse = (mesh1) => {
             mesh1.material.color.setHex(Math.random() * 0xffffff);
             let hero = this.application.world.player.t
-            if(hero !== undefined) {
+            if (hero !== undefined) {
                 this.takeDamageOnHero(hero)
             }
         };
@@ -60,14 +62,14 @@ export default class RollingBallEnemy {
         let shape = new Ammo.btSphereShape(1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_BOX, this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }
 
     update() {
         let hero = this.application.world.player.t
-        if(hero !== undefined) {
+        if (hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
         }
     }
@@ -91,15 +93,15 @@ export default class RollingBallEnemy {
     }
 
     adjustTrajectoryOfThis() {
-        if(this.xDifference > 0 )  {
-            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x:0.015, y: 0, z: 0})
-        } else  {
+        if (this.xDifference > 0) {
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0.015, y: 0, z: 0})
+        } else {
             this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.015, y: 0, z: 0})
         }
 
-        if(this.zDifference > 0)  {
+        if (this.zDifference > 0) {
             this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.015})
-        } else  {
+        } else {
             this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.015})
         }
     }
@@ -124,18 +126,18 @@ export default class RollingBallEnemy {
     checkHeroAndThisInteraction(hero) {
         this.updatePositions(hero)
 
-        if(!this.isActivated) {
+        if (!this.isActivated) {
             this.isActivated = this.checkIfHeroAndThisEntityAreClose(this.aggroRange)
         }
 
-        if(this.isActivated) {
+        if (this.isActivated) {
             this.adjustTrajectoryOfThis();
         }
 
     }
 
     takeDamageOnHero() {
-        if(this.application.world.player.health > 0) {
+        if (this.application.world.player.health > 0) {
             this.application.world.player.health -= 1
         } else {
             this.deactivateEnemy();

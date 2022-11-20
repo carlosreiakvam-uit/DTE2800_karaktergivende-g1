@@ -12,14 +12,15 @@ import TestObjects from "./TestObjects/TestObjects";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import BoxPlatform from "./Platforms/BoxPlatform";
 import ComplexPlatform from "./Platforms/ComplexPlatform.js";
-import CustomShape from "../Shapes/CustomShape";
+import Box from "./Platforms/PlatformShapes/Box";
 import * as THREE from "three";
-import ThreeAmmoGlobalObjects from "../Shapes/ThreeAmmoGlobalObjects";
+import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
+import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 
-export default class World_01 {
+export default class WorldA {
     constructor() {
         this.application = new Application()
-        this.globs = new ThreeAmmoGlobalObjects()
+        this.physics = this.application.physics
         this.time = new Time();
         this.scene = this.application.scene
         this.resources = this.application.resources
@@ -28,11 +29,11 @@ export default class World_01 {
 
         // Wait for resources
         this.resources.on('ready', async () => {
-            //new Coordinates()
             await addLandingPageMenu(this.application)
             await addSkyBox(this.scene)
+            this.globs = new ThreeAmmoGlobalObjects()
             this.fireWall = new FireWall(this.application)
-            this.lava = new Lava({x: 10, y: 0.2, z: 5})
+            this.lava = new Lava({x: 10, y: 0.1, z: 5})
             this.addPlatforms()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.testObjects = new TestObjects()
@@ -45,35 +46,34 @@ export default class World_01 {
     addPlatforms() {
         // new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
-        const trial = new CustomShape({
-            position: {x: 0, y: 0, z: 0},
-            scale: {x: 30, y: 0.2, z: 30},
-            geometry: this.globs.boxGeometry
+        const a = new Box({
+            position: {x: 15, y: 0, z: 0},
+            scale: {x: 20, y: 0.2, z: 20},
+            material: this.globs.dirtMaterial,
         })
 
-        // const a = new CustomShape({
-        //     position: {x: -20, y: 2.5, z: 0},
-        //     scale: {x: 8, y: 0.2, z: 8},
-        //     geometry: this.globs.boxGeometry
-        // })
-        // const b = new CustomShape({
-        //     position: {x: 25, y: -0.2, z: 12},
-        //     scale: {x: 5, y: 0.2, z: 2},
-        //     geometry: this.globs.cylinderGeometry
-        // })
-        // const c = new CustomShape({
-        //     position: {x: 15, y: -0.2, z: 0},
-        //     scale: {x: 20, y: 0.2, z: 20, geometry: this.globs.boxGeometry}
-        // })
-        // const d = new CustomShape({
-        //     position: {x: 0, y: -0.2, z: 0},
-        //     scale: {x: 5, y: 0.2, z: 5},
-        //     geometry: this.globs.boxGeometry
-        // })
-        // const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
-        // this.application.scene.add(a.mesh, b.mesh, c.mesh, d.mesh)
-        this.application.scene.add(trial.mesh)
+        const b = new Cylinder({
+            position: {x: -20, y: 0, z: 0},
+            scale: {x: 3, y: 0.2, z: 3},
+            material: this.globs.dirtMaterial,
+            radius: 1
+        })
 
+        const c = new Box({
+            position: {x: 25, y: 0, z: 12},
+            scale: {x: 5, y: 0.2, z: 5},
+            material: this.globs.dirtMaterial,
+        })
+
+
+        const d = new Box({
+            position: {x: 0, y: 0, z: 0},
+            scale: {x: 5, y: 0.2, z: 5},
+            material: this.globs.dirtMaterial,
+        })
+
+        // const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
+        this.application.scene.add(a.mesh, b.mesh, c.mesh, d.mesh)
     }
 
     update() {

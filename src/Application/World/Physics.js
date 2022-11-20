@@ -16,8 +16,6 @@ export default class Physics {
         this.world.getBroadphase().getOverlappingPairCache().setInternalGhostPairCallback(new Ammo.btGhostPairCallback())
 
         this.rigidBodies = []
-        this.COL_GROUP_PLANE = 1;
-        this.COL_GROUP_BOX = 2;
     }
 
 
@@ -67,7 +65,7 @@ export default class Physics {
         return rigidBody;
     }
 
-    applyCentralForce(rigidBody, direction = {x:0, y:1, z:0}) {
+    applyCentralForce(rigidBody, direction = {x: 0, y: 1, z: 0}) {
         if (!rigidBody)
             return;
         rigidBody.activate(true);
@@ -93,7 +91,7 @@ export default class Physics {
     //     rigidBody.applyCentralImpulse(impulseVector);
     // }
 
-    applyImpulse(rigidBody, direction = {x:0, y:1, z:0}) {
+    applyImpulse(rigidBody, direction = {x: 0, y: 1, z: 0}) {
         if (!rigidBody)
             return;
         rigidBody.activate(true);
@@ -113,12 +111,12 @@ export default class Physics {
         // Finner alle mulige kollisjonspunkter/kontaktpunkter (broad phase):
         let numManifolds = this.world.getDispatcher().getNumManifolds();
         // Gjennomløper alle kontaktpunkter:
-        for (let i=0; i < numManifolds;i++) {
+        for (let i = 0; i < numManifolds; i++) {
             // contactManifold er et btPersistentManifold-objekt:
-            let contactManifold =  this.world.getDispatcher().getManifoldByIndexInternal(i);
+            let contactManifold = this.world.getDispatcher().getManifoldByIndexInternal(i);
 
             let numContacts = contactManifold.getNumContacts();
-            if (numContacts>0) {
+            if (numContacts > 0) {
                 // Henter objektene som er involvert:
                 // getBody0() og getBody1() returnerer et btCollisionObject,
                 // gjøres derfor om til btRigidBody-objekter vha. Ammo.castObject():
@@ -147,13 +145,13 @@ export default class Physics {
                                     manifoldIndex: i,
                                     contactIndex: j,
                                     distance: distance,
-                                    object0:{
+                                    object0: {
                                         tag: threeMesh0.name,
                                         velocity: {x: velocity0.x(), y: velocity0.y(), z: velocity0.z()},
                                         worldPos: {x: worldPos0.x(), y: worldPos0.y(), z: worldPos0.z()},
                                         localPos: {x: localPos0.x(), y: localPos0.y(), z: localPos0.z()}
                                     },
-                                    object1:{
+                                    object1: {
                                         tag: threeMesh1.name,
                                         velocity: {x: velocity1.x(), y: velocity1.y(), z: velocity1.z()},
                                         worldPos: {x: worldPos1.x(), y: worldPos1.y(), z: worldPos1.z()},

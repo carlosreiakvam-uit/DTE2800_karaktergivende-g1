@@ -1,10 +1,11 @@
 import Application from "../../Application.js";
 import * as THREE from 'three'
 import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
+import * as Constant from "../../Utils/constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 0, y: 0, z: 0}) {
+    constructor(position = {x: 0, y: 0.2, z: 0}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
@@ -66,8 +67,8 @@ export default class Player {
 
         this.controller.setGravity(9.81)
 
-        this.physics.world.addCollisionObject(this.ghostObject, this.physics.COL_GROUP_BOX,
-            this.physics.COL_GROUP_BOX | this.physics.COL_GROUP_PLANE);
+        this.physics.world.addCollisionObject(this.ghostObject, Constant.COL_GROUP_PLAYER,
+            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);
@@ -126,7 +127,7 @@ export default class Player {
             this.makePlayerRespawn()
         }
 
-        if(this.health <= 0) {
+        if (this.health <= 0) {
             this.makePlayerRespawn()
         }
 

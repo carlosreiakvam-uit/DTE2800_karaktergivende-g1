@@ -2,19 +2,18 @@ import * as THREE from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader.js";
+import sources from "../sources.js";
 
 export default class Resources extends EventEmitter {
-    constructor(sources) {
+    constructor() {
         super()
-
         this.sources = sources
-
         this.items = {}
         this.toLoad = this.sources.length
         this.loaded = 0
 
-        this.setLoaders()
-        this.startLoading()
+        this.setLoaders(sources)
+        this.startLoading(sources)
     }
 
     setLoaders() {

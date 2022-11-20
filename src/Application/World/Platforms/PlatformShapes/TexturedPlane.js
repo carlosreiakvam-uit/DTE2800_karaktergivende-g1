@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Application from '../Application.js'
+import Application from '../../../Application.js'
 
 export default class TexturedPlane {
     constructor(width, length, position = {x: 0, y: 0, z: 0}, textures={},segments = {w: 512, h: 512}) {

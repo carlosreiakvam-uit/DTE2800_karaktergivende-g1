@@ -6,26 +6,6 @@ import BonusPoint from "../FriendlyItems/BonusPoint";
 export default class TestObjects {
     constructor() {
         this.application = new Application()
-
-        // this.cubeHero = new CubeHero(
-        //     {x: -2, y: 0.5, z: 0},
-        //     0xff0000
-        // )
-        // this.fallingBlock = new Cube(
-        //     {x: 0, y: 10, z: 0},
-        //     {x: 1, y: 1, z: 1},
-        //     0xff00ff,
-        //     1,
-        //     'fallingCube')
-
-        // this.staticEnemy1 = new StaticEnemy1(
-        //     {x: -2, y: 0.5, z: 0},
-        //     {x: 4, y: 0.5, z: 1},
-        //     0xffff00,
-        //     1,
-        //     'staticEnemy1'
-        // )
-
         this.allBonusPoints = []
 
         for(let i = -5; i< 10; i++) {

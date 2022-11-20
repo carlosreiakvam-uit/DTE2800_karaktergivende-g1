@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import Application from '../../Application.js'
+import * as Constant from "../../Utils/constants.js";
+
 
 export default class Floor {
     constructor(width, length, position = {x: 0, y: 0, z: 0}) {
@@ -65,7 +67,7 @@ export default class Floor {
 
         this.mesh.userData.physicsBody = this.rigidBody;
 
-        this.physics.world.addRigidBody(this.rigidBody, this.physics.COL_GROUP_PLANE, this.physics.COL_GROUP_BOX);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE, Constant.COL_GROUP_BOX);
 
         this.physics.rigidBodies.push(this.mesh)
         this.rigidBody.threeMesh = this.mesh

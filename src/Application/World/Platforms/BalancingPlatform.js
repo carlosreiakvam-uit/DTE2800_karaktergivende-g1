@@ -1,17 +1,16 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import CustomShape from "../../Shapes/CustomShape.js"
-import ThreeAmmoGlobalObjects from "../../Shapes/ThreeAmmoGlobalObjects";
+import Box from "./PlatformShapes/Box.js"
 
 export default class BalancingPlatform {
     constructor(startPos = {x: 0, y: 0, z: 0}, color = 0xff00ff, name) {
         this.application = new Application()
-        this.globs = new ThreeAmmoGlobalObjects()
+        this.globs = this.application.globs
         this.physics = this.application.physics
         this.mass = 1
         this.x = startPos.x
 
-        let platform = new CustomShape(
+        let platform = new Box(
             {
                 position: startPos,
                 scale: {x: 8, y: 1, z: 1},
@@ -20,7 +19,7 @@ export default class BalancingPlatform {
                 geometry: new THREE.BoxGeometry(1, 1, 1, 128, 128)
             })
 
-        let anchor = new CustomShape(
+        let anchor = new Box(
             {
                 position: {x: startPos.x, y: startPos.y - 0.5, z: startPos.z},
                 scale: {x: 1, y: 1, z: 1},
