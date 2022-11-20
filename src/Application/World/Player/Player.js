@@ -5,7 +5,7 @@ import * as Constant from "../../Utils/constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 0, y: 0.2, z: 0}) {
+    constructor(position = {x: 0, y: 0.5, z: 0}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
@@ -108,7 +108,7 @@ export default class Player {
             direction * Math.cos(this.player.rotation.z) * speed
         ));
         this.t = this.controller.getGhostObject().getWorldTransform();
-        this.player.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() - 0.85, this.t.getOrigin().z());
+        this.player.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() -0.85, this.t.getOrigin().z());
 
         this.application.animations.direction = 0;
         this.application.animations.rotation = 0;
@@ -157,9 +157,9 @@ export default class Player {
                     const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
                     if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
                         // play hit-sound
-                        // if (!this.application.audio.point.isPlaying) {
-                        //     this.application.audio.point.play();
-                        // }
+                        if (!this.application.audio.point.isPlaying) {
+                            this.application.audio.point.play();
+                        }
 
 
                         console.log("contact:", contactBody.threeMesh.name)

@@ -44,7 +44,7 @@ export default class WorldA {
     }
 
     addPlatforms() {
-        // new BalancingPlatform({x: -10, y: -0.5, z: 0})
+        new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
         const a = new Box({
             position: {x: 15, y: 0, z: 0},
@@ -67,7 +67,7 @@ export default class WorldA {
 
 
         const d = new Box({
-            position: {x: 0, y: 0, z: 0},
+            position: {x: 0, y: -0.2, z: 0},
             scale: {x: 5, y: 0.2, z: 5},
             material: this.globs.dirtMaterial,
         })

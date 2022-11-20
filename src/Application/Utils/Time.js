@@ -22,8 +22,8 @@ export default class Time extends EventEmitter {
         this.delta = this.clock.getDelta()
         this.trigger('tick')
 
-        this.application.stats.end() // fps measurement end
 
+        this.application.stats.end() // fps measurement end
         window.requestAnimationFrame(() => {
             this.tick()
         })
