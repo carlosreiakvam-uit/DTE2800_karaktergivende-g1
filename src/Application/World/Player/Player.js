@@ -68,13 +68,13 @@ export default class Player {
         this.controller.setGravity(9.81)
 
         this.physics.world.addCollisionObject(this.ghostObject, Constant.COL_GROUP_PLAYER,
-            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX);
+            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);
         this.controller.setJumpSpeed(4);
         this.controller.setFallSpeed(55);
-        this.controller.setMaxSlope(45);
+        this.controller.setMaxSlope(35);
     }
 
     setAction(toAction) {
@@ -89,7 +89,7 @@ export default class Player {
     }
 
     update() {
-        this.checkCollisions()
+
         let direction = this.application.animations.direction;
         let rotation = this.application.animations.rotation;
         if (direction !== 0 || rotation !== 0) {
@@ -132,6 +132,8 @@ export default class Player {
         }
 
         this.mixer.update(this.application.time.delta)
+
+        this.checkCollisions()
     }
 
     makePlayerRespawn() {
@@ -157,9 +159,9 @@ export default class Player {
                     const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
                     if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
                         // play hit-sound
-                        if (!this.application.audio.point.isPlaying) {
-                            this.application.audio.point.play();
-                        }
+                        // if (!this.application.audio.point.isPlaying) {
+                        //     this.application.audio.point.play();
+                        // }
 
 
                         console.log("contact:", contactBody.threeMesh.name)
