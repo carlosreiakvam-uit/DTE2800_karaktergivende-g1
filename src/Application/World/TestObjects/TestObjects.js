@@ -8,10 +8,10 @@ export default class TestObjects {
         this.application = new Application()
         this.allBonusPoints = []
 
-        for(let i = -5; i< 10; i++) {
+        for(let i = -5; i< 3; i++) {
             let name = "bonus"+i
             this.allBonusPoints[i] = new BonusPoint(
-                {x: 20-i, y: 10, z: i},
+                {x: 18-i, y: 1, z: i},
                 1,0x00FF00,0.1,
                 name)
         }
@@ -27,7 +27,7 @@ export default class TestObjects {
     update() {
         //this.staticEnemy1.update()
         this.movingEnemy1.update();
-        for(let i = -5; i < 10; i++) {
+        for(let i = -5; i < 3; i++) {
             this.allBonusPoints[i].update();
         }
     }
