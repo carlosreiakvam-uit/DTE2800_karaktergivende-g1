@@ -1,6 +1,4 @@
 import Application from "../../Application.js";
-import Time from "../../Utils/Time.js";
-import Box from "../Platforms/PlatformShapes/Box.js";
 import * as THREE from "three";
 import * as Constant from "../../Utils/constants.js";
 
@@ -47,12 +45,12 @@ export class RotatingWall {
         const biasFactor = 0.3;
         const relaxationFactor = 0;
         hingeConstraint.setLimit(lowerLimit, upperLimit, softness, biasFactor, relaxationFactor);
-        hingeConstraint.enableAngularMotor(true, 0, 0.5);
+        hingeConstraint.enableAngularMotor(true, 0, 0);
         this.application.physics.world.addConstraint(hingeConstraint, false);
     }
 
     createWall(position, scale, name) {
-        const mass = 10;
+        const mass = 1;
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(scale.x, scale.y, scale.z), this.material)
         mesh.name = name
         // mesh.scale.set(scale.x, scale.y, scale.z)
@@ -83,7 +81,7 @@ export class RotatingWall {
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(mesh_width / 2, mesh_height / 2, mesh_depth / 2));
         shape.setMargin(0.05);
         const rigidBody = this.application.physics.createRigidBody(shape, mesh, 0.3, 0.0, position, mass);
-        rigidBody.setDamping(0.1, 0.5);
+        //rigidBody.setDamping(0.1, 0.5);
         rigidBody.setActivationState(4);
         mesh.userData.physicsBody = rigidBody;
 
@@ -160,8 +158,8 @@ export class RotatingWall {
 
         this.wall.activate(true);
 
-        const relativeVector = new Ammo.btVector3(2.5, 0, 0);
-        const impulseVector = new Ammo.btVector3(direction.x * 0.2, 0, direction.z * 0.2);
+        const relativeVector = new Ammo.btVector3(5, 0, 0);
+        const impulseVector = new Ammo.btVector3(direction.x * 0.01, 0, direction.z * 0.01);
         this.wall.applyImpulse(impulseVector, relativeVector);
     }
 
