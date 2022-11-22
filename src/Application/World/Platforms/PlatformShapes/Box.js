@@ -18,6 +18,7 @@ export default class Box {
         this.mass = mass
         this.geometry = new ThreeAmmoGlobalObjects().boxGeometry
         this.material = material
+        this.allCollected = false;
 
         this.setMesh(position, scale, name)
         this.setPhysics(position, scale)

@@ -16,7 +16,6 @@ export default class BonusPoint {
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.taken = false;
-        this.plattformName = "smthing";
     }
 
     setMaterial(color) {
@@ -52,8 +51,9 @@ export default class BonusPoint {
     }
 
     update() {
+
         this.doFloatingAnimation()
-        if (this.mesh.position.y > this.position + 10) {
+        if (this.mesh.position.y > this.position.y + 10) {
             this.physics.rigidBodies = this.physics.rigidBodies.filter(x => x !== this.mesh);
             this.taken = true;
             this.application.scene.remove(this.mesh);
@@ -76,6 +76,6 @@ export default class BonusPoint {
     }
 
     makeThisFloatAway(rigidBody) {
-        this.application.physics.applyImpulse(rigidBody, {x: 0, y: 1, z: 0});
+        this.application.physics.applyImpulse(rigidBody, {x: 0.1, y: 0.5, z: 0});
     }
 }
