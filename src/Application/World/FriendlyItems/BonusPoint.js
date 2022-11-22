@@ -15,6 +15,7 @@ export default class BonusPoint {
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
+        this.taken = false;
     }
 
     setMaterial(color) {
@@ -34,6 +35,7 @@ export default class BonusPoint {
         this.application.scene.add(this.mesh)
         this.mesh.collisionResponse = (mesh1) => {
             this.makeThisFloatAway(mesh1.userData.physicsBody)
+            this.taken = true;
         };
     }
 
@@ -49,21 +51,31 @@ export default class BonusPoint {
     }
 
     update() {
+
         this.doFloatingAnimation()
-        if (this.mesh.position.y > 10) {
+        if (this.mesh.position.y > this.position.y + 10) {
             this.physics.rigidBodies = this.physics.rigidBodies.filter(x => x !== this.mesh);
+            this.taken = true;
             this.application.scene.remove(this.mesh);
+        }
+
+        if(
+            this.mesh.position.x > this.position.x + 1 || this.mesh.position.x < this.position.x - 1 ||
+            this.mesh.position.z > this.position.z + 1 || this.mesh.position.z < this.position.z - 1 ||
+            this.mesh.position.y > this.position.y + 5 || this.mesh.position.y < this.position.y - 5
+        ) {
+            this.makeThisFloatAway(this.mesh.userData.physicsBody)
         }
     }
 
 
     doFloatingAnimation() {
-        if (this.rigidBody.threeMesh.position.y < 1) {
+        if (this.rigidBody.threeMesh.position.y < this.position.y - 0.5) {
             this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0.02, z: 0});
         }
     }
 
     makeThisFloatAway(rigidBody) {
-        this.application.physics.applyImpulse(rigidBody, {x: 0, y: 1, z: 0});
+        this.application.physics.applyImpulse(rigidBody, {x: 0.1, y: 0.5, z: 0});
     }
 }

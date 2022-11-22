@@ -17,13 +17,13 @@ export default class Time extends EventEmitter {
     }
 
     tick() {
-        this.application.stats.begin() // fps measurement start
+        //this.application.stats.begin() // fps measurement start
 
         this.delta = this.clock.getDelta()
         this.trigger('tick')
 
 
-        this.application.stats.end() // fps measurement end
+        //this.application.stats.end() // fps measurement end
         window.requestAnimationFrame(() => {
             this.tick()
         })

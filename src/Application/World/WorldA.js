@@ -1,6 +1,5 @@
 import Application from '../Application.js'
 import Environment from './Environment.js'
-import Floor from './Platforms/Floor.js'
 import Player from "./Player/Player.js";
 import Healthbar from "./HUD/HealthBar";
 import {addLandingPageMenu} from "./Menu/LandingPage";
@@ -8,10 +7,8 @@ import {addSkyBox} from "./BackGroundSkyBox";
 import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
 import FireWall from "./Moving Enemies/FireWall.js";
-import TestObjects from "./TestObjects/TestObjects";
+import BonusPointHandler from "./TestObjects/BonusPointHandler";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
-import BoxPlatform from "./Platforms/BoxPlatform";
-import ComplexPlatform from "./Platforms/ComplexPlatform.js";
 import Box from "./Platforms/PlatformShapes/Box";
 import * as THREE from "three";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
@@ -25,6 +22,7 @@ export default class WorldA {
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.ready = false;
+        this.allCollected = false;
 
 
         // Wait for resources
@@ -36,10 +34,13 @@ export default class WorldA {
             this.lava = new Lava({x: 10, y: 0.1, z: 5})
             this.addPlatforms()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
-            this.testObjects = new TestObjects()
+            this.bonusPointHandler = new BonusPointHandler()
+            this.bonusPointHandler.spawnFirstPlatformBonusPoints();
             this.environment = new Environment()
             this.player = new Player()
             this.ready = true;
+            this.secondPlatformAdded = false;
+            this.thirdPlatformAdded = false;
         })
     }
 
@@ -49,6 +50,7 @@ export default class WorldA {
         const a = new Box({
             position: {x: 15, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
+            name: "first",
             material: this.globs.dirtMaterial,
         })
 
@@ -65,25 +67,63 @@ export default class WorldA {
             material: this.globs.dirtMaterial,
         })
 
-
         const d = new Box({
             position: {x: 0, y: -0.2, z: 0},
             scale: {x: 5, y: 0.2, z: 5},
+            name: "start",
             material: this.globs.dirtMaterial,
         })
 
-        // const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
-        this.application.scene.add(a.mesh, b.mesh, c.mesh, d.mesh)
+        //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
+        this.application.scene.add(
+            a.mesh,
+            b.mesh,
+            c.mesh,
+            d.mesh
+        )
     }
 
     update() {
         if (this.ready) {
             this.environment.update();
-            this.testObjects.update();
+            this.bonusPointHandler.update();
             this.player.update();
             this.healthbar.update();
             this.lava.update();
             this.fireWall.update();
+
+            if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
+                this.spawnSecondPlatform()
+            }
+
+            if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+               this.spawnThirdPlatForm();
+            }
         }
+    }
+
+    spawnSecondPlatform() {
+        const a = new Box({
+            position: {x: 40, y: 0, z: 0},
+            scale: {x: 20, y: 0.2, z: 20},
+            name: "second",
+            material: this.globs.dirtMaterial,
+        })
+
+        this.secondPlatformAdded = true
+        this.bonusPointHandler.spawnSecondPlatformBonusPoints()
+        this.application.scene.add(a.mesh);
+    }
+
+    spawnThirdPlatForm() {
+        const b = new Box({
+            position: {x: 65, y: 0, z: 0},
+            scale: {x: 20, y: 0.2, z: 20},
+            name: "third",
+            material: this.globs.dirtMaterial,
+        })
+        this.thirdPlatformAdded = true
+        this.bonusPointHandler.spawnThirdPlatformBonusPoints()
+        this.application.scene.add(b.mesh);
     }
 }
