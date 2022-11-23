@@ -138,7 +138,7 @@ export default class RollingBallEnemy {
 
     takeDamageOnHero() {
         if (this.application.world.player.health > 0) {
-            this.application.world.player.health -= 1
+            this.application.world.player.health -= 2
         } else {
             this.deactivateEnemy();
             this.reset();
