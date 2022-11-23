@@ -2,6 +2,7 @@ import Application from "../../Application.js";
 import * as THREE from 'three'
 import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
 import * as Constant from "../../Utils/constants.js";
+import Box from "../Platforms/PlatformShapes/Box";
 
 
 export default class Player {
@@ -16,7 +17,7 @@ export default class Player {
         this.player.name = "hero"
         this.application.scene.add(this.player)
         this.activeAction.play();
-        this.setPhysics({x: 2, y: 0, z: 0})
+        this.setPhysics(position)
         this.health = 100
     }
 
@@ -38,7 +39,7 @@ export default class Player {
         return player.scene.children[0]
     }
 
-    setPhysics() {
+    setPhysics(position) {
 
         let shape = new Ammo.btCapsuleShape(0.5, 0.8);
         this.ghostObject = new Ammo.btPairCachingGhostObject();

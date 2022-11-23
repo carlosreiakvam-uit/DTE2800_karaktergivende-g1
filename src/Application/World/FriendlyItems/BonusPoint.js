@@ -68,7 +68,6 @@ export default class BonusPoint {
         }
     }
 
-
     doFloatingAnimation() {
         if (this.rigidBody.threeMesh.position.y < this.position.y - 0.5) {
             this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0.02, z: 0});
