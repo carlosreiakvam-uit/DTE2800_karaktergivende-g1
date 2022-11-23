@@ -30,7 +30,7 @@ export default class WorldA {
         // Wait for resources
         this.resources.on('ready', async () => {
             await addLandingPageMenu(this.application)
-            await addSkyBox(this.scene)
+            await addSkyBox(this.scene, this.resources)
             this.globs = new ThreeAmmoGlobalObjects()
             //this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 15, y: -4.9, z: 0}, 40, 40)
