@@ -39,7 +39,6 @@ export default class BonusPointHandler {
                 1,0x00FF00,0.1,
                 name)
         }
-
     }
 
     spawnThirdPlatformBonusPoints() {
