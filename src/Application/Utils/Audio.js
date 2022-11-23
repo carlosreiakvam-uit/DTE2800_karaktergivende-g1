@@ -17,7 +17,7 @@ export default class Audio {
             point.setVolume(0.5);
         });
 
-        audioLoader.load('/audio/hero/fallScream.ogg', function (buffer) {
+        audioLoader.load('audio/hero/fallScream.ogg', function (buffer) {
             fallScream.setBuffer(buffer)
             fallScream.setVolume(0.9)
             //fallScream.play()

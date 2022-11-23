@@ -1,76 +1,75 @@
 export default [
     {
-        name: 'environmentMapTexture',
-        type: 'cubeTexture',
-        path:
-            [
-                'textures/environmentMap/px.jpg',
-                'textures/environmentMap/nx.jpg',
-                'textures/environmentMap/py.jpg',
-                'textures/environmentMap/ny.jpg',
-                'textures/environmentMap/pz.jpg',
-                'textures/environmentMap/nz.jpg'
-            ]
+        name: `environmentMapTexture`,
+        type: "cubeTexture",
+        path: [
+            'textures/cubemaps/BlueSpace/bkg1_right.png',   //positiv x (høyre)
+            'textures/cubemaps/BlueSpace/bkg1_left.png',   //negativ x (venstre)
+            'textures/cubemaps/BlueSpace/bkg1_top.png',   //positiv y (opp)
+            'textures/cubemaps/BlueSpace/bkg1_bot.png',   //negativ y (ned)
+            'textures/cubemaps/BlueSpace/bkg1_front.png',   //positiv z (ut)
+            'textures/cubemaps/BlueSpace/bkg1_back.png',   //negativ z (inn)
+        ]
     },
     {
-        name: 'dirtTexture',
-        type: 'texture',
-        path: 'textures/dirt/color.jpg'
+        name: `dirtTexture`,
+        type: `texture`,
+        path: `textures/dirt/color.jpg`
     },
     {
-        name: 'dirtNormal',
-        type: 'texture',
-        path: 'textures/dirt/normal.jpg'
+        name: `dirtNormal`,
+        type: `texture`,
+        path: `textures/dirt/normal.jpg`
     },
     {
-        name: 'dirtDisplacement',
-        type: 'texture',
-        path: 'textures/displacementFromMap/jotunheimen_01.png'
+        name: `dirtDisplacement`,
+        type: `texture`,
+        path: `textures/displacementFromMap/jotunheimen_01.png`
     },
 
     {
-        name: "blackDirtyTexture",
-        type: "texture",
-        path: "textures/blackDirtyMetal/texture.jpg"
+        name: `blackDirtyTexture`,
+        type: `texture`,
+        path: `textures/blackDirtyMetal/texture.jpg`
     },
     {
-        name: "blackDirtyDisplacementTexture",
-        type: "texture",
-        path: "textures/blackDirtyMetal/displacement_map.jpg"
+        name: `blackDirtyDisplacementTexture`,
+        type: `texture`,
+        path: `textures/blackDirtyMetal/displacement_map.jpg`
     },
     {
-        name: "soldier",
-        type: "gltfModel",
-        path: "assets/models/soldier/Soldier.glb"
+        name: `soldier`,
+        type: `gltfModel`,
+        path: `assets/models/soldier/Soldier.glb`
     },
     {
-        name: "healthbar75",
-        type: "texture",
-        path: "textures//healthbar/healthbar75.png"
+        name: `healthbar75`,
+        type: `texture`,
+        path: `textures//healthbar/healthbar75.png`
     },
     {
-        name: "healthbar50",
-        type: "texture",
-        path: "textures//healthbar/healthbar50.png"
+        name: `healthbar50`,
+        type: `texture`,
+        path: `textures//healthbar/healthbar50.png`
     },
     {
-        name: "healthbar25",
-        type: "texture",
-        path: "textures//healthbar/healthbar25.png"
+        name: `healthbar25`,
+        type: `texture`,
+        path: `textures//healthbar/healthbar25.png`
     },
     {
-        name: "healthbar100",
-        type: "texture",
-        path: "textures//healthbar/healthbar100.png"
+        name: `healthbar100`,
+        type: `texture`,
+        path: `textures//healthbar/healthbar100.png`
     },
     {
-        name: "lava1",
-        type: "texture",
-        path: "textures/traps/lava.jpg"
+        name: `lava1`,
+        type: `texture`,
+        path: `textures/traps/lava.jpg`
     },
     {
-        name: "cloud",
-        type: "texture",
-        path: "textures/traps/cloud.png"
+        name: `cloud`,
+        type: `texture`,
+        path: `textures/traps/cloud.png`
     },
 ]

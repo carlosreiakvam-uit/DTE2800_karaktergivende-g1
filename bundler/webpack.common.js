@@ -25,6 +25,12 @@ module.exports = {
         }),
         new MiniCSSExtractPlugin()
     ],
+    resolve: {
+        fallback: {
+            fs: false,
+            'path': false
+        }
+    },
     module:
     {
         rules:
