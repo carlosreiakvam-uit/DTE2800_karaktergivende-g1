@@ -13,6 +13,7 @@ import Box from "./Platforms/PlatformShapes/Box";
 import * as THREE from "three";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
 import Cylinder from "./Platforms/PlatformShapes/Cylinder";
+import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import Minion from "./FriendlyItems/Minion";
 import RollingBallEnemy from "./Moving Enemies/RollingBallEnemy";
 
@@ -25,6 +26,7 @@ export default class WorldA {
         this.resources = this.application.resources
         this.ready = false;
 
+
         // Wait for resources
         this.resources.on('ready', async () => {
             await addLandingPageMenu(this.application)
@@ -35,12 +37,13 @@ export default class WorldA {
             // this.lava2 = new Lava({x: 15, y: -4.9, z:-6.5}, 20, 7)
             // this.lava3 = new Lava({x: 15, y: -4.9, z:0}, 20, 6)
             this.addPlatforms()
+            this.addMovingObstacles()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.bonusPointHandler = new BonusPointHandler()
             this.bonusPointHandler.spawnFirstPlatformBonusPoints();
             this.environment = new Environment()
             this.player = new Player({
-                x: -20,
+                x: 0,
                 y: 0.5,
                 z: 0
             })
@@ -65,7 +68,7 @@ export default class WorldA {
         })
 
         const b = new Cylinder({
-            position: {x: -20, y: 0, z: 0},
+            position: {x: -20, y: -0.1, z: 0},
             scale: {x: 3, y: 0.2, z: 3},
             material: this.globs.dirtMaterial,
             radius: 1
@@ -116,6 +119,16 @@ export default class WorldA {
         )
     }
 
+    addMovingObstacles() {
+        this.rotatingWall = new RotatingWall({
+                position: {x: -20, y: 0, z: 0},
+                scale: {x: 5, y: 2, z: 0.5},
+                texture: "lava1",
+                name: "rotatingWall"
+            }
+        )
+    }
+
     update() {
         if (this.ready) {
             this.environment.update();
@@ -123,6 +136,7 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
+            this.rotatingWall.update();
             //this.fireWall.update();
             this.companion.update();
             if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
