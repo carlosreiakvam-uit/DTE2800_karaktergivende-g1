@@ -1,7 +1,8 @@
 import './style.css'
 import Application from './Application/Application.js'
+import ammo from '../static/lib/ammo/ammo.js'
 
-Ammo().then(async function (AmmoLib) {
+ammo().then(async function (AmmoLib) {
     Ammo = AmmoLib;
     await main();
 });

@@ -1,14 +1,12 @@
 import * as THREE from 'three'
 import {TextGeometry} from "three/examples/jsm/geometries/TextGeometry";
 import {FontLoader} from "three/examples/jsm/loaders/FontLoader.js";
-import {color, sub} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
-import {MeshStandardMaterial} from "three";
 
 export async function addLandingPageMenu(application) {
 
     // const letterTexture = application.resources.items.blackDirtyTexture
     // const letterColor = new MeshStandardMaterial({color: color.red})
-    let url3 = "/fonts/gamefont.json"
+    let url3 = "fonts/gamefont.json"
 
     const fontLoader = new FontLoader()
 
