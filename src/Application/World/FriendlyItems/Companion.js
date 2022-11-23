@@ -16,10 +16,6 @@ export default class Companion {
         this.lastZPos = this.position.Z + 1
         this.color = color
 
-        this.xDifference = undefined
-        this.zDifference = undefined
-        this.yDifference = undefined
-
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
@@ -60,12 +56,6 @@ export default class Companion {
         }
     }
 
-    updatePositions(hero) {
-        this.xDifference = this.getXPositionDifference(hero)
-        this.zDifference = this.getZPositionDifference(hero)
-        this.yDifference = this.getYPositionDifference(hero)
-    }
-
     adjustTrajectoryOfThis(hero) {
         if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
             this.application.physics.applyImpulse(this.rigidBody, {x: -0.001, y: 0, z: 0});
@@ -95,28 +85,14 @@ export default class Companion {
     }
 
     doFloatingAnimation(hero) {
-        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y <3) {
+        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 2) {
             this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
         }
         this.lastYPos = this.rigidBody.threeMesh.position.y
 
     }
 
-    getXPositionDifference(hero) {
-        return hero.getOrigin().x() - this.mesh.position.x;
-    }
-
-    getYPositionDifference(hero) {
-        return hero.getOrigin().y() - this.mesh.position.y + 1;
-    }
-
-    getZPositionDifference(hero) {
-        return hero.getOrigin().z() - this.mesh.position.z;
-    }
-
-
     checkHeroAndThisInteraction(hero) {
-        this.updatePositions(hero)
         this.doFloatingAnimation(hero)
         this.adjustTrajectoryOfThis(hero);
     }
