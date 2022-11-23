@@ -3,7 +3,7 @@ import Application from "../../Application.js";
 import * as Constant from "../../Utils/constants.js";
 
 
-export default class Companion {
+export default class Minion {
     constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Companion") {
         this.application = new Application()
         this.physics = this.application.physics
@@ -13,14 +13,20 @@ export default class Companion {
         this.name = name
         this.lastYPos = this.position.y + 1
         this.lastXPos = this.position.x + 1
-        this.lastZPos = this.position.Z + 1
+        this.lastZPos = this.position.z + 1
         this.color = color
+        this.group = new THREE.Group()
+        this.spotLight = new THREE.SpotLight(0xFFFF00, 5, 8, Math.PI , 0.2, 0.5);
+        this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+        this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
+        this.group.add(this.spotLight)
+        this.group.add(this.spotLight.target)
 
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
-        this.application.scene.add(this.mesh)
+        this.application.scene.add(this.group)
     }
 
     setMaterial(color) {
@@ -37,7 +43,7 @@ export default class Companion {
         this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
-
+        this.group.add(this.mesh)
     }
 
     setPhysics(position, activationState) {
@@ -53,29 +59,32 @@ export default class Companion {
         let hero = this.application.world.player.t
         if (hero !== undefined) {
             this.checkHeroAndThisInteraction(hero)
+            this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
+            this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         }
     }
 
     adjustTrajectoryOfThis(hero) {
         if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: -0.001, y: 0, z: 0});
+            this.application.physics.applyImpulse(this.rigidBody, {x: -0.005, y: 0, z: 0});
+
             if(this.lastXPos < this.rigidBody.threeMesh.position.x) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: -0.02, y: 0, z: 0});
             }
         } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0.001, y: 0, z: 0});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0.005, y: 0, z: 0});
             if(this.lastXPos > this.rigidBody.threeMesh.position.x) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0.02, y: 0, z: 0});
             }
         }
 
         if(this.rigidBody.threeMesh.position.z > hero.getOrigin().z()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.001});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.005});
             if(this.lastZPos < this.rigidBody.threeMesh.position.z) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.02});
             }
         } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.001});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.005});
             if(this.lastZPos > this.rigidBody.threeMesh.position.z) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.02});
             }
@@ -85,7 +94,7 @@ export default class Companion {
     }
 
     doFloatingAnimation(hero) {
-        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 2) {
+        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 4) {
             this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
         }
         this.lastYPos = this.rigidBody.threeMesh.position.y

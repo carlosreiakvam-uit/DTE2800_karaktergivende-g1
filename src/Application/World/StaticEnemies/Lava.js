@@ -5,19 +5,18 @@ import * as Constant from "../../Utils/constants.js";
 
 
 export default class Lava {
-    constructor(position, scale, color, mass, name) {
+    constructor(position, xWidth, zDepth) {
         this.application = new Application()
         this.time = new Time();
         this.lavaMesh = undefined
         this.position = position
+        this.xWidth = xWidth
+        this.zDepth = zDepth
         this.setup()
     }
 
     update() {
         this.lavaMesh.material.uniforms.uTime.value = this.time.clock.getElapsedTime();
-        // console.log(this.rigidBody.threeMesh.position.x)
-        // console.log(this.rigidBody.threeMesh.position.y)
-        // console.log(this.rigidBody.threeMesh.position.z)
     }
 
     setup() {
@@ -63,7 +62,7 @@ export default class Lava {
         fireMaterial.side = THREE.DoubleSide;
         fireMaterial.transparent = true;
 
-        let geometry = new THREE.PlaneGeometry(10, 10, 512, 512)
+        let geometry = new THREE.PlaneGeometry(this.xWidth, this.zDepth, 512, 512)
 
         geometry.rotateX(-Math.PI / 2);
         this.lavaMesh = new THREE.Mesh(geometry, fireMaterial);
@@ -74,9 +73,9 @@ export default class Lava {
             if (this.application.world.player.health !== undefined) {
                 this.takeDamageOnHero()
             }
-
-
         };
+
+
 
         application.scene.add(this.lavaMesh);
 
@@ -95,7 +94,7 @@ export default class Lava {
 
     takeDamageOnHero() {
         if (this.application.world.player.health > 0) {
-            this.application.world.player.health -= 1
+            this.application.world.player.health -= 100
         }
     }
 }
