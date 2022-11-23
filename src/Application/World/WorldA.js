@@ -123,8 +123,6 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
-            // this.lava2.update();
-            // this.lava3.update()
             //this.fireWall.update();
             this.companion.update();
             if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
