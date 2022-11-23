@@ -23,6 +23,7 @@ export class RotatingWall {
 
     createHinge(rigidBodyAnchor, rigidBodyWall) {
         const wallHeight = rigidBodyWall.threeMesh.geometry.parameters.height;
+        const wallDepth = rigidBodyWall.threeMesh.geometry.parameters.depth;
         const anchorPivot = new Ammo.btVector3(0, wallHeight / 2, 0);
         const anchorAxis = new Ammo.btVector3(0, 1, 0);
         const armPivot = new Ammo.btVector3(-2.5, 0, 0);
@@ -50,7 +51,7 @@ export class RotatingWall {
     }
 
     createWall(position, scale, name) {
-        const mass = 1;
+        const mass = 10;
         const mesh = new THREE.Mesh(new THREE.BoxGeometry(scale.x, scale.y, scale.z), this.material)
         mesh.name = name
         // mesh.scale.set(scale.x, scale.y, scale.z)
@@ -62,10 +63,11 @@ export class RotatingWall {
             let hero = this.application.world.player.controller
             if (hero !== undefined) {
                 let direction = new THREE.Vector3();
+                console.log(this.application.time.delta)
                 mesh1.getWorldDirection(direction);
                 hero.setVelocityForTimeInterval(
                     new Ammo.btVector3(direction.x * 2, 0, direction.z * 2),
-                    1
+                    this.application.time.delta
                 )
             }
         };
@@ -74,12 +76,9 @@ export class RotatingWall {
         mesh.getWorldDirection(direction);  // NB! worldDIRECTION! Gir en vektor som peker mot +Z. FRA DOC: Returns a vector representing the direction of object's positive z-axis in world space.
         // addArrowHelper(mesh, direction.normalize(), new THREE.Vector3( 0, 0, 0 ), 'worlddirection_arrow', 0xff0000, 5);
 
-        const mesh_width = mesh.geometry.parameters.width;    //(er her overflødig)
-        const mesh_height = mesh.geometry.parameters.height;  //(er her overflødig)
-        const mesh_depth = mesh.geometry.parameters.depth;    //(er her overflødig)
 
-        const shape = new Ammo.btBoxShape(new Ammo.btVector3(mesh_width / 2, mesh_height / 2, mesh_depth / 2));
-        shape.setMargin(0.05);
+        const shape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x / 2, scale.y / 2, scale.z / 2));
+        // shape.setMargin(0.05);
         const rigidBody = this.application.physics.createRigidBody(shape, mesh, 0.3, 0.0, position, mass);
         //rigidBody.setDamping(0.1, 0.5);
         rigidBody.setActivationState(4);
