@@ -43,7 +43,7 @@ export default class WorldA {
             this.bonusPointHandler.spawnFirstPlatformBonusPoints();
             this.environment = new Environment()
             this.player = new Player({
-                x: -20,
+                x: 0,
                 y: 0.5,
                 z: 0
             })

@@ -1,8 +1,6 @@
 import Application from "../../Application.js";
 import * as THREE from 'three'
-import {BODYSTATE_KINEMATIC_OBJECT} from "../../Utils/constants.js";
 import * as Constant from "../../Utils/constants.js";
-import Box from "../Platforms/PlatformShapes/Box";
 
 
 export default class Player {
