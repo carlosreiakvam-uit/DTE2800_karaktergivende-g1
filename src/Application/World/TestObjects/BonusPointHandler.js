@@ -13,18 +13,14 @@ export default class BonusPointHandler {
         this.secondPlatformBonusPoints = []
         this.thirdPlatformBonusPoints = []
 
-        this.movingEnemy1 = new RollingBallEnemy(
-            {x: 20, y: 10, z: 3},
-            0.5,0xffff00,0.1,
-            "movingEnemy1"
-        )
+
     }
 
     spawnFirstPlatformBonusPoints() {
         for(let i = 0; i< 5; i++) {
             let name = "first"
             this.firstPlatformBonusPoints[i] = new BonusPoint(
-                {x: 18-i, y: 1, z: i},
+                {x: 18-i, y: 1, z: 0},
                 1,0x00FF00,0.1,
                 name)
         }
@@ -52,8 +48,6 @@ export default class BonusPointHandler {
     }
 
     update() {
-        this.movingEnemy1.update();
-
         if(this.firstPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.firstPlatformBonusPoints, 1)
         if(this.secondPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.secondPlatformBonusPoints, 2)
         if(this.thirdPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.thirdPlatformBonusPoints, 3)

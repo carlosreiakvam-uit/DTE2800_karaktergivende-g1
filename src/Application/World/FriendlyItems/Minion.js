@@ -13,12 +13,12 @@ export default class Minion {
         this.name = name
         this.lastYPos = this.position.y + 1
         this.lastXPos = this.position.x + 1
-        this.lastZPos = this.position.Z + 1
+        this.lastZPos = this.position.z + 1
         this.color = color
         this.group = new THREE.Group()
         this.spotLight = new THREE.SpotLight(0xFFFF00, 5, 8, Math.PI , 0.2, 0.5);
         this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
-        this.spotLight.position.set(0.15, 0.95, 0);
+        this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
         this.group.add(this.spotLight)
         this.group.add(this.spotLight.target)
 
@@ -66,25 +66,25 @@ export default class Minion {
 
     adjustTrajectoryOfThis(hero) {
         if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: -0.001, y: 0, z: 0});
+            this.application.physics.applyImpulse(this.rigidBody, {x: -0.005, y: 0, z: 0});
 
             if(this.lastXPos < this.rigidBody.threeMesh.position.x) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: -0.02, y: 0, z: 0});
             }
         } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0.001, y: 0, z: 0});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0.005, y: 0, z: 0});
             if(this.lastXPos > this.rigidBody.threeMesh.position.x) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0.02, y: 0, z: 0});
             }
         }
 
         if(this.rigidBody.threeMesh.position.z > hero.getOrigin().z()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.001});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.005});
             if(this.lastZPos < this.rigidBody.threeMesh.position.z) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.02});
             }
         } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.001});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.005});
             if(this.lastZPos > this.rigidBody.threeMesh.position.z) {
                 this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.02});
             }

@@ -77,7 +77,7 @@ export default class FireWall {
 
     takeDamageOnHero() {
         if(this.application.world.player.health > 0) {
-            this.application.world.player.health -= 1
+            this.application.world.player.health -= 100
         }
     }
 
