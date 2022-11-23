@@ -83,13 +83,13 @@ export default class Physics {
         motionState.setWorldTransform(transform);
     }
 
-    // applyImpulse(rigidBody, force, direction = {x: 0, y: 1, z: 0}) {
-    //     if (!rigidBody)
-    //         return;
-    //     rigidBody.activate(true);
-    //     let impulseVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
-    //     rigidBody.applyCentralImpulse(impulseVector);
-    // }
+    applyCentralImpulse(rigidBody, force = 1, direction = {x: 0, y: 0, z: 0}) {
+        if (!rigidBody)
+            return;
+        rigidBody.activate(true);
+        let impulseVector = new Ammo.btVector3(direction.x * force, direction.y * force, direction.z * force);
+        rigidBody.applyCentralImpulse(impulseVector);
+    }
 
     applyImpulse(rigidBody, direction = {x: 0, y: 1, z: 0}) {
         if (!rigidBody)

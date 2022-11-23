@@ -13,6 +13,9 @@ import Box from "./Platforms/PlatformShapes/Box";
 import * as THREE from "three";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
 import Cylinder from "./Platforms/PlatformShapes/Cylinder";
+import Companion from "./FriendlyItems/Companion";
+import {position} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
+import BonusPoint from "./FriendlyItems/BonusPoint";
 
 export default class WorldA {
     constructor() {
@@ -22,8 +25,6 @@ export default class WorldA {
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.ready = false;
-        this.allCollected = false;
-
 
         // Wait for resources
         this.resources.on('ready', async () => {
@@ -38,6 +39,10 @@ export default class WorldA {
             this.bonusPointHandler.spawnFirstPlatformBonusPoints();
             this.environment = new Environment()
             this.player = new Player()
+            this.companion = new Companion(
+                {x: 0, y: 3, z: 0},
+                1,0xFFFFFF,0.1,
+                "Companion")
             this.ready = true;
             this.secondPlatformAdded = false;
             this.thirdPlatformAdded = false;
@@ -91,6 +96,7 @@ export default class WorldA {
             this.healthbar.update();
             this.lava.update();
             this.fireWall.update();
+            this.companion.update();
 
             if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
                 this.spawnSecondPlatform()
