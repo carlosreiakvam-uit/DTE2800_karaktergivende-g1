@@ -72,4 +72,14 @@ export default [
         type: `texture`,
         path: `textures/traps/cloud.png`
     },
+    {
+        name: `narvik_displacement`,
+        type: `image`,
+        path: `textures/narvik/narvik_displacementmap.png`
+    },
+    {
+        name: `narvik_satelite`,
+        type: `image`,
+        path: `textures/narvik/narviksatellite_1024.png`
+    }
 ]

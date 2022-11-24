@@ -52,7 +52,7 @@ export default class Camera {
     }
 
     calculateIdealOffset(target) {
-        const idealOffset = new THREE.Vector3(0, -10, 7);
+        const idealOffset = new THREE.Vector3(0, 5, 8);
         idealOffset.applyQuaternion(target.quaternion);
         idealOffset.add(target.position);
         return idealOffset;
