@@ -4,7 +4,7 @@ import * as Constant from "../../Utils/constants.js";
 
 
 export default class Minion {
-    constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Companion") {
+    constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Minion") {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
@@ -65,6 +65,10 @@ export default class Minion {
     }
 
     adjustTrajectoryOfThis(hero) {
+        if(hero.getOrigin().y() < - 5) {
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0.05, y: 0.04, z: 0});
+        }
+
         if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
             this.application.physics.applyImpulse(this.rigidBody, {x: -0.005, y: 0, z: 0});
 

@@ -34,8 +34,6 @@ export default class WorldA {
             this.globs = new ThreeAmmoGlobalObjects()
             //this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 15, y: -4.9, z: 0}, 40, 40)
-            // this.lava2 = new Lava({x: 15, y: -4.9, z:-6.5}, 20, 7)
-            // this.lava3 = new Lava({x: 15, y: -4.9, z:0}, 20, 6)
             this.addPlatforms()
             this.addMovingObstacles()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
@@ -50,7 +48,7 @@ export default class WorldA {
             this.companion = new Minion(
                 {x: 0, y: 7, z: 0},
                 1,0xFFFFFF,0.1,
-                "Companion")
+                "Minion")
             this.ready = true;
             this.secondPlatformAdded = false;
             this.thirdPlatformAdded = false;
