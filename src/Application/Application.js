@@ -48,9 +48,6 @@ export default class Application {
         this.keypress = new KeyPress()
         this.setupLilGui();
 
-
-
-
         // Resize event
         this.sizes.on('resize', () => {
             this.resize()
