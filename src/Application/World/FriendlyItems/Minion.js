@@ -25,7 +25,6 @@ export default class Minion {
         this.group.add(this.spotLight)
         this.group.add(this.spotLight.target)
         this.application.scene.add(this.group)
-
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
@@ -73,8 +72,8 @@ export default class Minion {
             let hero = this.application.world.player.t
             if (hero !== undefined) {
                 this.checkHeroAndThisInteraction(hero)
-                this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
-                this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+                // this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
+                // this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
             }
         } else {
             this.doFloatingAnimationStart()
@@ -120,9 +119,7 @@ export default class Minion {
             this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
         }
         this.lastYPos = this.rigidBody.threeMesh.position.y
-        this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
-        this.spotLight.position.set(this.lastXPos, 0.2, this.lastZPos);
-
+        this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
     }
 
     doFloatingAnimationStart() {
