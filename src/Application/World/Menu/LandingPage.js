@@ -106,6 +106,8 @@ export async function addLandingPageMenu(application) {
                         if (intersects[0].object.name === startName) {
                             application.camera.instance.position.set(-15, 20, 30)
                             application.camera.lookAtHero = true
+                            application.world.player.active = true
+                            application.world.player.activationTime = application.time.clock.getElapsedTime();
                             application.scene.remove(header)
                             application.scene.remove(start)
                             application.scene.remove(menu)

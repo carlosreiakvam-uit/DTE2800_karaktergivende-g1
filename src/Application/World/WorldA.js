@@ -6,16 +6,11 @@ import {addLandingPageMenu} from "./Menu/LandingPage";
 import {addSkyBox} from "./BackGroundSkyBox";
 import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
-import FireWall from "./Moving Enemies/FireWall.js";
-import BonusPointHandler from "./Handlers/BonusPointHandler";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import Box from "./Platforms/PlatformShapes/Box";
-import * as THREE from "three";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
 import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
-import Minion from "./FriendlyItems/Minion";
-import RollingBallEnemy from "./Moving Enemies/RollingBallEnemy";
 import EventHandler from "./Handlers/EventHandler";
 
 export default class WorldA {
