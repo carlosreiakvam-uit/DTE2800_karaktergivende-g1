@@ -27,7 +27,6 @@ export default class WorldA {
         this.resources = this.application.resources
         this.ready = false;
 
-
         // Wait for resources
         this.resources.on('ready', async () => {
             await addLandingPageMenu(this.application)
