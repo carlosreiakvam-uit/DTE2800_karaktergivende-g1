@@ -23,7 +23,7 @@ export default class Environment {
     }
 
     setAmbientLight() {
-        this.ambientLight1 = new THREE.AmbientLight(0x000000, 0.0);
+        this.ambientLight1 = new THREE.AmbientLight(0x000000, 0.1);
         this.ambientLight1.visible = true;
         this.scene.add(this.ambientLight1);
     }

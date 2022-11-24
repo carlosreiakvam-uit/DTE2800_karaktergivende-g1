@@ -5,9 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DTE2800 Plattformspill G1</title>
 </head>
+<style>
+    body{
+        font-family: 'Trebuchet MS', sans-serif;
+    }
+    .container{
+        display: inline-block;
+    }
+    .typed-out{
+        overflow: hidden;
+        border-right: .15em solid orange;
+        white-space: nowrap;
+        animation: typing 3.5s steps(50, end) forwards, blinking .8s infinite;
+        font-size: 1.6rem;
+        width: 0;
+    }
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+    @keyframes blinking {
+        from { border-color: transparent }
+        to { border-color: white; }
+    }
+</style>
 <body>
-<canvas class="webgl"></canvas>
 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#info').hide().delay(4000).fadeIn(2200).delay(4000).fadeOut(2200);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#info2').hide().delay(8000).fadeIn(2200).delay(4000).fadeOut(2200);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#info3').hide().delay(12000).fadeIn(2200).delay(4000).fadeOut(2200);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#info4').hide().delay(16000).fadeIn(2200).delay(4000).fadeOut(2200);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#info5').hide().delay(20000).fadeIn(2200).delay(12000).fadeOut(2200);
+    });
+</script>
+
+<div id="info"  class="container">
+    <div class="typed-out">Welcome to Trapped In Space.</div></div>
+
+<div id="info2"  class="container">
+    <div class="typed-out">You are engulfed in darkness.</div></div>
+
+<div id="info3"  class="container">
+    <div class="typed-out">Locate your minion, quickly!</div></div>
+
+<div id="info4"  class="container">
+    <div class="typed-out">But watch your step...</div></div>
+
+<div id="info5"  class="container">
+    <div class="typed-out">Use WASD to move around.</div></div>
+
+<canvas class="webgl"></canvas>
 <script type="x-shader/x-vertex" id="vertexshader">
         /** Basert på shaderkode fra https://threejs-journey.com/# */
         uniform float uBigWavesElevation;
@@ -167,5 +237,7 @@
     </script>
 
 <canvas class="webgl"></canvas>
+
+
 </body>
 </html>

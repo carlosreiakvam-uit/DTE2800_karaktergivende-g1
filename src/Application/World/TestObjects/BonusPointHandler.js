@@ -47,6 +47,16 @@ export default class BonusPointHandler {
         }
     }
 
+    spawnStartPlatformBonusPoints() {
+        for(let i = 0; i< 4; i++) {
+            let name = "starter"
+            this.thirdPlatformBonusPoints[i] = new BonusPoint(
+                {x: -3 -i, y: 1, z: 20},
+                1,0x00FF00,0.1,
+                name)
+        }
+    }
+
     update() {
         if(this.firstPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.firstPlatformBonusPoints, 1)
         if(this.secondPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.secondPlatformBonusPoints, 2)

@@ -137,6 +137,8 @@ export default class Player {
 
     makePlayerRespawn() {
         this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z);
+        let minion = this.application.world.companion
+
         this.health = 100
     }
 

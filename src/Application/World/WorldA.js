@@ -33,11 +33,9 @@ export default class WorldA {
             await addSkyBox(this.scene, this.resources)
             this.globs = new ThreeAmmoGlobalObjects()
             //this.fireWall = new FireWall(this.application)
-            this.lava = new Lava({x: 15, y: -4.9, z: 0}, 40, 40)
-            // this.lava2 = new Lava({x: 15, y: -4.9, z:-6.5}, 20, 7)
-            // this.lava3 = new Lava({x: 15, y: -4.9, z:0}, 20, 6)
+            this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
             this.addPlatforms()
-            this.addMovingObstacles()
+            //this.addMovingObstacles()
             this.healthbar = new Healthbar(5, 5, {x: 30, y: 0, z: 0})
             this.bonusPointHandler = new BonusPointHandler()
             this.bonusPointHandler.spawnFirstPlatformBonusPoints();
@@ -48,12 +46,13 @@ export default class WorldA {
                 z: 0
             })
             this.companion = new Minion(
-                {x: 0, y: 7, z: 0},
+                {x: -5, y: 1, z: 15},
                 1,0xFFFFFF,0.1,
-                "Companion")
+                "Minion")
             this.ready = true;
             this.secondPlatformAdded = false;
             this.thirdPlatformAdded = false;
+            this.firstPlatformAdded = false;
         })
     }
 
@@ -62,7 +61,7 @@ export default class WorldA {
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
-            scale: {x: 40, y: 0.2, z: 40},
+            scale: {x: 20, y: 0.2, z: 20},
             name: "first",
             material: this.globs.dirtMaterial,
         })
@@ -87,12 +86,12 @@ export default class WorldA {
             material: this.globs.dirtMaterial,
         })
 
-        const e = new Box({
-            position: {x: 8, y: -0.2, z: 3},
-            scale: {x: 5, y: 0.2, z: 5},
-            name: "start2",
-            material: this.globs.dirtMaterial,
-        })
+        // const e = new Box({
+        //     position: {x: 8, y: -0.2, z: 3},
+        //     scale: {x: 5, y: 0.2, z: 5},
+        //     name: "start2",
+        //     material: this.globs.dirtMaterial,
+        // })
 
         const f = new Box({
             position: {x: 16, y: -0.2, z: 6},
@@ -108,14 +107,30 @@ export default class WorldA {
             material: this.globs.dirtMaterial,
         })
 
+        const h = new Box({
+            position: {x: -5, y: -0.2, z: 16},
+            scale: {x: 10, y: 0.2, z: 10},
+            name: "startIntro",
+            material: this.globs.dirtMaterial,
+        })
+
+        const i = new Box({
+            position: {x: -2, y: -0.2, z: 5},
+            scale: {x: 1, y: 0.2, z:12},
+            name: "startIntroWalker",
+            material: this.globs.dirtMaterial,
+        })
+
         //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
         this.application.scene.add(
             a.mesh,
             b.mesh,
-            e.mesh,
+            // e.mesh,
             d.mesh,
             f.mesh,
-            g.mesh
+            g.mesh,
+            h.mesh,
+            i.mesh
         )
     }
 
@@ -136,32 +151,52 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
-            this.rotatingWall.update();
+            //this.rotatingWall.update();
             //this.fireWall.update();
             this.companion.update();
-            if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
-                this.movingEnemy1.update();
-                this.movingEnemy2.update();
-            }
 
-            if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
-                this.spawnSecondPlatform()
-                this.movingEnemy1 = new RollingBallEnemy(
-                    {x: 35, y: 10, z: -5},
-                    0.5,0xffff00,0.1,
-                    "movingEnemy1"
-                )
+            this.updateSecondPlatform();
+            this.updateThirdPlatform();
+            this.updateFirstPlatform();
+        }
+    }
 
-                this.movingEnemy2 = new RollingBallEnemy(
-                    {x: 35, y: 10, z: 5},
-                    0.5,0xffff00,0.1,
-                    "movingEnemy2"
-                )
-            }
+    updateFirstPlatform() {
+        if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
+            this.spawnBonusPoints()
+            this.firstPlatformAdded = true;
+        }
+    }
+    spawnBonusPoints() {
+        this.bonusPointHandler.spawnStartPlatformBonusPoints();
+    }
 
-            if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
-               this.spawnThirdPlatForm();
-            }
+
+    updateSecondPlatform() {
+        if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
+            this.movingEnemy1.update();
+            this.movingEnemy2.update();
+        }
+
+        if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
+            this.spawnSecondPlatform()
+            this.movingEnemy1 = new RollingBallEnemy(
+                {x: 35, y: 10, z: -5},
+                0.5,0xffff00,0.1,
+                "movingEnemy1"
+            )
+
+            this.movingEnemy2 = new RollingBallEnemy(
+                {x: 35, y: 10, z: 5},
+                0.5,0xffff00,0.1,
+                "movingEnemy2"
+            )
+        }
+    }
+
+    updateThirdPlatform() {
+        if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+            this.spawnThirdPlatForm();
         }
     }
 

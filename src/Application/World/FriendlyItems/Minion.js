@@ -4,7 +4,7 @@ import * as Constant from "../../Utils/constants.js";
 
 
 export default class Minion {
-    constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Companion") {
+    constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Minion") {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
@@ -16,11 +16,15 @@ export default class Minion {
         this.lastZPos = this.position.z + 1
         this.color = color
         this.group = new THREE.Group()
-        this.spotLight = new THREE.SpotLight(0xFFFF00, 5, 8, Math.PI , 0.2, 0.5);
+        this.firstTimeActivated = true
+        this.isActivated = false;
+        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.2, 0.5);
+
         this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
         this.group.add(this.spotLight)
         this.group.add(this.spotLight.target)
+        this.application.scene.add(this.group)
 
         this.setMaterial(color)
         this.setGeometry()
@@ -44,6 +48,9 @@ export default class Minion {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.group.add(this.mesh)
+        this.mesh.collisionResponse = (mesh1) => {
+            this.isActivated = true
+        };
     }
 
     setPhysics(position, activationState) {
@@ -56,15 +63,30 @@ export default class Minion {
     }
 
     update() {
-        let hero = this.application.world.player.t
-        if (hero !== undefined) {
-            this.checkHeroAndThisInteraction(hero)
-            this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
-            this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+        if(this.isActivated) {
+            if(this.firstTimeActivated) {
+                this.firstTimeActivated = false
+                this.spotLight.intensity = 5;
+                this.application.physics.applyCentralImpulse(this.rigidBody, 1,{x: 0, y: 1, z: 0});
+            }
+
+            let hero = this.application.world.player.t
+            if (hero !== undefined) {
+                this.checkHeroAndThisInteraction(hero)
+                this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
+                this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+            }
+        } else {
+            this.doFloatingAnimationStart()
         }
+
     }
 
     adjustTrajectoryOfThis(hero) {
+        if(hero.getOrigin().y() < - 5) {
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0.01, y: 0.04, z: 0});
+        }
+
         if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
             this.application.physics.applyImpulse(this.rigidBody, {x: -0.005, y: 0, z: 0});
 
@@ -95,6 +117,16 @@ export default class Minion {
 
     doFloatingAnimation(hero) {
         if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 4) {
+            this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
+        }
+        this.lastYPos = this.rigidBody.threeMesh.position.y
+        this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
+        this.spotLight.position.set(this.lastXPos, 0.2, this.lastZPos);
+
+    }
+
+    doFloatingAnimationStart() {
+        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < 1) {
             this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
         }
         this.lastYPos = this.rigidBody.threeMesh.position.y
