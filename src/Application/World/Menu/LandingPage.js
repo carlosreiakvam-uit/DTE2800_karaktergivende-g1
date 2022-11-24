@@ -123,7 +123,16 @@ export async function addLandingPageMenu(application) {
                             mode = addTextElement(subSize, modeText, modePosition, modeName)
                             hard = addTextElement(subSize, modeHardText, modeHardPosition, modeHardName)
                             medium = addTextElement(subSize, modeMediumText, modeMediumPosition, modeMediumName)
-                        } else if (intersects[0].object.name === modeHardName || intersects[0].object.name === modeMediumName) {
+                        } else if (intersects[0].object.name === modeHardName) {
+                            application.world.player.healthRegen = 0
+                            application.scene.remove(mode)
+                            application.scene.remove(hard)
+                            application.scene.remove(medium)
+                            // header = addTextElement(titleSize, headerText, headerPosition, headerName)
+                            start = addTextElement(subSize, startText, startPosition, startName)
+                            menu = addTextElement(subSize, menuText, menuPosition, menuName)
+                        } else if (intersects[0].object.name === modeMediumName) {
+                            application.world.player.healthRegen = 0.02
                             application.scene.remove(mode)
                             application.scene.remove(hard)
                             application.scene.remove(medium)

@@ -14,8 +14,6 @@ export default class BonusPointHandler {
         this.firstPlatformBonusPoints = []
         this.secondPlatformBonusPoints = []
         this.thirdPlatformBonusPoints = []
-
-
     }
 
     spawnFirstPlatformBonusPoints() {

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 
-export default class Healthbar {
+export default class HealthBar {
 
     constructor(position, scale, color, mass, name) {
         this.application = new Application()
@@ -10,11 +10,8 @@ export default class Healthbar {
         this.position = position
         this.scale = scale
         this.name = name
-
         this.lasthealh = undefined
-
         this.createHealthBar()
-
     }
 
     createHealthBar() {
@@ -24,7 +21,6 @@ export default class Healthbar {
         this.sprite1.position.set( 0, 3, 0);
         this.sprite1.scale.set(0.75,0.25,0.25);
         this.application.scene.add( this.sprite1 );
-        console.log("healthbar created")
     }
 
     update() {

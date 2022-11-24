@@ -16,7 +16,10 @@ export default class Player {
         this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics(position)
+        this.healthRegen = 0.02
         this.health = 100
+        this.lostHealthForTheFirstTime = true
+        this.firstTimePlayerDies = true;
     }
 
 
@@ -130,16 +133,29 @@ export default class Player {
             this.makePlayerRespawn()
         }
 
-        this.mixer.update(this.application.time.delta)
+        if(this.health < 100) {
+            this.health += this.healthRegen
+            if(this.lostHealthForTheFirstTime) {
+                if(this.healthRegen > 0) {
+                    $('#info10').fadeIn(2200).delay(8000).fadeOut(2200);
+                } else {
+                    $('#info11').fadeIn(2200).delay(8000).fadeOut(2200);
+                }
+                this.lostHealthForTheFirstTime = false
+            }
+        }
 
+        this.mixer.update(this.application.time.delta)
         this.checkCollisions()
     }
 
     makePlayerRespawn() {
-        this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z);
-        let minion = this.application.world.companion
-
+        this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z)
         this.health = 100
+        if(this.firstTimePlayerDies) {
+            this.firstTimePlayerDies = false;
+            $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
+        }
     }
 
     playerFellOfPlatform() {
