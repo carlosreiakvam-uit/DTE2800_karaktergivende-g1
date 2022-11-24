@@ -162,7 +162,6 @@ export default class WorldA {
     }
 
     updateFirstPlatform() {
-        console.log(this.companion.spotLight.intensity)
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
             this.spawnBonusPoints()
             this.firstPlatformAdded = true;
