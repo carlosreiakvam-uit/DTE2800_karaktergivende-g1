@@ -72,12 +72,12 @@ export async function addLandingPageMenu(application) {
                 return textMesh
             }
 
-
             function addMouseEvents() {
                 let raycaster = new THREE.Raycaster();
                 let mouse = new THREE.Vector2();
                 window.addEventListener('mousemove', onMouseMove, false);
                 window.addEventListener('click', onMouseClick, false);
+
 
                 function onMouseMove(event) {
                     event.preventDefault();
@@ -93,11 +93,13 @@ export async function addLandingPageMenu(application) {
                 }
 
                 function onMouseClick(event) {
+
                     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
                     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
 
                     raycaster.setFromCamera(mouse, application.camera.instance)
                     let intersects = raycaster.intersectObjects(application.scene.children, true);
+
 
                     if (intersects.length > 0) {
                         // start game
@@ -107,6 +109,12 @@ export async function addLandingPageMenu(application) {
                             application.scene.remove(header)
                             application.scene.remove(start)
                             application.scene.remove(menu)
+                            window.removeEventListener('click', onMouseClick, false)
+                            $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info2').delay(6000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info3').delay(10000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info5').delay(18000).fadeIn(2200);
 
                         } else if (intersects[0].object.name === menuName) {
                             // application.scene.remove(header)

@@ -53,6 +53,7 @@ export default class WorldA {
             this.secondPlatformAdded = false;
             this.thirdPlatformAdded = false;
             this.firstPlatformAdded = false;
+
         })
     }
 
@@ -85,13 +86,6 @@ export default class WorldA {
             name: "start",
             material: this.globs.dirtMaterial,
         })
-
-        // const e = new Box({
-        //     position: {x: 8, y: -0.2, z: 3},
-        //     scale: {x: 5, y: 0.2, z: 5},
-        //     name: "start2",
-        //     material: this.globs.dirtMaterial,
-        // })
 
         const f = new Box({
             position: {x: 16, y: -0.2, z: 6},
@@ -158,13 +152,15 @@ export default class WorldA {
             this.updateSecondPlatform();
             this.updateThirdPlatform();
             this.updateFirstPlatform();
+
         }
     }
 
     updateFirstPlatform() {
+        console.log(this.companion.spotLight.intensity)
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
             this.spawnBonusPoints()
-            this.firstPlatformAdded = true;
+            this.spawnFirstPlatform()
         }
     }
     spawnBonusPoints() {
@@ -198,6 +194,18 @@ export default class WorldA {
         if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
             this.spawnThirdPlatForm();
         }
+    }
+
+    spawnFirstPlatform() {
+        const e = new Box({
+            position: {x: 8, y: -0.2, z: 3},
+            scale: {x: 5, y: 0.2, z: 5},
+            name: "start2",
+            material: this.globs.dirtMaterial,
+        })
+
+        this.firstPlatformAdded = true
+        this.application.scene.add(e.mesh);
     }
 
     spawnSecondPlatform() {
