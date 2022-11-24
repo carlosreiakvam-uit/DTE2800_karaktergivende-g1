@@ -53,6 +53,7 @@ export default class WorldA {
             this.secondPlatformAdded = false;
             this.thirdPlatformAdded = false;
             this.firstPlatformAdded = false;
+            this.healthInfoTextShown = false
 
         })
     }
@@ -152,12 +153,12 @@ export default class WorldA {
             this.updateSecondPlatform();
             this.updateThirdPlatform();
             this.updateFirstPlatform();
+            this.playerStandsOnPlatformCloseToEnemies()
 
         }
     }
 
     updateFirstPlatform() {
-        console.log(this.companion.spotLight.intensity)
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
             this.spawnBonusPoints()
             this.spawnFirstPlatform()
@@ -167,6 +168,46 @@ export default class WorldA {
         this.bonusPointHandler.spawnStartPlatformBonusPoints();
     }
 
+    playerStandsOnPlatformCloseToEnemies() {
+        if(this.healthInfoTextShown) return
+        let hero = this.application.world.player.t
+        if (hero === undefined) return
+        this.checkHeroAndThisInteraction(hero)
+    }
+
+    updatePositions(hero) {
+        this.xDifference = this.getXPositionDifference(hero)
+        this.zDifference = this.getZPositionDifference(hero)
+    }
+
+    checkIfHeroAndThisEntityAreClose(range) {
+        return (
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.xDifference, range[0], range[1]) &&
+            this.checkDifferenceWhenNegativeAndPositiveInput(this.zDifference, range[0], range[1])
+        );
+    }
+
+    checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
+        return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
+    }
+    getXPositionDifference(hero) {
+        return hero.getOrigin().x() - 24;
+    }
+
+    getZPositionDifference(hero) {
+        return hero.getOrigin().z() - 3;
+    }
+
+
+    checkHeroAndThisInteraction(hero) {
+        this.updatePositions(hero)
+        console.log("testing")
+        if (!this.healthInfoTextShown && this.checkIfHeroAndThisEntityAreClose([-5,5])) {
+            this.healthInfoTextShown = true
+            console.log("complete")
+            $('#info9').fadeIn(2200).delay(4000).fadeOut(2200);
+        }
+    }
 
     updateSecondPlatform() {
         if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
