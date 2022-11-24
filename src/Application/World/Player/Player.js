@@ -177,11 +177,11 @@ export default class Player {
     }
 
     playerFellOfPlatform() {
-        return this.player.position.y < -5;
+        return this.group.position.y < -5;
     }
 
     playerFellOfPlatformAndFinallyDied() {
-        return this.player.position.y < -25;
+        return this.group.position.y < -25;
     }
 
 

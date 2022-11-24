@@ -12,6 +12,7 @@ import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
 import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import EventHandler from "./Handlers/EventHandler";
+import Narvik from "./Platforms/Narvik.js";
 
 export default class WorldA {
     constructor() {
@@ -34,6 +35,7 @@ export default class WorldA {
             this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
             this.eventHandler = new EventHandler();
             this.environment = new Environment()
+            // this.narvik = new Narvik(400,400, {x: -20, y: 0, z: 5})
             this.player = new Player({
                 x: 0,
                 y: 0.5,
@@ -107,6 +109,8 @@ export default class WorldA {
             h.mesh,
             i.mesh
         )
+
+
     }
 
     addMovingObstacles() {
