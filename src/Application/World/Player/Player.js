@@ -16,7 +16,7 @@ export default class Player {
         this.setPhysics(position)
         this.healthRegen = 0.02
         this.health = 100
-        this.flashLightBattery = 25;
+        this.flashLightBattery = 7;
         this.lostHealthForTheFirstTime = true
         this.firstTimePlayerDies = true
         this.firstTimeBatteryDies = true
@@ -211,10 +211,10 @@ export default class Player {
     }
 
     createFlashLight(position) {
-        const flashLight = new THREE.SpotLight(0xFFFF00, 7, 20, Math.PI * 0.15, 0.5, 0.5);
+        const flashLight = new THREE.SpotLight(0xFFFF00, 7, 20, Math.PI * 0.15, 0.8, 0.5);
 
-        flashLight.target.position.set(position.x, position.y, position.z - 3);
-        flashLight.position.set(position.x, position.y, position.z);
+        flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
+        flashLight.position.set(position.x, position.y+1, position.z);
         flashLight.visible = true;
         flashLight.castShadow = true;
 
@@ -225,10 +225,10 @@ export default class Player {
 
         if (this.flashLight.visible) {
             this.elapsed = this.application.time.clock.getElapsedTime();
-            if ((this.elapsed - this.activationTime) > 10) {
+            if ((this.elapsed - this.activationTime) > 15) {
                 this.flashLight.intensity -= 0.1;
                 if (this.flashLight.intensity < 0.1) {
-                    this.flashLightBattery -= 5;
+                    this.flashLightBattery -= 0.75;
                     this.flashLight.intensity = this.flashLightBattery;
                     if (this.flashLightBattery <= 0) {
                         this.flashLight.visible = false;
@@ -242,11 +242,11 @@ export default class Player {
         }
 
         if(this.flashLight.visible === false) {
-            this.flashLightBattery += 0.05
+            this.flashLightBattery += 0.015
 
-            if(this.flashLightBattery >= 25) {
+            if(this.flashLightBattery >= 7) {
                 this.flashLight.visible = true;
-                this.flashLight.intensity = 25
+                this.flashLight.intensity = 7
                 this.activationTime = this.application.time.clock.getElapsedTime()
             }
         }
