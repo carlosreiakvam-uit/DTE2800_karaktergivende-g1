@@ -31,7 +31,7 @@ export default class WorldA {
             //this.fireWall = new FireWall(this.application)
             this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
             this.addPlatforms()
-            this.addMovingObstacles()
+            //this.addMovingObstacles()
             this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
             this.eventHandler = new EventHandler();
             this.environment = new Environment()
@@ -47,7 +47,7 @@ export default class WorldA {
     }
 
     addPlatforms() {
-        new BalancingPlatform({x: -10, y: -0.5, z: 0})
+        //new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
@@ -56,12 +56,12 @@ export default class WorldA {
             material: this.globs.spacePlatformMaterial,
         })
 
-        const b = new Cylinder({
-            position: {x: -20, y: -0.1, z: 0},
-            scale: {x: 3, y: 0.2, z: 3},
-            material: this.globs.spacePlatformMaterial,
-            radius: 1
-        })
+        // const b = new Cylinder({
+        //     position: {x: -20, y: -0.1, z: 0},
+        //     scale: {x: 3, y: 0.2, z: 3},
+        //     material: this.globs.spacePlatformMaterial,
+        //     radius: 1
+        // })
 
         const d = new Box({
             position: {x: 0, y: -0.2, z: 0},
@@ -101,7 +101,7 @@ export default class WorldA {
         //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
         this.application.scene.add(
             a.mesh,
-            b.mesh,
+            //b.mesh,
             // e.mesh,
             d.mesh,
             f.mesh,
@@ -130,7 +130,7 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
-            this.rotatingWall.update();
+            //this.rotatingWall.update();
             //this.fireWall.update();
         }
     }

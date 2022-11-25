@@ -68,7 +68,6 @@ export default class RollingBallEnemy {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.mesh.collisionResponse = (mesh1) => {
-            mesh1.material.color.setHex(Math.random() * 0xffffff);
             let hero = this.application.world.player.t
             if (hero !== undefined) {
                 this.takeDamageOnHero(hero)
