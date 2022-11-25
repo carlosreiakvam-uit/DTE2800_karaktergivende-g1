@@ -225,7 +225,7 @@ export default class Player {
 
         if (this.flashLight.visible) {
             this.elapsed = this.application.time.clock.getElapsedTime();
-            if ((this.elapsed - this.activationTime) > 15) {
+            if ((this.elapsed - this.activationTime) > 20) {
                 this.flashLight.intensity -= 0.1;
                 if (this.flashLight.intensity < 0.1) {
                     this.flashLightBattery -= 0.75;
