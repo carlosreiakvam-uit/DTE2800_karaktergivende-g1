@@ -14,12 +14,15 @@ export default class Resources extends EventEmitter {
         this.toLoad = this.sources.length
         this.loaded = 0
         const loadingBarElement = document.querySelector('.loading-bar')
+        const loadingDiv = document.querySelector('.loading')
 
         // Loading manager with strong inspiration from threejs-journey.com
         this.loadingManager = new THREE.LoadingManager(
             () => {
                 console.log('LOADING ASSETS COMPLETE BEEP BOOP')
-                loadingBarElement.remove()
+                // loadingBarElement.remove()
+                loadingDiv.remove()
+
                 this.trigger('ready')
             },
             (itemUrl, itemsLoaded, itemsTotal) => {

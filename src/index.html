@@ -6,24 +6,33 @@
     <title>DTE2800 Plattformspill G1</title>
 </head>
 <style>
-    body{
+    body {
         font-family: 'Trebuchet MS', sans-serif;
     }
 
     @keyframes typing {
-        from { width: 0 }
-        to { width: 100% }
+        from {
+            width: 0
+        }
+        to {
+            width: 100%
+        }
     }
+
     @keyframes blinking {
-        from { border-color: transparent }
-        to { border-color: white; }
+        from {
+            border-color: transparent
+        }
+        to {
+            border-color: white;
+        }
     }
 </style>
 <body>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#info').hide();
         $('#info2').hide();
         $('#info3').hide();
@@ -40,44 +49,60 @@
     });
 </script>
 
-<div id="info"  class="container">
-    <div class="typed-out">Welcome to Trapped In Space.</div></div>
+<div id="info" class="container">
+    <div class="typed-out">Welcome to Trapped In Space.</div>
+</div>
 
-<div id="info2"  class="container">
-    <div class="typed-out">You are engulfed in darkness.</div></div>
+<div id="info2" class="container">
+    <div class="typed-out">You are engulfed in darkness.</div>
+</div>
 
-<div id="info3"  class="container">
-    <div class="typed-out">Locate your minion, before your flashlight dies!</div></div>
+<div id="info3" class="container">
+    <div class="typed-out">Locate your minion, before your flashlight dies!</div>
+</div>
 
-<div id="info4"  class="container">
-    <div class="typed-out">But watch your step...</div></div>
+<div id="info4" class="container">
+    <div class="typed-out">But watch your step...</div>
+</div>
 
-<div id="info5"  class="container">
-    <div class="typed-out">Use WASD to move around.</div></div>
+<div id="info5" class="container">
+    <div class="typed-out">Use WASD to move around.</div>
+</div>
 
-<div id="info6"  class="container">
-    <div class="typed-out-long">This is your helper-minion, it will follow you around and provide light.</div></div>
+<div id="info6" class="container">
+    <div class="typed-out-long">This is your helper-minion, it will follow you around and provide light.</div>
+</div>
 
-<div id="info7"  class="container">
-    <div class="typed-out-long">Collect power-ups to unlock new areas to explore.</div></div>
+<div id="info7" class="container">
+    <div class="typed-out-long">Collect power-ups to unlock new areas to explore.</div>
+</div>
 
-<div id="info8"  class="container">
-    <div class="typed-out-long">Press Spacebar to jump, hold Shift to sprint and jump even further</div></div>
+<div id="info8" class="container">
+    <div class="typed-out-long">Press Spacebar to jump, hold Shift to sprint and jump even further</div>
+</div>
 
-<div id="info9"  class="container">
-    <div class="typed-out">Careful, enemies are close.</div></div>
+<div id="info9" class="container">
+    <div class="typed-out">Careful, enemies are close.</div>
+</div>
 
-<div id="info10"  class="container">
-    <div class="typed-out-long">You have taken damage, lose it all and you die. Your health regenerates over time.</div></div>
+<div id="info10" class="container">
+    <div class="typed-out-long">You have taken damage, lose it all and you die. Your health regenerates over time.</div>
+</div>
 
-<div id="info11"  class="container">
-    <div class="typed-out-long">You have taken damage, lose it all and you die. On Hard-mode your health does not regenerate....</div></div>
+<div id="info11" class="container">
+    <div class="typed-out-long">You have taken damage, lose it all and you die. On Hard-mode your health does not
+        regenerate....
+    </div>
+</div>
 
-<div id="info12"  class="container">
-    <div class="typed-out-long">You have died and respawned. As you explore new respawn locations will be generated.</div></div>
+<div id="info12" class="container">
+    <div class="typed-out-long">You have died and respawned. As you explore new respawn locations will be generated.
+    </div>
+</div>
 
-<div id="info13"  class="container">
-    <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div></div>
+<div id="info13" class="container">
+    <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div>
+</div>
 
 
 <canvas class="webgl"></canvas>
@@ -197,7 +222,9 @@
             vTime = uTime;
             vElevation = elevation;
         }
-    </script>
+
+
+</script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
         uniform vec3 uDepthColor;
@@ -237,11 +264,16 @@
             vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
             gl_FragColor = baseColor;// + vec4(color, 1.0);
         }
-    </script>
+
+
+</script>
 
 <canvas class="webgl"></canvas>
 
-<div class="loading-bar"></div>
+<div class="loading">
+    <h1 id="p_loading">LOADING</h1>
+    <div class="loading-bar"></div>
+</div>
 
 </body>
 </html>

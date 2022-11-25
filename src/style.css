@@ -17,16 +17,23 @@ body {
 
 /*CSS from threejs-journey.com*/
 .loading-bar {
-    position: absolute;
-    top: 50%;
-    width: 100%;
     height: 20px;
     background: #ff0000;
     transform: scaleX(0.3);
     transform-origin: top left;
     transition: transform 0.1s;
 }
+.loading{
+    top: 50%;
+    position: absolute;
+    width: 100%;
+}
 
+#p_loading{
+    margin-left: 20px;
+    color: red;
+
+}
 
 .container{
     display: inline-block;
