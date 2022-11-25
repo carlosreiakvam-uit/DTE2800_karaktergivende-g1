@@ -18,18 +18,23 @@ export default class Minion {
         this.group = new THREE.Group()
         this.firstTimeActivated = true
         this.isActivated = false;
-        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.5, 0.5);
-
-        this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
-        this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
-        this.group.add(this.spotLight)
-        this.group.add(this.spotLight.target)
+        this.addSpotLight()
         this.application.scene.add(this.group)
         this.setMaterial(color)
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.application.scene.add(this.group)
+    }
+
+    addSpotLight() {
+        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.8, 0.8);
+        this.spotLight.castShadow = true
+        this.spotLight.visible = true;
+        this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+        this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
+        this.group.add(this.spotLight)
+        this.group.add(this.spotLight.target)
     }
 
     setMaterial(color) {
@@ -65,7 +70,7 @@ export default class Minion {
         if(this.isActivated) {
             if(this.firstTimeActivated) {
                 this.firstTimeActivated = false
-                this.spotLight.intensity = 3;
+                this.spotLight.intensity = 5;
                 this.application.physics.applyCentralImpulse(this.rigidBody, 1,{x: 0, y: 1, z: 0});
             }
 
