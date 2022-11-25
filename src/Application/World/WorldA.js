@@ -26,27 +26,41 @@ export default class WorldA {
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.ready = false;
+        this.objectMeshes = []
 
-        // Wait for resources
+
         this.resources.on('ready', async () => {
-            await addLandingPageMenu(this.application)
-            await addSkyBox(this.scene, this.resources)
             this.globs = new ThreeAmmoGlobalObjects()
-            //this.fireWall = new FireWall(this.application)
-            this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
-            this.addPlatforms()
-            this.addMovingObstacles()
-            this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
-            this.eventHandler = new EventHandler();
-            this.environment = new Environment()
-            this.player = new Player({
-                x: 0,
-                y: 0.5,
-                z: 0
-            })
-
-            this.ready = true;
+            await addLandingPageMenu(this.application)
+            addSkyBox(this.scene, this.resources)
+            this.createWorld() // creating world without adding it to scene
         })
+
+
+    }
+
+    // kalles fra LandingPage.js
+    addWorldToScene() {
+        console.log('ADDING WORLD TO SCENE')
+        for (let i = 0; i < this.objectMeshes.length; i++) {
+            this.application.scene.add(this.objectMeshes[i])
+        }
+    }
+
+
+    createWorld() {
+        console.log("CREATING WORLD")
+        this.fireWall = new FireWall(this.application)
+        this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
+        this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
+        this.eventHandler = new EventHandler();
+        this.environment = new Environment()
+        this.player = new Player({x: 0, y: 0.5, z: 0})
+        this.objectMeshes.push(this.fireWall.mesh, this.lava.lavaMesh,
+            this.healthbar.sprite1, this.player.player)
+        this.addMovingObstacles()
+        this.addPlatforms()
+        this.ready = true;
     }
 
     addPlatforms() {
@@ -96,22 +110,13 @@ export default class WorldA {
 
         const i = new Box({
             position: {x: -2, y: -0.2, z: 5},
-            scale: {x: 1, y: 0.2, z:12},
+            scale: {x: 1, y: 0.2, z: 12},
             name: "startIntroWalker",
             material: this.globs.dirtMaterial,
         })
 
         //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
-        this.application.scene.add(
-            a.mesh,
-            b.mesh,
-            // e.mesh,
-            d.mesh,
-            f.mesh,
-            g.mesh,
-            h.mesh,
-            i.mesh
-        )
+        this.objectMeshes.push(a.mesh, b.mesh, d.mesh, f.mesh, g.mesh, h.mesh, i.mesh)
     }
 
     addMovingObstacles() {
@@ -122,6 +127,7 @@ export default class WorldA {
                 name: "rotatingWall"
             }
         )
+        this.objectMeshes.push(this.rotatingWall.mesh)
     }
 
     update() {
@@ -132,7 +138,7 @@ export default class WorldA {
             this.healthbar.update();
             this.lava.update();
             this.rotatingWall.update();
-            //this.fireWall.update();
+            this.fireWall.update();
         }
     }
 }

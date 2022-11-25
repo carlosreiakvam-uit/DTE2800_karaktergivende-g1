@@ -20,7 +20,7 @@ export default class HealthBar {
         this.sprite1 = new THREE.Sprite( spriteMaterial1 );
         this.sprite1.position.set( 0, 3, 0);
         this.sprite1.scale.set(0.75,0.25,0.25);
-        this.application.scene.add( this.sprite1 );
+        // this.application.scene.add( this.sprite1 );
     }
 
     update() {

@@ -40,7 +40,7 @@ export default class FireWall {
         fireWallMesh.position.x = position.x;
         fireWallMesh.position.z = position.z;
 
-        application.scene.add(fireWallMesh)
+        // application.scene.add(fireWallMesh)
 
         const TWEEN = require('/node_modules/@tweenjs/tween.js');
 

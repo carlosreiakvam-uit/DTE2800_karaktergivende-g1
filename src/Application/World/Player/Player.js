@@ -13,7 +13,7 @@ export default class Player {
         this.t = undefined
         this.player = this.importModel()
         this.player.name = "hero"
-        this.application.scene.add(this.player)
+        // this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics(position)
         this.healthRegen = 0.02

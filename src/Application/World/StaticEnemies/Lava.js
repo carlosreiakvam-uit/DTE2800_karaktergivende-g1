@@ -77,7 +77,7 @@ export default class Lava {
 
 
 
-        application.scene.add(this.lavaMesh);
+        // application.scene.add(this.lavaMesh);
 
         let width = this.lavaMesh.geometry.parameters.width;
         let height = 0.4;

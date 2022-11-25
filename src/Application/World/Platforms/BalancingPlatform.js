@@ -34,7 +34,7 @@ export default class BalancingPlatform {
 
         this.addHingeConstraints(platform, anchor)
 
-        this.application.scene.add(platform.mesh)
+        // this.application.scene.add(platform.mesh)
     }
 
     addHingeConstraints(platform, anchor) {
