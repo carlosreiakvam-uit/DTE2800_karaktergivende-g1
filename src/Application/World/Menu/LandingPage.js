@@ -39,6 +39,7 @@ export async function addLandingPageMenu(application) {
     let modeMediumPosition = {x: 0, y: 10, z: zText}
 
 
+
     fontLoader.load(
         url3,
         (loadedFont) => {
@@ -46,6 +47,7 @@ export async function addLandingPageMenu(application) {
             header = addTextElement(titleSize, headerText, headerPosition, headerName)
             start = addTextElement(subSize, startText, startPosition, startName)
             menu = addTextElement(subSize, menuText, menuPosition, menuName)
+
 
             function addTextElement(size, text, position, name, height = 4) {
                 const textGeometry = new TextGeometry(
@@ -104,6 +106,7 @@ export async function addLandingPageMenu(application) {
                     if (intersects.length > 0) {
                         // start game
                         if (intersects[0].object.name === startName) {
+                            application.world.addWorldToScene()
                             application.camera.instance.position.set(-15, 20, 30)
                             application.camera.lookAtHero = true
                             application.scene.remove(header)

@@ -90,9 +90,9 @@ export class RotatingWall {
             Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLANE
         )
 
-        this.application.scene.add(mesh);
         this.application.physics.rigidBodies.push(mesh);
         rigidBody.threeMesh = mesh;
+        this.mesh = mesh
 
         return rigidBody;
     }

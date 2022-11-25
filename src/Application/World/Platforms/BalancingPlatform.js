@@ -11,7 +11,7 @@ export default class BalancingPlatform {
         this.physics = this.application.physics
         this.mass = 1
 
-        let platform = new Box(
+        this.platform = new Box(
             {
                 position: startPos,
                 scale: {x: 8, y: 0.2, z: 2},
@@ -29,12 +29,11 @@ export default class BalancingPlatform {
                 material: this.globs.dirtMaterial
             })
 
-        platform.rigidBody.setFriction(1)
+        this.platform.rigidBody.setFriction(1)
         anchor.rigidBody.setFriction(0)
 
-        this.addHingeConstraints(platform, anchor)
+        this.addHingeConstraints(this.platform, anchor)
 
-        // this.application.scene.add(platform.mesh)
     }
 
     addHingeConstraints(platform, anchor) {

@@ -50,13 +50,13 @@ export default class WorldA {
 
     createWorld() {
         console.log("CREATING WORLD")
-        this.fireWall = new FireWall(this.application)
+        // this.fireWall = new FireWall(this.application)
         this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
         this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
         this.eventHandler = new EventHandler();
         this.environment = new Environment()
         this.player = new Player({x: 0, y: 0.5, z: 0})
-        this.objectMeshes.push(this.fireWall.mesh, this.lava.lavaMesh,
+        this.objectMeshes.push(this.lava.lavaMesh,
             this.healthbar.sprite1, this.player.player)
         this.addMovingObstacles()
         this.addPlatforms()
@@ -64,7 +64,7 @@ export default class WorldA {
     }
 
     addPlatforms() {
-        new BalancingPlatform({x: -10, y: -0.5, z: 0})
+        let balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
@@ -116,7 +116,14 @@ export default class WorldA {
         })
 
         //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
-        this.objectMeshes.push(a.mesh, b.mesh, d.mesh, f.mesh, g.mesh, h.mesh, i.mesh)
+        this.objectMeshes.push(a.mesh,
+            b.mesh,
+            d.mesh,
+            f.mesh,
+            g.mesh,
+            h.mesh,
+            i.mesh,
+            balancingPlatform.platform.mesh)
     }
 
     addMovingObstacles() {
@@ -138,7 +145,7 @@ export default class WorldA {
             this.healthbar.update();
             this.lava.update();
             this.rotatingWall.update();
-            this.fireWall.update();
+            // this.fireWall.update();
         }
     }
 }
