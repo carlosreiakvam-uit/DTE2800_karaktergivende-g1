@@ -222,9 +222,10 @@ export default class Player {
     }
 
     checkFlashLight() {
+
         if (this.flashLight.visible) {
-            const elapsed = this.application.time.clock.getElapsedTime();
-            if ((elapsed - this.activationTime) > 10) {
+            this.elapsed = this.application.time.clock.getElapsedTime();
+            if ((this.elapsed - this.activationTime) > 10) {
                 this.flashLight.intensity -= 0.1;
                 if (this.flashLight.intensity < 0.1) {
                     this.flashLightBattery -= 5;
@@ -237,6 +238,16 @@ export default class Player {
                         }
                     }
                 }
+            }
+        }
+
+        if(this.flashLight.visible === false) {
+            this.flashLightBattery += 0.05
+
+            if(this.flashLightBattery >= 25) {
+                this.flashLight.visible = true;
+                this.flashLight.intensity = 25
+                this.activationTime = this.application.time.clock.getElapsedTime()
             }
         }
     }
