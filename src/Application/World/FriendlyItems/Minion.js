@@ -20,25 +20,36 @@ export default class Minion {
         this.isActivated = false;
         this.addSpotLight()
         this.application.scene.add(this.group)
-        this.setMaterial(color)
         this.setGeometry()
+        this.setTextures()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.application.scene.add(this.group)
     }
 
+    setTextures() {
+        let textures = {}
+        textures.map = this.application.resources.items.spacePlatformTexture
+        textures.map.encoding = THREE.sRGBEncoding
+        textures.map.repeat.set(1.5, 1.5)
+        textures.map.wrapS = THREE.RepeatWrapping
+        textures.map.wrapT = THREE.RepeatWrapping
+
+        this.material = new THREE.MeshStandardMaterial({
+            map: textures.map,
+        });
+        this.material.roughness = 0.0;
+        this.material.shininess = 1;
+    }
+
     addSpotLight() {
-        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.8, 0.8);
+        this.spotLight = new THREE.SpotLight(0xFFFFFF, 0, 8, Math.PI , 0.8, 0.8);
         this.spotLight.castShadow = true
         this.spotLight.visible = true;
         this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
         this.group.add(this.spotLight)
         this.group.add(this.spotLight.target)
-    }
-
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
     }
 
     setGeometry() {

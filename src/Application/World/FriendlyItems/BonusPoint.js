@@ -12,15 +12,26 @@ export default class BonusPoint {
         this.position = position
         this.scale = scale
         this.name = name
-        this.setMaterial(color)
         this.setGeometry()
+        this.setTextures()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.taken = false;
     }
 
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
+    setTextures() {
+        let textures = {}
+        textures.map = this.application.resources.items.lightning
+        textures.map.encoding = THREE.sRGBEncoding
+        textures.map.repeat.set(1.5, 1.5)
+        textures.map.wrapS = THREE.RepeatWrapping
+        textures.map.wrapT = THREE.RepeatWrapping
+
+        this.material = new THREE.MeshStandardMaterial({
+            map: textures.map,
+        });
+        this.material.roughness = 0.0;
+        this.material.shininess = 1;
     }
 
     setGeometry() {

@@ -26,11 +26,21 @@ export default [
         type: `texture`,
         path: `textures/displacementFromMap/jotunheimen_01.png`
     },
+    {
+        name: `spacePlatformTexture`,
+        type: `texture`,
+        path: `textures/platform/spacePlatform.jpg`
+    },
 
     {
         name: `blackDirtyTexture`,
         type: `texture`,
         path: `textures/blackDirtyMetal/texture.jpg`
+    },
+    {
+        name: `lightning`,
+        type: `texture`,
+        path: `textures/lightning/lightning.jpg`
     },
     {
         name: `blackDirtyTextureNormals`,

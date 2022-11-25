@@ -211,7 +211,7 @@ export default class Player {
     }
 
     createFlashLight(position) {
-        const flashLight = new THREE.SpotLight(0xFFFF00, 7, 20, Math.PI * 0.15, 0.8, 0.5);
+        const flashLight = new THREE.SpotLight(0xFFFFFF, 7, 20, Math.PI * 0.15, 0.8, 0.5);
 
         flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
         flashLight.position.set(position.x, position.y+1, position.z);

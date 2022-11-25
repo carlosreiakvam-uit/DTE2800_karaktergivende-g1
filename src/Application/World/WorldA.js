@@ -53,13 +53,13 @@ export default class WorldA {
             position: {x: 15, y: -5, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "first",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const b = new Cylinder({
             position: {x: -20, y: -0.1, z: 0},
             scale: {x: 3, y: 0.2, z: 3},
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
             radius: 1
         })
 
@@ -67,35 +67,35 @@ export default class WorldA {
             position: {x: 0, y: -0.2, z: 0},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const f = new Box({
             position: {x: 16, y: -0.2, z: 6},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start3",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const g = new Box({
             position: {x: 24, y: -0.2, z: 3},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start4",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const h = new Box({
             position: {x: -5, y: -0.2, z: 16},
             scale: {x: 10, y: 0.2, z: 10},
             name: "startIntro",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const i = new Box({
-            position: {x: -2, y: -0.2, z: 5},
-            scale: {x: 1, y: 0.2, z:12},
+            position: {x: -2, y: -0.2, z: 6.75},
+            scale: {x: 1, y: 0.2, z:8.5},
             name: "startIntroWalker",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})

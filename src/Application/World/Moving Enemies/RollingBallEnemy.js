@@ -15,7 +15,7 @@ export default class RollingBallEnemy {
         this.name = name
         this.color = color
 
-        this.aggroRange = [-5, 5]
+        this.aggroRange = [-7, 7]
         this.xDifference = undefined
         this.zDifference = undefined
         this.yDifference = undefined
