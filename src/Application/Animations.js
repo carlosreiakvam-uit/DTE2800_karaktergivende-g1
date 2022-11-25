@@ -5,7 +5,7 @@ export default class Animations {
     constructor() {
         this.application = new Application()
         this.ambientVisible = true;
-        this.ambientIntensity = 0.1;
+        this.ambientIntensity = 0.01;
         this.ambientColor = 0xffffff;
         this.physics = this.application.physics
 

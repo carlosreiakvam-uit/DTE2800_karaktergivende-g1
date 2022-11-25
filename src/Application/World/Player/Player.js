@@ -18,7 +18,8 @@ export default class Player {
         this.health = 100
         this.flashLightBattery = 25;
         this.lostHealthForTheFirstTime = true
-        this.firstTimePlayerDies = true;
+        this.firstTimePlayerDies = true
+        this.firstTimeBatteryDies = true
         this.active = false;
         this.activationTime = 0;
 
@@ -210,7 +211,7 @@ export default class Player {
     }
 
     createFlashLight(position) {
-        const flashLight = new THREE.SpotLight(0xFFFF00, 30, 50, Math.PI * 0.2, 0.2, 0.5);
+        const flashLight = new THREE.SpotLight(0xFFFF00, 7, 20, Math.PI * 0.15, 0.5, 0.5);
 
         flashLight.target.position.set(position.x, position.y, position.z - 3);
         flashLight.position.set(position.x, position.y, position.z);
@@ -230,6 +231,10 @@ export default class Player {
                     this.flashLight.intensity = this.flashLightBattery;
                     if (this.flashLightBattery <= 0) {
                         this.flashLight.visible = false;
+                        if(this.firstTimeBatteryDies) {
+                            this.firstTimeBatteryDies = false
+                            $('#info13').fadeIn(2200).delay(8000).fadeOut(2200);
+                        }
                     }
                 }
             }

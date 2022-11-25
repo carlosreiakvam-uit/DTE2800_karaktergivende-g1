@@ -182,3 +182,18 @@ body
     display:block;
     margin-top: 200px;
 }
+
+#info13 {
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 12px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display:block;
+    margin-top: 300px;
+}

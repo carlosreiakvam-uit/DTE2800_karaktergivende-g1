@@ -18,7 +18,7 @@ export default class Minion {
         this.group = new THREE.Group()
         this.firstTimeActivated = true
         this.isActivated = false;
-        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.2, 0.5);
+        this.spotLight = new THREE.SpotLight(0xFFFF00, 0, 8, Math.PI , 0.5, 0.5);
 
         this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
@@ -65,7 +65,7 @@ export default class Minion {
         if(this.isActivated) {
             if(this.firstTimeActivated) {
                 this.firstTimeActivated = false
-                this.spotLight.intensity = 5;
+                this.spotLight.intensity = 3;
                 this.application.physics.applyCentralImpulse(this.rigidBody, 1,{x: 0, y: 1, z: 0});
             }
 

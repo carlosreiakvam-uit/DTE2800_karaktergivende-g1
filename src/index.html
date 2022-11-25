@@ -115,6 +115,12 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#info13').hide();
+    });
+</script>
+
 
 <div id="info"  class="container">
     <div class="typed-out">Welcome to Trapped In Space.</div></div>
@@ -123,7 +129,7 @@
     <div class="typed-out">You are engulfed in darkness.</div></div>
 
 <div id="info3"  class="container">
-    <div class="typed-out">Locate your minion, quickly!</div></div>
+    <div class="typed-out">Locate your minion, before your flashlight dies!</div></div>
 
 <div id="info4"  class="container">
     <div class="typed-out">But watch your step...</div></div>
@@ -151,6 +157,10 @@
 
 <div id="info12"  class="container">
     <div class="typed-out-long">You have died and respawned. As you explore new respawn locations will be generated.</div></div>
+
+<div id="info13"  class="container">
+    <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div></div>
+
 
 <canvas class="webgl"></canvas>
 <script type="x-shader/x-vertex" id="vertexshader">
