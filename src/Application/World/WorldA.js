@@ -53,7 +53,7 @@ export default class WorldA {
         this.environment = new Environment()
         this.player = new Player({x: 0, y: 0.5, z: 0})
         this.objectMeshes.push(this.lava.lavaMesh,
-            this.healthbar.sprite1, this.player.player)
+            this.healthbar.sprite1, this.player.group)
         this.addMovingObstacles()
         this.addPlatforms()
         this.ready = true;
