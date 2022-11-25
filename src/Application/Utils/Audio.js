@@ -24,11 +24,6 @@ export default class Audio {
             walking.setVolume(0.2);
         });
 
-        audioLoader.load('audio/hero/running.mp4', function (buffer) {
-            running.setBuffer(buffer);
-            running.setVolume(0.4);
-        });
-
         audioLoader.load('audio/hero/fallScream.ogg', function (buffer) {
             fallScream.setBuffer(buffer)
             fallScream.setVolume(0.9)

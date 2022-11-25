@@ -56,8 +56,8 @@ export default class Animations {
     playMovingSound() {
         if(!this.isJumping) {
             if(this.isRunning) {
-                if (!this.application.audio.running.isPlaying) {
-                    this.application.audio.running.play();
+                if (!this.application.audio.walking.isPlaying) {
+                    this.application.audio.walking.play();
                 }
             } else{
                 if(!this.application.audio.walking.isPlaying){
