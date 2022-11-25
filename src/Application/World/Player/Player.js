@@ -12,14 +12,28 @@ export default class Player {
         this.position = this.startPosition
         this.t = undefined
         this.player = this.importModel()
-        this.player.name = "hero"
-        // this.application.scene.add(this.player)
         this.activeAction.play();
         this.setPhysics(position)
         this.healthRegen = 0.02
         this.health = 100
+        this.flashLightBattery = 7;
         this.lostHealthForTheFirstTime = true
-        this.firstTimePlayerDies = true;
+        this.firstTimePlayerDies = true
+        this.firstTimeBatteryDies = true
+        this.active = false;
+        this.activationTime = 0;
+
+        this.flashLight = this.createFlashLight(position);
+
+        this.group = new THREE.Group();
+        this.group.add(this.player);
+        this.group.add(this.flashLight)
+        this.group.add(this.flashLight.target)
+
+        this.group.name = "hero"
+
+        // TODO ADD TO OBJECTMESHES
+        // this.application.scene.add(this.group)
     }
 
 
@@ -70,7 +84,7 @@ export default class Player {
         this.controller.setGravity(9.81)
 
         this.physics.world.addCollisionObject(this.ghostObject, Constant.COL_GROUP_PLAYER,
-            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER);
+            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_ENEMY | Constant.COL_GROUP_BONUS_POINTS);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);
@@ -91,26 +105,31 @@ export default class Player {
     }
 
     update() {
+        if(this.active) {
+            this.doUpdate();
+        }
+    }
 
+    doUpdate() {
         let direction = this.application.animations.direction;
         let rotation = this.application.animations.rotation;
         if (direction !== 0 || rotation !== 0) {
             const action = this.application.animations.directionSpeed > 0.6 ? this.animationActions.running : this.animationActions.walking;
             this.setAction(action)
-            this.player.rotation.z += rotation * this.application.animations.rotationSpeed;
-            this.player.rotation.z %= (2 * Math.PI);
+            this.group.rotation.y += rotation * this.application.animations.rotationSpeed;
+            this.group.rotation.y %= (2 * Math.PI);
         } else {
             this.setAction(this.animationActions.idle)
         }
 
         let speed = this.application.animations.directionSpeed;
         this.controller.setWalkDirection(new Ammo.btVector3(
-            direction * Math.sin(this.player.rotation.z) * speed,
+            direction * Math.sin(this.group.rotation.y) * speed,
             0,
-            direction * Math.cos(this.player.rotation.z) * speed
+            direction * Math.cos(this.group.rotation.y) * speed
         ));
         this.t = this.controller.getGhostObject().getWorldTransform();
-        this.player.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() -0.85, this.t.getOrigin().z());
+        this.group.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() - 0.85, this.t.getOrigin().z());
 
         this.application.animations.direction = 0;
         this.application.animations.rotation = 0;
@@ -133,10 +152,10 @@ export default class Player {
             this.makePlayerRespawn()
         }
 
-        if(this.health < 100) {
+        if (this.health < 100) {
             this.health += this.healthRegen
-            if(this.lostHealthForTheFirstTime) {
-                if(this.healthRegen > 0) {
+            if (this.lostHealthForTheFirstTime) {
+                if (this.healthRegen > 0) {
                     $('#info10').fadeIn(2200).delay(8000).fadeOut(2200);
                 } else {
                     $('#info11').fadeIn(2200).delay(8000).fadeOut(2200);
@@ -146,24 +165,25 @@ export default class Player {
         }
 
         this.mixer.update(this.application.time.delta)
+        this.checkFlashLight()
         this.checkCollisions()
     }
 
     makePlayerRespawn() {
         this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z)
         this.health = 100
-        if(this.firstTimePlayerDies) {
+        if (this.firstTimePlayerDies) {
             this.firstTimePlayerDies = false;
             $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
         }
     }
 
     playerFellOfPlatform() {
-        return this.player.position.y < -5;
+        return this.group.position.y < -5;
     }
 
     playerFellOfPlatformAndFinallyDied() {
-        return this.player.position.y < -25;
+        return this.group.position.y < -25;
     }
 
 
@@ -187,6 +207,48 @@ export default class Player {
 
                     }
                 }
+            }
+        }
+    }
+
+    createFlashLight(position) {
+        const flashLight = new THREE.SpotLight(0xFFFFFF, 7, 20, Math.PI * 0.15, 0.8, 0.5);
+
+        flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
+        flashLight.position.set(position.x, position.y+1, position.z);
+        flashLight.visible = true;
+        flashLight.castShadow = true;
+
+        return flashLight;
+    }
+
+    checkFlashLight() {
+
+        if (this.flashLight.visible) {
+            this.elapsed = this.application.time.clock.getElapsedTime();
+            if ((this.elapsed - this.activationTime) > 20) {
+                this.flashLight.intensity -= 0.1;
+                if (this.flashLight.intensity < 0.1) {
+                    this.flashLightBattery -= 0.75;
+                    this.flashLight.intensity = this.flashLightBattery;
+                    if (this.flashLightBattery <= 0) {
+                        this.flashLight.visible = false;
+                        if(this.firstTimeBatteryDies) {
+                            this.firstTimeBatteryDies = false
+                            $('#info13').fadeIn(2200).delay(8000).fadeOut(2200);
+                        }
+                    }
+                }
+            }
+        }
+
+        if(this.flashLight.visible === false) {
+            this.flashLightBattery += 0.015
+
+            if(this.flashLightBattery >= 7) {
+                this.flashLight.visible = true;
+                this.flashLight.intensity = 7
+                this.activationTime = this.application.time.clock.getElapsedTime()
             }
         }
     }

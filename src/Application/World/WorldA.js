@@ -6,17 +6,13 @@ import {addLandingPageMenu} from "./Menu/LandingPage";
 import {addSkyBox} from "./BackGroundSkyBox";
 import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
-import FireWall from "./Moving Enemies/FireWall.js";
-import BonusPointHandler from "./Handlers/BonusPointHandler";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import Box from "./Platforms/PlatformShapes/Box";
-import * as THREE from "three";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
 import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
-import Minion from "./FriendlyItems/Minion";
-import RollingBallEnemy from "./Moving Enemies/RollingBallEnemy";
 import EventHandler from "./Handlers/EventHandler";
+import Narvik from "./Platforms/Narvik.js";
 
 export default class WorldA {
     constructor() {
@@ -70,54 +66,53 @@ export default class WorldA {
             position: {x: 15, y: -5, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "first",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
-        const b = new Cylinder({
-            position: {x: -20, y: -0.1, z: 0},
-            scale: {x: 3, y: 0.2, z: 3},
-            material: this.globs.dirtMaterial,
-            radius: 1
-        })
+        // const b = new Cylinder({
+        //     position: {x: -20, y: -0.1, z: 0},
+        //     scale: {x: 3, y: 0.2, z: 3},
+        //     material: this.globs.spacePlatformMaterial,
+        //     radius: 1
+        // })
 
         const d = new Box({
             position: {x: 0, y: -0.2, z: 0},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const f = new Box({
             position: {x: 16, y: -0.2, z: 6},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start3",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const g = new Box({
             position: {x: 24, y: -0.2, z: 3},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start4",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const h = new Box({
             position: {x: -5, y: -0.2, z: 16},
             scale: {x: 10, y: 0.2, z: 10},
             name: "startIntro",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
         const i = new Box({
-            position: {x: -2, y: -0.2, z: 5},
-            scale: {x: 1, y: 0.2, z: 12},
+            position: {x: -2, y: -0.2, z: 6.75},
+            scale: {x: 1, y: 0.2, z:8.5},
             name: "startIntroWalker",
-            material: this.globs.dirtMaterial,
+            material: this.globs.spacePlatformMaterial,
         })
 
-        //const e = new ComplexPlatform({position: {x: -5, y: 1, z: -6}})
         this.objectMeshes.push(a.mesh,
-            b.mesh,
+            //b.mesh,
             d.mesh,
             f.mesh,
             g.mesh,
@@ -144,8 +139,8 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
-            this.rotatingWall.update();
-            // this.fireWall.update();
+            //this.rotatingWall.update();
+            //this.fireWall.update();
         }
     }
 }

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/constants.js";
+import {COL_GROUP_ENEMY} from "../../Utils/constants.js";
 
 
 export default class RollingBallEnemy {
@@ -14,26 +15,22 @@ export default class RollingBallEnemy {
         this.name = name
         this.color = color
 
-        this.aggroRange = [-5, 5]
+        this.aggroRange = [-7, 7]
         this.xDifference = undefined
         this.zDifference = undefined
         this.yDifference = undefined
 
-        this.setMaterial(color)
+        this.setTextures()
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.application.scene.add(this.mesh)
     }
 
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
-    }
-
     reset() {
         this.application.scene.remove(this.mesh)
-        this.setMaterial(this.color)
         this.setGeometry()
+        this.setTextures()
         this.setMesh(this.position, this.scale, this.name)
         this.setPhysics(this.position)
         this.application.scene.add(this.mesh)
@@ -43,6 +40,27 @@ export default class RollingBallEnemy {
         this.geometry = new THREE.SphereGeometry(1, 32, 32);
     }
 
+    setTextures() {
+        let textures = {}
+        textures.map = this.application.resources.items.blackDirtyTexture
+        textures.map.encoding = THREE.sRGBEncoding
+        textures.map.repeat.set(1.5, 1.5)
+        textures.map.wrapS = THREE.RepeatWrapping
+        textures.map.wrapT = THREE.RepeatWrapping
+
+        textures.normalMap = this.application.resources.items.blackDirtyTextureNormals
+        textures.normalMap.repeat.set(1.5, 1.5)
+        textures.normalMap.wrapS = THREE.RepeatWrapping
+        textures.normalMap.wrapT = THREE.RepeatWrapping
+
+        this.material = new THREE.MeshStandardMaterial({
+            map: textures.map,
+            normalMap: textures.normalMap
+        });
+        this.material.roughness = 0.8;
+        this.material.shininess = 0.4;
+    }
+
     setMesh(position, scale, name) {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = name
@@ -50,7 +68,6 @@ export default class RollingBallEnemy {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.mesh.collisionResponse = (mesh1) => {
-            mesh1.material.color.setHex(Math.random() * 0xffffff);
             let hero = this.application.world.player.t
             if (hero !== undefined) {
                 this.takeDamageOnHero(hero)
@@ -62,7 +79,7 @@ export default class RollingBallEnemy {
         let shape = new Ammo.btSphereShape(1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_ENEMY, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }

@@ -26,11 +26,26 @@ export default [
         type: `texture`,
         path: `textures/displacementFromMap/jotunheimen_01.png`
     },
+    {
+        name: `spacePlatformTexture`,
+        type: `texture`,
+        path: `textures/platform/spacePlatform.jpg`
+    },
 
     {
         name: `blackDirtyTexture`,
         type: `texture`,
         path: `textures/blackDirtyMetal/texture.jpg`
+    },
+    {
+        name: `lightning`,
+        type: `texture`,
+        path: `textures/lightning/lightning.jpg`
+    },
+    {
+        name: `blackDirtyTextureNormals`,
+        type: `texture`,
+        path: `textures/blackDirtyMetal/normals.jpg`
     },
     {
         name: `blackDirtyDisplacementTexture`,
@@ -72,4 +87,14 @@ export default [
         type: `texture`,
         path: `textures/traps/cloud.png`
     },
+    {
+        name: `narvik_displacement`,
+        type: `image`,
+        path: `textures/narvik/narvik_displacementmap.png`
+    },
+    {
+        name: `narvik_satelite`,
+        type: `image`,
+        path: `textures/narvik/narviksatellite_1024.png`
+    }
 ]

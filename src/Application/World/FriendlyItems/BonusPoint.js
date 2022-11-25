@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/constants.js";
+import {COL_GROUP_BONUS_POINTS} from "../../Utils/constants.js";
 
 
 export default class BonusPoint {
@@ -11,15 +12,26 @@ export default class BonusPoint {
         this.position = position
         this.scale = scale
         this.name = name
-        this.setMaterial(color)
         this.setGeometry()
+        this.setTextures()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.taken = false;
     }
 
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
+    setTextures() {
+        let textures = {}
+        textures.map = this.application.resources.items.lightning
+        textures.map.encoding = THREE.sRGBEncoding
+        textures.map.repeat.set(1.5, 1.5)
+        textures.map.wrapS = THREE.RepeatWrapping
+        textures.map.wrapT = THREE.RepeatWrapping
+
+        this.material = new THREE.MeshStandardMaterial({
+            map: textures.map,
+        });
+        this.material.roughness = 0.0;
+        this.material.shininess = 1;
     }
 
     setGeometry() {
@@ -44,7 +56,7 @@ export default class BonusPoint {
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_BONUS_POINTS, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
 
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;

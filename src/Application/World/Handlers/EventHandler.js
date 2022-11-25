@@ -89,15 +89,27 @@ export default class EventHandler {
         if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
             this.spawnSecondPlatform()
             this.movingEnemy1 = new RollingBallEnemy(
-                {x: 35, y: 10, z: -5},
+                {x: 35, y: 5, z: -5},
                 0.5,0xffff00,0.1,
                 "movingEnemy1"
             )
 
             this.movingEnemy2 = new RollingBallEnemy(
-                {x: 35, y: 10, z: 5},
+                {x: 35, y: 5, z: 5},
                 0.5,0xffff00,0.1,
                 "movingEnemy2"
+            )
+
+            this.movingEnemy3 = new RollingBallEnemy(
+                {x: 45, y: 5, z: 5},
+                0.5,0xffff00,0.1,
+                "movingEnemy3"
+            )
+
+            this.movingEnemy4 = new RollingBallEnemy(
+                {x: 45, y: 5, z: -5},
+                0.5,0xffff00,0.1,
+                "movingEnemy4"
             )
         }
     }
@@ -113,7 +125,7 @@ export default class EventHandler {
             position: {x: 8, y: -0.2, z: 3},
             scale: {x: 5, y: 0.2, z: 5},
             name: "start2",
-            material: application.world.globs.dirtMaterial,
+            material: application.world.globs.spacePlatformMaterial,
         })
 
         this.firstPlatformAdded = true
@@ -125,7 +137,7 @@ export default class EventHandler {
             position: {x: 40, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "second",
-            material: application.world.globs.dirtMaterial,
+            material: application.world.globs.spacePlatformMaterial,
         })
 
         this.secondPlatformAdded = true
@@ -138,7 +150,7 @@ export default class EventHandler {
             position: {x: 65, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "third",
-            material: application.world.globs.dirtMaterial,
+            material: application.world.globs.spacePlatformMaterial,
         })
         this.thirdPlatformAdded = true
         this.bonusPointHandler.spawnThirdPlatformBonusPoints()

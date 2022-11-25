@@ -4,6 +4,7 @@ import EventEmitter from './EventEmitter.js'
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader.js";
 import sources from "../sources.js";
 import ThreeAmmoGlobalObjects from "./ThreeAmmoGlobalObjects";
+import {ImageLoader} from "three";
 
 export default class Resources extends EventEmitter {
     constructor() {
@@ -34,13 +35,13 @@ export default class Resources extends EventEmitter {
         this.startLoading(sources)
     }
 
-
     setLoaders() {
         this.loaders = {}
         this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)
         this.loaders.fbxLoader = new FBXLoader(this.loadingManager)
         this.loaders.textureLoader = new THREE.TextureLoader(this.loadingManager)
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(this.loadingManager)
+        this.loaders.imageLoader = new THREE.ImageLoader(this.loadingManager)
     }
 
     startLoading() {
@@ -74,6 +75,13 @@ export default class Resources extends EventEmitter {
                         this.sourceLoaded(source, file)
                     }
                 )
+            } else if (source.type === 'image') {
+                this.loaders.imageLoader.load(
+                    source.path,
+                    (file) => {
+                        this.sourceLoaded(source, file)
+                    }
+                )
             }
 
         }
@@ -81,11 +89,6 @@ export default class Resources extends EventEmitter {
 
     sourceLoaded(source, file) {
         this.items[source.name] = file
-
         this.loaded++
-
-        // if (this.loaded === this.toLoad) {
-        //     this.trigger('ready')
-        // }
     }
 }

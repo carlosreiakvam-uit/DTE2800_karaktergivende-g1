@@ -28,6 +28,27 @@ body {
 }
 
 
+.container{
+    display: inline-block;
+}
+.typed-out{
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 3.5s steps(50, end) forwards, blinking .8s infinite;
+    font-size: 1.6rem;
+    width: 0;
+}
+
+.typed-out-long{
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 8s steps(200, end) forwards, blinking .8s infinite;
+    font-size: 1.6rem;
+    width: 0;
+}
+
 #info {
     position: absolute;
     padding: 10px;
@@ -191,4 +212,19 @@ body {
     opacity: 0.5;
     display: block;
     margin-top: 200px;
+}
+
+#info13 {
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 12px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display:block;
+    margin-top: 300px;
 }
