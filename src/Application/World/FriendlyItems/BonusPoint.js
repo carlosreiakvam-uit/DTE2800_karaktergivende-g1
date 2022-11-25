@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/constants.js";
+import {COL_GROUP_BONUS_POINTS} from "../../Utils/constants.js";
 
 
 export default class BonusPoint {
@@ -44,7 +45,7 @@ export default class BonusPoint {
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_BONUS_POINTS, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
 
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;

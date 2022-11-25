@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import RollingBallEnemy from "../Moving Enemies/RollingBallEnemy";
 import BonusPoint from "../FriendlyItems/BonusPoint";
 
 export default class BonusPointHandler {

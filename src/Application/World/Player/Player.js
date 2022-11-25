@@ -83,7 +83,7 @@ export default class Player {
         this.controller.setGravity(9.81)
 
         this.physics.world.addCollisionObject(this.ghostObject, Constant.COL_GROUP_PLAYER,
-            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER);
+            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_ENEMY | Constant.COL_GROUP_BONUS_POINTS);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);

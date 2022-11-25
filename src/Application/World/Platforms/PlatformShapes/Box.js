@@ -47,7 +47,7 @@ export default class Box {
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
         this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_PLANE,
-            Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_PLANE)
+            Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BONUS_POINTS | Constant.COL_GROUP_ENEMY)
     }
 
 }
