@@ -18,6 +18,27 @@ body
     outline: none;
 }
 
+.container{
+    display: inline-block;
+}
+.typed-out{
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 3.5s steps(50, end) forwards, blinking .8s infinite;
+    font-size: 1.6rem;
+    width: 0;
+}
+
+.typed-out-long{
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 8s steps(200, end) forwards, blinking .8s infinite;
+    font-size: 1.6rem;
+    width: 0;
+}
+
 #info {
     position: absolute;
     padding: 10px;
