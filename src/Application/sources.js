@@ -33,6 +33,11 @@ export default [
         path: `textures/blackDirtyMetal/texture.jpg`
     },
     {
+        name: `blackDirtyTextureNormals`,
+        type: `texture`,
+        path: `textures/blackDirtyMetal/normals.jpg`
+    },
+    {
         name: `blackDirtyDisplacementTexture`,
         type: `texture`,
         path: `textures/blackDirtyMetal/displacement_map.jpg`

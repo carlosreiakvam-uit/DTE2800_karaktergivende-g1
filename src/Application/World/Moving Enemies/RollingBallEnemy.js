@@ -20,21 +20,17 @@ export default class RollingBallEnemy {
         this.zDifference = undefined
         this.yDifference = undefined
 
-        this.setMaterial(color)
+        this.setTextures()
         this.setGeometry()
         this.setMesh(position, scale, name)
         this.setPhysics(position)
         this.application.scene.add(this.mesh)
     }
 
-    setMaterial(color) {
-        this.material = new THREE.MeshStandardMaterial({color: color})
-    }
-
     reset() {
         this.application.scene.remove(this.mesh)
-        this.setMaterial(this.color)
         this.setGeometry()
+        this.setTextures()
         this.setMesh(this.position, this.scale, this.name)
         this.setPhysics(this.position)
         this.application.scene.add(this.mesh)
@@ -42,6 +38,27 @@ export default class RollingBallEnemy {
 
     setGeometry() {
         this.geometry = new THREE.SphereGeometry(1, 32, 32);
+    }
+
+    setTextures() {
+        let textures = {}
+        textures.map = this.application.resources.items.blackDirtyTexture
+        textures.map.encoding = THREE.sRGBEncoding
+        textures.map.repeat.set(1.5, 1.5)
+        textures.map.wrapS = THREE.RepeatWrapping
+        textures.map.wrapT = THREE.RepeatWrapping
+
+        textures.normalMap = this.application.resources.items.blackDirtyTextureNormals
+        textures.normalMap.repeat.set(1.5, 1.5)
+        textures.normalMap.wrapS = THREE.RepeatWrapping
+        textures.normalMap.wrapT = THREE.RepeatWrapping
+
+        this.material = new THREE.MeshStandardMaterial({
+            map: textures.map,
+            normalMap: textures.normalMap
+        });
+        this.material.roughness = 0.8;
+        this.material.shininess = 0.4;
     }
 
     setMesh(position, scale, name) {
