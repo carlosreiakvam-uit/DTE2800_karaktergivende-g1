@@ -19,7 +19,7 @@ export default class EventHandler {
         this.bonusPointHandler = new BonusPointHandler()
         this.bonusPointHandler.spawnFirstPlatformBonusPoints();
         this.companion = new Minion(
-            {x: -5, y: 1, z: 12},
+            {x: -5, y: 1, z: 15},
             1,0xFFFFFF,0.1,
             "Minion")
     }
