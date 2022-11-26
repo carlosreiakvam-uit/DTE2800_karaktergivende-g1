@@ -4,6 +4,7 @@ import Box from "../Platforms/PlatformShapes/Box";
 import BonusPointHandler from "./BonusPointHandler";
 import Minion from "../FriendlyItems/Minion";
 import {assertPluginList} from "@babel/core/lib/config/validation/option-assertions";
+import Narvik from "../Platforms/Narvik.js";
 
 export default class EventHandler {
     constructor() {
@@ -12,7 +13,8 @@ export default class EventHandler {
         this.secondPlatformAdded = false;
         this.thirdPlatformAdded = false;
         this.firstPlatformAdded = false;
-        this.healthInfoTextShown = false
+        this.healthInfoTextShown = false;
+        this.narvikIsHere = false;
 
         this.bonusPointHandler = new BonusPointHandler()
         this.bonusPointHandler.spawnFirstPlatformBonusPoints();
@@ -26,7 +28,8 @@ export default class EventHandler {
         this.updateSecondPlatform();
         this.updateThirdPlatform();
         this.updateFirstPlatform();
-        this.playerStandsOnPlatformCloseToEnemies()
+        this.playerStandsOnPlatformCloseToEnemies();
+        this.updateNarvik();
         this.companion.update();
         this.bonusPointHandler.update()
     }
@@ -124,6 +127,12 @@ export default class EventHandler {
         }
     }
 
+    updateNarvik() {
+        if(this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
+            this.spawnNarvik();
+        }
+    }
+
     spawnFirstPlatform() {
         const e = new Box({
             position: {x: 8, y: -0.2, z: 3},
@@ -159,5 +168,11 @@ export default class EventHandler {
         this.thirdPlatformAdded = true
         this.bonusPointHandler.spawnThirdPlatformBonusPoints()
         this.application.scene.add(b.mesh);
+    }
+
+    spawnNarvik() {
+        const narvik = new Narvik(20, 20, {x: 130, y: 0, z: 10})
+        this.narvikIsHere = true;
+        this.application.scene.add(narvik.group);
     }
 }
