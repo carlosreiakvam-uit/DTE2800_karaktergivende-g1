@@ -30,7 +30,6 @@ export default class WorldA {
             this.globs = new ThreeAmmoGlobalObjects()
             await addLandingPageMenu(this.application)
             addSkyBox(this.scene, this.resources)
-            // this.addMenuLight()
             this.createWorld() // creating world without adding it to scene
         })
 
