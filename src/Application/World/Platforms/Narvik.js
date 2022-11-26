@@ -3,7 +3,7 @@ import * as THREE from "three";
 import * as Constant from "../../Utils/constants.js";
 
 export default class Narvik {
-    constructor(width, length, position = {x: 0, y: 0, z: 0}) {
+    constructor(width, length, position = {x: 0, y: 0, z: 0}, displacement, texture) {
         this.application = new Application()
         this.position = position
         this.scene = this.application.scene
@@ -11,6 +11,8 @@ export default class Narvik {
         this.physics = application.physics
         this.width = width;
         this.length = length;
+        this.displacement = displacement;
+        this.texture = texture;
         this.group = new THREE.Group();
         this.createTerrain();
         this.addLight(position);
@@ -19,7 +21,7 @@ export default class Narvik {
     createTerrain() {
         const terrainWidth=1024;
         const terrainHeight=1024;
-        const heightData = this.getHeigtdataFromImage(this.application.resources.items.narvik_displacement, terrainWidth, terrainHeight, 9);
+        const heightData = this.displacement;
 
         let heightFieldData = this.createHeightFieldShape(heightData, terrainWidth, terrainHeight);
 
@@ -49,7 +51,7 @@ export default class Narvik {
         terrainGeometry.computeVertexNormals();
 
         const terrainMaterial = new THREE.MeshStandardMaterial({
-            map: this.resources.items.narvik_satelite,
+            map: this.texture,
             side: THREE.DoubleSide,
             wireframe: false
         });
@@ -138,33 +140,7 @@ export default class Narvik {
     }
 
 
-    getHeigtdataFromImage(image, width, height, divisor = 3) {
-        // Lager et temporært canvas-objekt:
-        let canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        // Henter ut en 2D-context som gjør at man kan tegne på canvaset:
-        let context = canvas.getContext('2d');
-        let size = width * height;
-        // Lager et Float32Array som kan holde på alle pikslene til canvaset:
-        let heightData = new Float32Array(size);
-        // Tegner image på  canvaset:
-        context.drawImage(image, 0, 0);
-        // Nullstiller heightData-arrayet:
-        for (let i = 0; i < size; i++) {
-            heightData[i] = 0;
-        }
-        //imageData = et ImageData-objekt. Inneholder pikseldata. Hver piksel består av en RGBA-verdi (=4x8 byte).
-        let imageData = context.getImageData(0, 0, width, height);
-        let pixelDataUint8 = imageData.data;	//pixelDataUint8 = et Uint8ClampedArray - array. 4 byte per piksel. Ligger etter hverandre.
-        let j = 0;
-        //Gjennomløper pixelDataUint8, piksel for piksel (i += 4). Setter heightData for hver piksel lik summen av fargekomponentene / 3:
-        for (let i = 0, n = pixelDataUint8.length; i < n; i += 4) {
-            let sumColorValues = pixelDataUint8[i] + pixelDataUint8[i + 1] + pixelDataUint8[i + 2];
-            heightData[j++] = sumColorValues / divisor;
-        }
-        return heightData;
-    }
+
 
     addLight(position) {
         const light = new THREE.SpotLight(0xFFFFFF, 10, 70, Math.PI * 0.9, 0.8, 0.1);

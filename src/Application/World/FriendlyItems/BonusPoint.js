@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/constants.js";
-import {COL_GROUP_BONUS_POINTS} from "../../Utils/constants.js";
 
 
 export default class BonusPoint {
@@ -56,7 +55,7 @@ export default class BonusPoint {
         };
     }
 
-    setPhysics(position, activationState) {
+    setPhysics(position) {
         let shape = new Ammo.btSphereShape(0.3);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
@@ -74,6 +73,7 @@ export default class BonusPoint {
             this.physics.rigidBodies = this.physics.rigidBodies.filter(x => x !== this.mesh);
             this.taken = true;
             this.application.scene.remove(this.mesh);
+            this.physics.world.removeRigidBody(this.rigidBody);
         }
 
         if (
