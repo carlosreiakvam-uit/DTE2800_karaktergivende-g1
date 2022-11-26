@@ -219,21 +219,6 @@ export default class EventHandler {
             material: application.world.globs.spacePlatformMaterial,
         })
 
-        // const f = new Box({
-        //     position: {x: 55, y: 2.5, z: -6},
-        //     scale: {x: 4, y: 0.2, z: 20},
-        //     name: "third",
-        //     rotation: {x: 0, y:Math.PI/2, z: Math.PI/2},
-        //     material: application.world.globs.spacePlatformMaterial,
-        // })
-        //
-        // const d = new Box({
-        //     position: {x: 65, y: 0, z: 0},
-        //     scale: {x: 5, y: 0.2, z: 20},
-        //     name: "third",
-        //     material: application.world.globs.spacePlatformMaterial,
-        // })
-
         this.thirdPlatformAdded = true
         this.bonusPointHandler.spawnThirdPlatformBonusPoints()
         this.application.scene.add(
