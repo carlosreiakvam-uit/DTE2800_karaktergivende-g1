@@ -66,7 +66,7 @@ export class RotatingWall {
                 console.log(this.application.time.delta)
                 mesh1.getWorldDirection(direction);
                 hero.setVelocityForTimeInterval(
-                    new Ammo.btVector3(direction.x * 2, 0, direction.z * 2),
+                    new Ammo.btVector3(direction.x * 5, 0, direction.z * 5),
                     this.application.time.delta
                 )
             }
@@ -78,7 +78,7 @@ export class RotatingWall {
 
 
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x / 2, scale.y / 2, scale.z / 2));
-        // shape.setMargin(0.05);
+        shape.setMargin(0.005);
         const rigidBody = this.application.physics.createRigidBody(shape, mesh, 0.3, 0.0, position, mass);
         //rigidBody.setDamping(0.1, 0.5);
         rigidBody.setActivationState(4);
