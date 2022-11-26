@@ -208,7 +208,6 @@ export default class Player {
                         //     this.application.audio.point.play();
                         // }
 
-
                         console.log("contact:", contactBody.threeMesh.name)
                         if (typeof contactBody.threeMesh.collisionResponse === 'function')
                             contactBody.threeMesh.collisionResponse(contactBody.threeMesh)
