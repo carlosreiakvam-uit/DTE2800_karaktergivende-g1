@@ -163,6 +163,7 @@ export default class EventHandler {
     }
 
     spawnSecondPlatform() {
+        console.log('Spawning second platform')
         const a = new Box({
             position: {x: 40, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
