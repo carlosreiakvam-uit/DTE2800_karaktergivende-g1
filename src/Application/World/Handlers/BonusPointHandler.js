@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import Application from "../../Application.js";
 import BonusPoint from "../FriendlyItems/BonusPoint";
 import {position} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
-import * as Constsants from "../../Utils/Constants.js";
+import * as constants from "../../Utils/Constants.js";
 
 export default class BonusPointHandler {
     constructor() {
@@ -29,7 +29,7 @@ export default class BonusPointHandler {
     }
 
     specialCasePlat1(platformName) {
-        if (platformName === Constsants.BONUS_START_PLAT) {
+        if (platformName === constants.BONUS_START_PLAT) {
             $('#info5').fadeOut(2200);
             $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
         }
@@ -37,17 +37,17 @@ export default class BonusPointHandler {
 
 
     update() {
-        if (this.allBonusPoints.has(Constsants.BONUS_START_PLAT)) {
-            this.allBonusPointsTakenOnStartPlatForm = this.arePointsTaken(Constsants.BONUS_START_PLAT)
+        if (this.allBonusPoints.has(constants.BONUS_START_PLAT)) {
+            this.allBonusPointsTakenOnStartPlatForm = this.arePointsTaken(constants.BONUS_START_PLAT)
         }
-        if (this.allBonusPoints.has(Constsants.BONUS_PLAT_1)) {
-            this.allBonusPointsTakenOnFirstPlatForm = this.arePointsTaken(Constsants.BONUS_PLAT_1)
+        if (this.allBonusPoints.has(constants.BONUS_PLAT_1)) {
+            this.allBonusPointsTakenOnFirstPlatForm = this.arePointsTaken(constants.BONUS_PLAT_1)
         }
-        if (this.allBonusPoints.has(Constsants.BONUS_PLAT_2)) {
-            this.allBonusPointsTakenOnSecondPlatForm = this.arePointsTaken(Constsants.BONUS_PLAT_2)
+        if (this.allBonusPoints.has(constants.BONUS_PLAT_2)) {
+            this.allBonusPointsTakenOnSecondPlatForm = this.arePointsTaken(constants.BONUS_PLAT_2)
         }
-        if (this.allBonusPoints.has(Constsants.BONUS_PLAT_3)) {
-            this.allBonusPointsTakenOnThirdPlatForm = this.arePointsTaken(Constsants.BONUS_PLAT_3)
+        if (this.allBonusPoints.has(constants.BONUS_PLAT_3)) {
+            this.allBonusPointsTakenOnThirdPlatForm = this.arePointsTaken(constants.BONUS_PLAT_3)
         }
     }
 
@@ -66,7 +66,7 @@ export default class BonusPointHandler {
     }
 
     specialCasePlat2(key) {
-        if (key === Constsants.BONUS_PLAT_2) {
+        if (key === constants.BONUS_PLAT_2) {
             $('#info7').fadeOut(2200);
             $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
         }

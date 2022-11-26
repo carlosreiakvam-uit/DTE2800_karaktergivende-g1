@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../../Application.js";
 import ThreeAmmoGlobalObjects from "../../../Utils/ThreeAmmoGlobalObjects";
-import * as Constant from "../../../Utils/constants";
+import * as Constant from "../../../Utils/Constants";
 
 
 export default class Cylinder {

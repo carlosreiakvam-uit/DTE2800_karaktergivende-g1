@@ -5,7 +5,7 @@ import BonusPointHandler from "./BonusPointHandler";
 import Minion from "../FriendlyItems/Minion";
 import {assertPluginList} from "@babel/core/lib/config/validation/option-assertions";
 import Narvik from "../Platforms/Narvik.js";
-import * as Constants from "../../Utils/Constants.js";
+import * as Constant from "../../Utils/Constants.js";
 
 
 export default class EventHandler {
@@ -24,7 +24,7 @@ export default class EventHandler {
         // this.bonusPointHandler.spawnBonusPoints(5, 'testingPlatform', {x: 18 , y: 1, z: 0})
 
         // this.bonusPointHandler.spawnFirstPlatformBonusPoints();
-        this.bonusPointHandler.spawnBonusPoints(5, Constants.BONUS_PLAT_1, {x: 18, y: 1, z: 0}, {x: 1, z: 0})
+        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 0}, {x: 1, z: 0})
         this.companion = new Minion(
             {x: -5, y: 1, z: 15},
             1, 0xFFFFFF, 0.1,
@@ -44,7 +44,7 @@ export default class EventHandler {
     updateFirstPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
             // console.log('update first plat ok') OK
-            this.bonusPointHandler.spawnBonusPoints(5, Constants.BONUS_START_PLAT, {x: -3, y: 1, z: 20}, {x: 1, z: 0})
+            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_START_PLAT, {x: -3, y: 1, z: 20}, {x: 1, z: 0})
             // this.spawnBonusPoints()
             this.spawnFirstPlatform()
         }
@@ -171,7 +171,7 @@ export default class EventHandler {
         })
 
         this.secondPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constants.BONUS_PLAT_2, {x: 38, y: 1, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_2, {x: 38, y: 1, z: 0}, {x: 1, z: 1})
         // this.bonusPointHandler.spawnSecondPlatformBonusPoints()
         this.application.scene.add(a.mesh);
     }
@@ -234,7 +234,7 @@ export default class EventHandler {
         })
 
         this.thirdPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constants.BONUS_PLAT_3, {x: 68, y: 1, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_3, {x: 68, y: 1, z: 0}, {x: 1, z: 1})
         this.application.scene.add(
             b.mesh,
             c.mesh,

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Time from "../../Utils/Time";
-import * as Constant from "../../Utils/constants.js";
+import * as Constant from "../../Utils/Constants.js";
 
 
 export default class Lava {

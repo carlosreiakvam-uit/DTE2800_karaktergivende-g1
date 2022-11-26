@@ -1,6 +1,6 @@
 import Application from "../../Application.js";
 import * as THREE from "three";
-import * as Constant from "../../Utils/constants.js";
+import * as Constant from "../../Utils/Constants.js";
 
 export default class Narvik {
     constructor(width, length, position = {x: 0, y: 0, z: 0}, displacement, texture) {

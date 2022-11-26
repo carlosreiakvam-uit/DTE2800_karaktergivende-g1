@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import * as Constant from "../../Utils/constants.js";
+import * as Constant from "../../Utils/Constants.js";
 
 
 export default class Minion {

@@ -1,6 +1,6 @@
 import Application from "../../Application.js";
 import * as THREE from 'three'
-import * as Constants from "../../Utils/constants.js";
+import * as constant from "../../Utils/Constants.js";
 
 
 export default class Player {
@@ -89,8 +89,8 @@ export default class Player {
 
         this.controller.setGravity(9.81)
 
-        this.physics.world.addCollisionObject(this.ghostObject, Constants.COL_GROUP_PLAYER,
-            Constants.COL_GROUP_PLANE | Constants.COL_GROUP_BOX | Constants.COL_GROUP_PLAYER | Constants.COL_GROUP_ENEMY | Constants.COL_GROUP_BONUS_POINTS);
+        this.physics.world.addCollisionObject(this.ghostObject, constant.COL_GROUP_PLAYER,
+            constant.COL_GROUP_PLANE | constant.COL_GROUP_BOX | constant.COL_GROUP_PLAYER | constant.COL_GROUP_ENEMY | constant.COL_GROUP_BONUS_POINTS);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);

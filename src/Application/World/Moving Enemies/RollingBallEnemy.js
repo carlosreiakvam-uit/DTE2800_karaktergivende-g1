@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
-import * as Constants from "../../Utils/constants.js";
-import {COL_GROUP_ENEMY} from "../../Utils/constants.js";
+import * as Constant from "../../Utils/Constants.js";
 
 
 export default class RollingBallEnemy {
@@ -84,7 +83,7 @@ export default class RollingBallEnemy {
         let shape = new Ammo.btSphereShape(1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, Constants.COL_GROUP_ENEMY, Constants.COL_GROUP_PLANE | Constants.COL_GROUP_PLAYER);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_ENEMY, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }
