@@ -67,6 +67,7 @@ export default class Player {
 
         let transform = new Ammo.btTransform();
         transform.setIdentity();
+        console.log(this.position.x)
         transform.setOrigin(new Ammo.btVector3(this.position.x, this.position.y, this.position.z));
         transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1));
 

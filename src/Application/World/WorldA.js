@@ -25,7 +25,6 @@ export default class WorldA {
         this.ready = false;
         this.objectMeshes = []
 
-
         this.resources.on('ready', async () => {
             this.globs = new ThreeAmmoGlobalObjects()
             await addLandingPageMenu(this.application)
@@ -48,7 +47,7 @@ export default class WorldA {
     createWorld() {
         console.log("CREATING WORLD")
         // this.fireWall = new FireWall(this.application)
-        this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
+        this.lava = new Lava({x: 15, y: -4.9, z: 0}, 15, 15)
         this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
         this.eventHandler = new EventHandler();
         // this.environment = new Environment()
@@ -65,7 +64,7 @@ export default class WorldA {
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
-            scale: {x: 20, y: 0.2, z: 20},
+            scale: {x: 15, y: 0.2, z: 15},
             name: "first",
             material: this.globs.spacePlatformMaterial,
         })
