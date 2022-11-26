@@ -92,14 +92,11 @@ export default class Minion {
 
             let hero = this.application.world.player.t
             if (hero !== undefined) {
-                this.checkHeroAndThisInteraction(hero)
-                // this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
-                // this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+               this.checkHeroAndThisInteraction(hero)
             }
         } else {
             this.doFloatingAnimationStart()
         }
-
     }
 
     adjustTrajectoryOfThis(hero) {

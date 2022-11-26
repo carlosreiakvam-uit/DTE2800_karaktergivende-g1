@@ -12,6 +12,7 @@ export default class Player {
         this.position = this.startPosition
         this.t = undefined
         this.player = this.importModel()
+
         this.activeAction.play();
         this.setPhysics(position)
         this.healthRegen = 0.02
@@ -49,6 +50,11 @@ export default class Player {
             running: this.mixer.clipAction(player.animations[3])
         }
 
+        player.scene.traverse( function ( object ) {
+            console.log(object)
+            if ( object.isMesh ) object.castShadow = true;
+
+        } );
         this.activeAction = this.animationActions.idle
         return player.scene.children[0]
     }
@@ -218,7 +224,7 @@ export default class Player {
         flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
         flashLight.position.set(position.x, position.y+1, position.z);
         flashLight.visible = true;
-        flashLight.castShadow = true;
+        //flashLight.castShadow = true;
 
         return flashLight;
     }
