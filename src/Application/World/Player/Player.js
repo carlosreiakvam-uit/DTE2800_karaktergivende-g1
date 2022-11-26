@@ -52,7 +52,6 @@ export default class Player {
         }
 
         player.scene.traverse( function ( object ) {
-            console.log(object)
             if ( object.isMesh ) object.castShadow = true;
 
         } );

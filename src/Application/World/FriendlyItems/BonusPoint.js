@@ -19,6 +19,7 @@ export default class BonusPoint {
         this.taken = false;
     }
 
+
     setTextures() {
         let textures = {}
         textures.map = this.application.resources.items.lightning
@@ -46,6 +47,10 @@ export default class BonusPoint {
         this.mesh.receiveShadow = true;
         this.application.scene.add(this.mesh)
         this.mesh.collisionResponse = (mesh1) => {
+            if (!this.application.audio.point.isPlaying) {
+                this.application.audio.point.play();
+            }
+
             this.makeThisFloatAway(mesh1.userData.physicsBody)
             this.taken = true;
         };
@@ -71,7 +76,7 @@ export default class BonusPoint {
             this.application.scene.remove(this.mesh);
         }
 
-        if(
+        if (
             this.mesh.position.x > this.position.x + 1 || this.mesh.position.x < this.position.x - 1 ||
             this.mesh.position.z > this.position.z + 1 || this.mesh.position.z < this.position.z - 1 ||
             this.mesh.position.y > this.position.y + 5 || this.mesh.position.y < this.position.y - 5

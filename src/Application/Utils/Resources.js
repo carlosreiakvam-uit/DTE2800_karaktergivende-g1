@@ -19,10 +19,8 @@ export default class Resources extends EventEmitter {
         // Loading manager with strong inspiration from threejs-journey.com
         this.loadingManager = new THREE.LoadingManager(
             () => {
-                console.log('LOADING ASSETS COMPLETE BEEP BOOP')
-                // loadingBarElement.remove()
+                console.log('LOADING ASSETS COMPLETE')
                 loadingDiv.remove()
-
                 this.trigger('ready')
             },
             (itemUrl, itemsLoaded, itemsTotal) => {
