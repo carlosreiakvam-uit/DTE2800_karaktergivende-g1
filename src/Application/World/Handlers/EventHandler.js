@@ -5,6 +5,8 @@ import BonusPointHandler from "./BonusPointHandler";
 import Minion from "../FriendlyItems/Minion";
 import {assertPluginList} from "@babel/core/lib/config/validation/option-assertions";
 import Narvik from "../Platforms/Narvik.js";
+import * as C from "../../Utils/Constants.js";
+
 
 export default class EventHandler {
     constructor() {
@@ -17,10 +19,15 @@ export default class EventHandler {
         this.narvikIsHere = false;
 
         this.bonusPointHandler = new BonusPointHandler()
-        this.bonusPointHandler.spawnFirstPlatformBonusPoints();
+
+        // spawn initial bonus points
+        // this.bonusPointHandler.spawnBonusPoints(5, 'testingPlatform', {x: 18 , y: 1, z: 0})
+
+        // this.bonusPointHandler.spawnFirstPlatformBonusPoints();
+        this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_1, {x: 18, y: 1, z: 0})
         this.companion = new Minion(
             {x: -5, y: 1, z: 15},
-            1,0xFFFFFF,0.1,
+            1, 0xFFFFFF, 0.1,
             "Minion")
     }
 
@@ -36,16 +43,19 @@ export default class EventHandler {
 
     updateFirstPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
-            this.spawnBonusPoints()
+            // console.log('update first plat ok') OK
+            this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_START_PLAT, {x: -3, y: 1, z: 20})
+            // this.spawnBonusPoints()
             this.spawnFirstPlatform()
         }
     }
+
     spawnBonusPoints() {
-        this.bonusPointHandler.spawnStartPlatformBonusPoints();
+        // this.bonusPointHandler.spawnStartPlatformBonusPoints();
     }
 
     playerStandsOnPlatformCloseToEnemies() {
-        if(this.healthInfoTextShown) return
+        if (this.healthInfoTextShown) return
         let hero = this.application.world.player.t
         if (hero === undefined) return
         this.checkHeroAndThisInteraction(hero)
@@ -66,6 +76,7 @@ export default class EventHandler {
     checkDifferenceWhenNegativeAndPositiveInput(difference, biggerThen, lessThen) {
         return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
     }
+
     getXPositionDifference(hero) {
         return hero.getOrigin().x() - 24;
     }
@@ -76,14 +87,14 @@ export default class EventHandler {
 
     checkHeroAndThisInteraction(hero) {
         this.updatePositions(hero)
-        if (!this.healthInfoTextShown && this.checkIfHeroAndThisEntityAreClose([-5,5])) {
+        if (!this.healthInfoTextShown && this.checkIfHeroAndThisEntityAreClose([-5, 5])) {
             this.healthInfoTextShown = true
             $('#info9').fadeIn(2200).delay(4000).fadeOut(2200);
         }
     }
 
     updateSecondPlatform() {
-        if(this.movingEnemy1 !== undefined &&
+        if (this.movingEnemy1 !== undefined &&
             this.movingEnemy2 !== undefined &&
             this.movingEnemy3 !== undefined &&
             this.movingEnemy4 !== undefined) {
@@ -93,46 +104,48 @@ export default class EventHandler {
             this.movingEnemy4.update();
         }
 
-        if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
+        console.log("ska jo være true da ", this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm)
+        if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
+            console.log("HEISANN HOPPSANN")
             this.spawnSecondPlatform()
             this.movingEnemy1 = new RollingBallEnemy(
                 {x: 35, y: 5, z: -5},
-                0.5,0xffff00,0.1,
+                0.5, 0xffff00, 0.1,
                 "movingEnemy1"
             )
 
             this.movingEnemy2 = new RollingBallEnemy(
                 {x: 35, y: 5, z: 5},
-                0.5,0xffff00,0.1,
+                0.5, 0xffff00, 0.1,
                 "movingEnemy2"
             )
 
             this.movingEnemy3 = new RollingBallEnemy(
                 {x: 45, y: 5, z: 5},
-                0.5,0xffff00,0.1,
+                0.5, 0xffff00, 0.1,
                 "movingEnemy3"
             )
 
             this.movingEnemy4 = new RollingBallEnemy(
                 {x: 45, y: 5, z: -5},
-                0.5,0xffff00,0.1,
+                0.5, 0xffff00, 0.1,
                 "movingEnemy4"
             )
         }
     }
 
     updateThirdPlatform() {
-        if(!this.thirdPlatformAdded) {
+        if (!this.thirdPlatformAdded) {
             this.spawnThirdPlatForm();
         }
 
-        // if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
-        //     this.spawnThirdPlatForm();
-        // }
+        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+            this.spawnThirdPlatForm();
+        }
     }
 
     updateNarvik() {
-        if(this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
+        if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
             this.spawnNarvik();
         }
     }
@@ -167,7 +180,7 @@ export default class EventHandler {
             position: {x: 65, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "third",
-            rotation: { x:0, y: 0, z: 0},
+            rotation: {x: 0, y: 0, z: 0},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -175,7 +188,7 @@ export default class EventHandler {
             position: {x: 55, y: 2.5, z: 6.2},
             scale: {x: 5, y: 0.2, z: 7.5},
             name: "third",
-            rotation: {x: 0, y:0, z: Math.PI/2},
+            rotation: {x: 0, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -183,7 +196,7 @@ export default class EventHandler {
             position: {x: 55, y: 2.5, z: -6.2},
             scale: {x: 5, y: 0.2, z: 7.5},
             name: "third",
-            rotation: {x: 0, y:0, z: Math.PI/2},
+            rotation: {x: 0, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -191,7 +204,7 @@ export default class EventHandler {
             position: {x: 60, y: 2.5, z: 10},
             scale: {x: 5, y: 0.2, z: 10},
             name: "third",
-            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            rotation: {x: Math.PI / 2, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -199,7 +212,7 @@ export default class EventHandler {
             position: {x: 70, y: 2.5, z: 10},
             scale: {x: 5, y: 0.2, z: 10},
             name: "third",
-            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            rotation: {x: Math.PI / 2, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -207,7 +220,7 @@ export default class EventHandler {
             position: {x: 60, y: 2.5, z: -10},
             scale: {x: 5, y: 0.2, z: 10},
             name: "third",
-            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            rotation: {x: Math.PI / 2, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
@@ -215,12 +228,13 @@ export default class EventHandler {
             position: {x: 70, y: 2.5, z: -10},
             scale: {x: 5, y: 0.2, z: 10},
             name: "third",
-            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            rotation: {x: Math.PI / 2, y: 0, z: Math.PI / 2},
             material: application.world.globs.spacePlatformMaterial,
         })
 
         this.thirdPlatformAdded = true
-        this.bonusPointHandler.spawnThirdPlatformBonusPoints()
+        //TODO SPAWN THIRD PLATFORM BONUS POINTS
+        // this.bonusPointHandler.spawnThirdPlatformBonusPoints()
         this.application.scene.add(
             b.mesh,
             c.mesh,
