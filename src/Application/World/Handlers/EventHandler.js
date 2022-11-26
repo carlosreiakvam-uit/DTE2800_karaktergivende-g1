@@ -95,51 +95,51 @@ export default class EventHandler {
 
     updateSecondPlatform() {
         if (this.movingEnemy1 !== undefined &&
-            this.movingEnemy2 !== undefined &&
-            this.movingEnemy3 !== undefined &&
-            this.movingEnemy4 !== undefined) {
+            this.movingEnemy2 !== undefined) {
             this.movingEnemy1.update();
             this.movingEnemy2.update();
-            this.movingEnemy3.update();
-            this.movingEnemy4.update();
         }
 
         if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && !this.secondPlatformAdded) {
             console.log("HEISANN HOPPSANN SECOND PLATFORM")
             this.spawnSecondPlatform()
             this.movingEnemy1 = new RollingBallEnemy(
-                {x: 35, y: 5, z: -5},
+                {x: 45, y: 5, z: -5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy1"
             )
 
             this.movingEnemy2 = new RollingBallEnemy(
-                {x: 35, y: 5, z: 5},
+                {x: 45, y: 5, z: 5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy2"
             )
 
+        }
+    }
+
+    updateThirdPlatform() {
+        if (this.movingEnemy3 !== undefined &&
+            this.movingEnemy4 !== undefined) {
+            this.movingEnemy3.update();
+            this.movingEnemy4.update();
+        }
+
+
+        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+            this.spawnThirdPlatForm();
             this.movingEnemy3 = new RollingBallEnemy(
-                {x: 45, y: 5, z: 5},
+                {x: 62, y: 5, z: -5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy3"
             )
 
             this.movingEnemy4 = new RollingBallEnemy(
-                {x: 45, y: 5, z: -5},
+                {x: 62, y: 5, z: 5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy4"
             )
-        }
-    }
 
-    updateThirdPlatform() {
-        if (!this.thirdPlatformAdded) {
-            this.spawnThirdPlatForm();
-        }
-
-        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
-            this.spawnThirdPlatForm();
         }
     }
 
