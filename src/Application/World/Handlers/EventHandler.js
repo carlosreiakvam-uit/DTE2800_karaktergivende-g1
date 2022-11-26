@@ -234,8 +234,6 @@ export default class EventHandler {
         })
 
         this.thirdPlatformAdded = true
-        //TODO SPAWN THIRD PLATFORM BONUS POINTS
-        // this.bonusPointHandler.spawnThirdPlatformBonusPoints()
         this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_3, {x: 68, y: 1, z: 0}, {x: 1, z: 1})
         this.application.scene.add(
             b.mesh,
