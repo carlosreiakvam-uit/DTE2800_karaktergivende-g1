@@ -27,6 +27,8 @@ export default class WorldA {
 
 
         this.resources.on('ready', async () => {
+            await addLandingPageMenu(this.application)
+            await addSkyBox(this.scene, this.resources)
             this.globs = new ThreeAmmoGlobalObjects()
             await addLandingPageMenu(this.application)
             addSkyBox(this.scene, this.resources)
@@ -86,7 +88,7 @@ export default class WorldA {
 
         const f = new Box({
             position: {x: 16, y: -0.2, z: 6},
-            scale: {x: 5, y: 0.2, z: 5},
+            scale: {x: 8, y: 0.2, z: 8},
             name: "start3",
             material: this.globs.spacePlatformMaterial,
         })
@@ -112,8 +114,10 @@ export default class WorldA {
             material: this.globs.spacePlatformMaterial,
         })
 
+
         this.objectMeshes.push(a.mesh,
             //b.mesh,
+            // e.mesh,
             d.mesh,
             f.mesh,
             g.mesh,
@@ -124,7 +128,7 @@ export default class WorldA {
 
     addMovingObstacles() {
         this.rotatingWall = new RotatingWall({
-                position: {x: -20, y: 0, z: 0},
+                position: {x: 16, y: -0.2, z: 6},
                 scale: {x: 5, y: 2, z: 0.5},
                 texture: "lava1",
                 name: "rotatingWall"
@@ -140,7 +144,7 @@ export default class WorldA {
             this.player.update();
             this.healthbar.update();
             this.lava.update();
-            //this.rotatingWall.update();
+            this.rotatingWall.update();
             //this.fireWall.update();
         }
     }
