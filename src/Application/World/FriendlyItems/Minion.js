@@ -64,6 +64,11 @@ export default class Minion {
         this.mesh.receiveShadow = true;
         this.group.add(this.mesh)
         this.mesh.collisionResponse = (mesh1) => {
+            if(!this.isActivated) {
+                if (!this.application.audio.minion.isPlaying) {
+                        this.application.audio.minion.play();
+                }
+            }
             this.isActivated = true
         };
     }

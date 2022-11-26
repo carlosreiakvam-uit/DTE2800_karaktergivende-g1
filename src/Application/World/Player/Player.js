@@ -149,6 +149,9 @@ export default class Player {
 
         if (this.health <= 0) {
             this.makePlayerRespawn()
+            if (!this.application.audio.fallScream.isPlaying) {
+                this.application.audio.fallScream.play()
+            }
         }
 
         if (this.health < 100) {
