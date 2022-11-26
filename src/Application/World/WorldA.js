@@ -51,12 +51,11 @@ export default class WorldA {
         this.lava = new Lava({x: 15, y: -4.9, z: 0}, 20, 20)
         this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
         this.eventHandler = new EventHandler();
-        this.environment = new Environment()
+        // this.environment = new Environment()
         this.player = new Player({x: 0, y: 0.5, z: 0})
-        this.objectMeshes.push(this.lava.lavaMesh,
-            this.healthbar.sprite1, this.player.group)
         this.addMovingObstacles()
         this.addPlatforms()
+        this.objectMeshes.push(this.lava.lavaMesh, this.healthbar.sprite1, this.player.group)
         this.ready = true;
     }
 
@@ -136,7 +135,7 @@ export default class WorldA {
 
     update() {
         if (this.ready) {
-            this.environment.update();
+            // this.environment.update();
             this.eventHandler.update();
             this.player.update();
             this.healthbar.update();
