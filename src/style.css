@@ -18,7 +18,7 @@ body {
 /*CSS from threejs-journey.com*/
 .loading-bar {
     height: 20px;
-    background: #ff0000;
+    background: #333333;
     transform: scaleX(0.3);
     transform-origin: top left;
     transition: transform 0.1s;
@@ -31,7 +31,7 @@ body {
 
 #p_loading{
     margin-left: 20px;
-    color: red;
+    color: #888888;
 
 }
 

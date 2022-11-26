@@ -58,7 +58,7 @@ export async function addLandingPageMenu(application) {
                     });
 
                 const textMaterial = new THREE.MeshStandardMaterial({
-                    color: 0x444444,
+                    color: 0x666666,
                     side: THREE.DoubleSide,
                     wireframe: false
                 });

@@ -23,6 +23,8 @@ export default class Resources extends EventEmitter {
                 loadingDiv.remove()
                 this.trigger('ready')
             },
+
+            // LOADING BAR
             (itemUrl, itemsLoaded, itemsTotal) => {
                 const progressRatio = itemsLoaded / itemsTotal
                 loadingBarElement.style.transform = `scaleX(${progressRatio})`
