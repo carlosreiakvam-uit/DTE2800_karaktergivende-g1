@@ -3,7 +3,7 @@ import * as THREE from "three";
 import * as Constant from "../../Utils/constants.js";
 
 export default class Narvik {
-    constructor(width, length, position = {x: 0, y: 0, z: 0}) {
+    constructor(width, length, position = {x: 0, y: 0, z: 0}, displacement, texture) {
         this.application = new Application()
         this.position = position
         this.scene = this.application.scene
@@ -11,6 +11,8 @@ export default class Narvik {
         this.physics = application.physics
         this.width = width;
         this.length = length;
+        this.displacement = displacement;
+        this.texture = texture;
         this.group = new THREE.Group();
         this.createTerrain();
         this.addLight(position);
@@ -19,7 +21,7 @@ export default class Narvik {
     createTerrain() {
         const terrainWidth=1024;
         const terrainHeight=1024;
-        const heightData = this.resources.items.narvik_displacement;
+        const heightData = this.displacement;
 
         let heightFieldData = this.createHeightFieldShape(heightData, terrainWidth, terrainHeight);
 
@@ -49,7 +51,7 @@ export default class Narvik {
         terrainGeometry.computeVertexNormals();
 
         const terrainMaterial = new THREE.MeshStandardMaterial({
-            map: this.resources.items.narvik_satelite,
+            map: this.texture,
             side: THREE.DoubleSide,
             wireframe: false
         });

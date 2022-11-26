@@ -1,5 +1,4 @@
 import Application from '../Application.js'
-import Environment from './Environment.js'
 import Player from "./Player/Player.js";
 import HealthBar from "./HUD/HealthBar";
 import {addLandingPageMenu} from "./Menu/LandingPage";
@@ -9,11 +8,8 @@ import Lava from "./StaticEnemies/Lava.js";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import Box from "./Platforms/PlatformShapes/Box";
 import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
-import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import EventHandler from "./Handlers/EventHandler";
-import Narvik from "./Platforms/Narvik.js";
-import * as THREE from "three";
 
 export default class WorldA {
     constructor() {

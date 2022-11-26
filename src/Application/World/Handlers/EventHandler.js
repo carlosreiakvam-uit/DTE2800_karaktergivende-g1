@@ -234,8 +234,7 @@ export default class EventHandler {
     }
 
     spawnNarvik() {
-        const narvik = new Narvik(20, 20, {x: 130, y: 0, z: 10})
         this.narvikIsHere = true;
-        this.application.scene.add(narvik.group);
+        this.application.scene.add(this.application.resources.narvik.group);
     }
 }
