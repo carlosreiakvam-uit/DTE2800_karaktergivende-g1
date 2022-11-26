@@ -19,7 +19,7 @@ export default class Minion {
         this.firstTimeActivated = true
         this.isActivated = false;
         this.addSpotLight()
-        this.application.scene.add(this.group)
+        // this.application.scene.add(this.group)
         this.setGeometry()
         this.setTextures()
         this.setMesh(position, scale, name)
@@ -63,7 +63,7 @@ export default class Minion {
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.group.add(this.mesh)
-        this.mesh.collisionResponse = (mesh1) => {
+        this.mesh.collisionResponse = (_) => {
             if(!this.isActivated) {
                 if (!this.application.audio.minion.isPlaying) {
                         this.application.audio.minion.play();
@@ -73,7 +73,7 @@ export default class Minion {
         };
     }
 
-    setPhysics(position, activationState) {
+    setPhysics(position) {
         let shape = new Ammo.btSphereShape(0.1);
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
         this.mesh.userData.physicsBody = this.rigidBody;
@@ -88,48 +88,23 @@ export default class Minion {
                 this.firstTimeActivated = false
                 this.spotLight.intensity = 5;
                 this.application.physics.applyCentralImpulse(this.rigidBody, 1,{x: 0, y: 1, z: 0});
+                let hero = this.application.world.player.t
+                if (hero !== undefined) {
+                    this.createSpringConstraint();
+                }
             }
+            this.moveSpotlight()
 
-            let hero = this.application.world.player.t
-            if (hero !== undefined) {
-               this.checkHeroAndThisInteraction(hero)
-            }
+
         } else {
             this.doFloatingAnimationStart()
         }
     }
 
-    adjustTrajectoryOfThis(hero) {
-        if(hero.getOrigin().y() < - 5) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0.01, y: 0.04, z: 0});
-        }
-
-        if(this.rigidBody.threeMesh.position.x > hero.getOrigin().x()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: -0.005, y: 0, z: 0});
-
-            if(this.lastXPos < this.rigidBody.threeMesh.position.x) {
-                this.application.physics.applyImpulse(this.rigidBody, {x: -0.02, y: 0, z: 0});
-            }
-        } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0.005, y: 0, z: 0});
-            if(this.lastXPos > this.rigidBody.threeMesh.position.x) {
-                this.application.physics.applyImpulse(this.rigidBody, {x: 0.02, y: 0, z: 0});
-            }
-        }
-
-        if(this.rigidBody.threeMesh.position.z > hero.getOrigin().z()) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.005});
-            if(this.lastZPos < this.rigidBody.threeMesh.position.z) {
-                this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: -0.02});
-            }
-        } else {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.005});
-            if(this.lastZPos > this.rigidBody.threeMesh.position.z) {
-                this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0, z: 0.02});
-            }
-        }
+    moveSpotlight() {
         this.lastXPos = this.rigidBody.threeMesh.position.x
         this.lastZPos = this.rigidBody.threeMesh.position.z
+        this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
     }
 
     doFloatingAnimation(hero) {
@@ -148,8 +123,43 @@ export default class Minion {
 
     }
 
-    checkHeroAndThisInteraction(hero) {
-        this.doFloatingAnimation(hero)
-        this.adjustTrajectoryOfThis(hero);
+    createSpringConstraint() {
+        const transform1 = new Ammo.btTransform();
+        transform1.setIdentity();
+        transform1.setOrigin( new Ammo.btVector3( 0, 1, 0 ) );
+        const transform2 = new Ammo.btTransform();
+        transform2.setIdentity();
+        transform2.setOrigin( new Ammo.btVector3( 0, 0, 0 ) );
+
+        const springConstraint = new Ammo.btGeneric6DofSpringConstraint(
+            this.application.world.player.controller.getGhostObject(),
+            this.rigidBody,
+            transform1,
+            transform2,
+            true
+        );
+
+        springConstraint.setLinearLowerLimit(new Ammo.btVector3(0.0, 2.0, 0.0));
+        springConstraint.setLinearUpperLimit(new Ammo.btVector3(3.0, 2.5, 3.0));
+
+        springConstraint.setAngularLowerLimit(new Ammo.btVector3(0.0, 0.0, 0.0));
+        springConstraint.setAngularUpperLimit(new Ammo.btVector3(0.0, 0.0, 0.0));
+
+        springConstraint.enableSpring(0,  true);   // Translasjon på x-aksen
+        springConstraint.enableSpring(1,  false);    // Translasjon på y-aksen
+        springConstraint.enableSpring(2,  true);   // Translasjon på z-aksen
+        springConstraint.enableSpring(3,  false);   //rotation X
+        springConstraint.enableSpring(4,  false);   //rotation Y
+        springConstraint.enableSpring(5,  false);   //rotation Z
+
+        springConstraint.setStiffness(0, 3);
+        springConstraint.setStiffness(1, 20);
+        springConstraint.setStiffness(2, 3);
+
+        springConstraint.setDamping(0,  0.9);
+        springConstraint.setDamping(1,  0.9);
+        springConstraint.setDamping(2,  0.9);
+
+        this.application.physics.world.addConstraint(springConstraint, false);
     }
 }

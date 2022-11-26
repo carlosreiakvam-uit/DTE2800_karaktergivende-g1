@@ -3,8 +3,7 @@ import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter.js'
 import {FBXLoader} from "three/examples/jsm/loaders/FBXLoader.js";
 import sources from "../sources.js";
-import ThreeAmmoGlobalObjects from "./ThreeAmmoGlobalObjects";
-import {ImageLoader} from "three";
+import {getHeightDataFromImage} from "./HeightData.js";
 
 export default class Resources extends EventEmitter {
     constructor() {
@@ -82,6 +81,7 @@ export default class Resources extends EventEmitter {
                 this.loaders.imageLoader.load(
                     source.path,
                     (file) => {
+                        file = getHeightDataFromImage(file, 1024, 1024, 9)
                         this.sourceLoaded(source, file)
                     }
                 )
