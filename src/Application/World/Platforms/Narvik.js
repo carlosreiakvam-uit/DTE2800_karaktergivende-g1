@@ -11,12 +11,14 @@ export default class Narvik {
         this.physics = application.physics
         this.width = width;
         this.length = length;
+        this.group = new THREE.Group();
         this.createTerrain();
+        this.addLight(position);
     }
 
     createTerrain() {
-        const terrainWidth = 1024;
-        const terrainHeight = 1024;
+        const terrainWidth=1024;
+        const terrainHeight=1024;
         const heightData = this.getHeigtdataFromImage(this.application.resources.items.narvik_displacement, terrainWidth, terrainHeight, 9);
 
         let heightFieldData = this.createHeightFieldShape(heightData, terrainWidth, terrainHeight);
@@ -47,25 +49,32 @@ export default class Narvik {
         terrainGeometry.computeVertexNormals();
 
         const terrainMaterial = new THREE.MeshStandardMaterial({
-            map: this.application.resources.items.narvik_satelite,
+            map: this.resources.items.narvik_satelite,
             side: THREE.DoubleSide,
             wireframe: false
         });
+        // terrainMaterial.map.rotation = Math.PI;
+        // terrainMaterial.map.center = new THREE.Vector2(0.5, 0.5);
         terrainMaterial.needsUpdate = true;
-        let mesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
+        const mesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
         mesh.name = 'terrain';
         mesh.receiveShadow = true;
+        mesh.scale.set(0.1,0.1,0.1)
 
-        const rigidBody = this.application.physics.createRigidBody(
+        const rigidBody = this.physics.createRigidBody(
             heightFieldData.heightFieldShape, mesh, 0.5, 0.3, this.position, 0);
 
-        this.application.physics.world.addRigidBody(rigidBody, Constant.COL_GROUP_PLANE,
+        this.physics.world.addRigidBody(rigidBody, Constant.COL_GROUP_PLANE,
             Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_PLANE)
 
-        this.application.scene.add(mesh);
-        rigidBody.threeMesh = mesh;
 
+        // this.scene.add(this.mesh);
+        this.physics.rigidBodies.push(mesh)
+
+        rigidBody.threeMesh = mesh;
         mesh.userData.physicsBody = rigidBody;
+
+        this.group.add(mesh);
     }
 
     // FRA: http://kripken.github.io/ammo.js/examples/webgl_demo_terrain/index.html
@@ -128,13 +137,7 @@ export default class Narvik {
         };
     }
 
-    /**
-     *
-     * @param image
-     * @param width
-     * @param height
-     * @returns {Float32Array}: Et array med en høydeverdi per piksel.
-     */
+
     getHeigtdataFromImage(image, width, height, divisor = 3) {
         // Lager et temporært canvas-objekt:
         let canvas = document.createElement('canvas');
@@ -161,5 +164,17 @@ export default class Narvik {
             heightData[j++] = sumColorValues / divisor;
         }
         return heightData;
+    }
+
+    addLight(position) {
+        const light = new THREE.SpotLight(0xFFFFFF, 10, 70, Math.PI * 0.9, 0.8, 0.1);
+
+        light.target.position.set(position.x, position.y, position.z);
+        light.position.set(position.x, position.y+50, position.z);
+        light.visible = true;
+        //flashLight.castShadow = true;
+
+        this.group.add(light)
+        this.group.add(light.target)
     }
 }

@@ -26,6 +26,9 @@ export default class Physics {
         // Update rigid bodies
         for (let i = 0; i < this.rigidBodies.length; i++) {
             let mesh = this.rigidBodies[i];
+            if (mesh.userData === undefined) {
+                console.log("test")
+            }
             let rigidBody = mesh.userData.physicsBody;
             let motionState = rigidBody.getMotionState();
             if (motionState) {
@@ -37,7 +40,7 @@ export default class Physics {
             }
         }
 
-        this.checkCollisions(delta);
+        // this.checkCollisions(delta);
 
     }
 

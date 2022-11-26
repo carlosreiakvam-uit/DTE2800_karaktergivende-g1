@@ -94,7 +94,7 @@ export default [
     },
     {
         name: `narvik_satelite`,
-        type: `image`,
+        type: `texture`,
         path: `textures/narvik/narviksatellite_1024.png`
     }
 ]
