@@ -43,13 +43,13 @@ export default class Minion {
     }
 
     addSpotLight() {
-        this.spotLight = new THREE.SpotLight(0xFFFFFF, 0, 8, Math.PI , 0.8, 0.8);
+        this.spotLight = new THREE.PointLight(0xFFFFFF, 0, 8);
         this.spotLight.castShadow = true
         this.spotLight.visible = true;
-        this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+        //this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
         this.group.add(this.spotLight)
-        this.group.add(this.spotLight.target)
+        //this.group.add(this.spotLight.target)
     }
 
     setGeometry() {
@@ -64,6 +64,11 @@ export default class Minion {
         this.mesh.receiveShadow = true;
         this.group.add(this.mesh)
         this.mesh.collisionResponse = (mesh1) => {
+            if(!this.isActivated) {
+                if (!this.application.audio.minion.isPlaying) {
+                        this.application.audio.minion.play();
+                }
+            }
             this.isActivated = true
         };
     }
@@ -87,14 +92,11 @@ export default class Minion {
 
             let hero = this.application.world.player.t
             if (hero !== undefined) {
-                this.checkHeroAndThisInteraction(hero)
-                // this.spotLight.target.position.set(this.lastXPos, 0, this.lastZPos);
-                // this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+               this.checkHeroAndThisInteraction(hero)
             }
         } else {
             this.doFloatingAnimationStart()
         }
-
     }
 
     adjustTrajectoryOfThis(hero) {

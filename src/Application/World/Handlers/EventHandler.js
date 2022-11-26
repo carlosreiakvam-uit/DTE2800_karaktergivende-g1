@@ -71,7 +71,6 @@ export default class EventHandler {
         return hero.getOrigin().z() - 3;
     }
 
-
     checkHeroAndThisInteraction(hero) {
         this.updatePositions(hero)
         if (!this.healthInfoTextShown && this.checkIfHeroAndThisEntityAreClose([-5,5])) {
@@ -81,9 +80,14 @@ export default class EventHandler {
     }
 
     updateSecondPlatform() {
-        if(this.movingEnemy1 !== undefined && this.movingEnemy2 !== undefined) {
+        if(this.movingEnemy1 !== undefined &&
+            this.movingEnemy2 !== undefined &&
+            this.movingEnemy3 !== undefined &&
+            this.movingEnemy4 !== undefined) {
             this.movingEnemy1.update();
             this.movingEnemy2.update();
+            this.movingEnemy3.update();
+            this.movingEnemy4.update();
         }
 
         if(this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {

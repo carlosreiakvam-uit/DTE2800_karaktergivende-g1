@@ -56,8 +56,6 @@ export default class BonusPointHandler {
         }
         $('#info5').fadeOut(2200);
         $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
-        $('#info7').delay(8000).fadeIn(2200);
-
     }
 
     update() {
