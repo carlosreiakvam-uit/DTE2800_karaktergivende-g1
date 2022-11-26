@@ -24,7 +24,7 @@ export default class EventHandler {
         // this.bonusPointHandler.spawnBonusPoints(5, 'testingPlatform', {x: 18 , y: 1, z: 0})
 
         // this.bonusPointHandler.spawnFirstPlatformBonusPoints();
-        this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_1, {x: 18, y: 1, z: 0})
+        this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_1, {x: 18, y: 1, z: 0}, {x: 1, z: 0})
         this.companion = new Minion(
             {x: -5, y: 1, z: 15},
             1, 0xFFFFFF, 0.1,
@@ -44,7 +44,7 @@ export default class EventHandler {
     updateFirstPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
             // console.log('update first plat ok') OK
-            this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_START_PLAT, {x: -3, y: 1, z: 20})
+            this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_START_PLAT, {x: -3, y: 1, z: 20}, {x: 1, z: 0})
             // this.spawnBonusPoints()
             this.spawnFirstPlatform()
         }
@@ -104,9 +104,8 @@ export default class EventHandler {
             this.movingEnemy4.update();
         }
 
-        console.log("ska jo være true da ", this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm)
-        if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
-            console.log("HEISANN HOPPSANN")
+        if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && !this.secondPlatformAdded) {
+            console.log("HEISANN HOPPSANN SECOND PLATFORM")
             this.spawnSecondPlatform()
             this.movingEnemy1 = new RollingBallEnemy(
                 {x: 35, y: 5, z: -5},
@@ -172,7 +171,8 @@ export default class EventHandler {
         })
 
         this.secondPlatformAdded = true
-        this.bonusPointHandler.spawnSecondPlatformBonusPoints()
+        this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_2, {x: 38, y: 1, z: 0}, {x: 1, z: 1})
+        // this.bonusPointHandler.spawnSecondPlatformBonusPoints()
         this.application.scene.add(a.mesh);
     }
 
@@ -236,6 +236,7 @@ export default class EventHandler {
         this.thirdPlatformAdded = true
         //TODO SPAWN THIRD PLATFORM BONUS POINTS
         // this.bonusPointHandler.spawnThirdPlatformBonusPoints()
+        this.bonusPointHandler.spawnBonusPoints(5, C.BONUS_PLAT_3, {x: 68, y: 1, z: 0}, {x: 1, z: 1})
         this.application.scene.add(
             b.mesh,
             c.mesh,

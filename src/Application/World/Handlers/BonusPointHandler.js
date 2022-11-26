@@ -11,52 +11,32 @@ export default class BonusPointHandler {
         this.allBonusPointsTakenOnSecondPlatForm = false;
         this.allBonusPointsTakenOnStartPlatForm = false;
         this.allBonusPointsTakenOnThirdPlatForm = false;
-        // this.startPlatformBonusPoints = []
-        // this.firstPlatformBonusPoints = []
-        // this.secondPlatformBonusPoints = []
-        // this.thirdPlatformBonusPoints = []
         this.allBonusPoints = new Map()
     }
 
-    spawnBonusPoints(nPoints, platformName, pos) {
+    spawnBonusPoints(nPoints, platformName, pos, spread) {
         let points = []
         for (let i = 0; i < nPoints + 1; i++) {
-            points.push(new BonusPoint({x: pos.x - i, y: pos.y, z: pos.z}, 1, 0x00FF00, 0.1, platformName))
+            points.push(new BonusPoint({
+                x: pos.x - (i * spread.x),
+                y: pos.y,
+                z: pos.z - (i * spread.z)
+            }, 1, 0x00FF00, 0.1, platformName))
         }
         this.allBonusPoints.set(platformName, points)
+
+        this.specialCasePlat1(platformName)
     }
 
-// spawnFirstPlatformBonusPoints() {
-//     for (let i = 0; i < 5; i++) {
-//         let name = "first"
-//         this.firstPlatformBonusPoints[i] = new BonusPoint(
-//             {x: 18 - i, y: 1, z: 0},
-//             1, 0x00FF00, 0.1,
-//             name)
-//     }
-//     this.application.world.allCollected = false;
-// }
-//
-// spawnSecondPlatformBonusPoints() {
-//     for (let i = 0; i < 5; i++) {
-//         let name = "second"
-//         this.secondPlatformBonusPoints[i] = new BonusPoint(
-//             {x: 38 - i, y: 1, z: i},
-//             1, 0x00FF00, 0.1,
-//             name)
-//     }
-// }
-//
-// spawnThirdPlatformBonusPoints() {
-//     for (let i = 0; i < 5; i++) {
-//         let name = "third"
-//         this.thirdPlatformBonusPoints[i] = new BonusPoint(
-//             {x: 68 - i, y: 1, z: i},
-//             1, 0x00FF00, 0.1,
-//             name)
-//     }
-// }
-//
+    specialCasePlat1(platformName) {
+        if (platformName === C.BONUS_START_PLAT) {
+            $('#info5').fadeOut(2200);
+            $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
+        }
+
+
+    }
+
 // spawnStartPlatformBonusPoints() {
 //     for (let i = 0; i < 4; i++) {
 //         let name = "starter"
@@ -65,31 +45,24 @@ export default class BonusPointHandler {
 //             1, 0x00FF00, 0.1,
 //             name)
 //     }
-//     $('#info5').fadeOut(2200);
-//     $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
 // }
 
     update() {
         // check if in map
-        // console.log('value of',this.allBonusPoints.has('startPlatformPoints')) // OK
         if (this.allBonusPoints.has(C.BONUS_START_PLAT)) {
             this.allBonusPointsTakenOnStartPlatForm = this.arePointsTaken(C.BONUS_START_PLAT)
         }
         if (this.allBonusPoints.has(C.BONUS_PLAT_1)) {
-            // console.log("bonus points added on", C.BONUS_PLAT_1) OK
             this.allBonusPointsTakenOnFirstPlatForm = this.arePointsTaken(C.BONUS_PLAT_1)
         }
         if (this.allBonusPoints.has(C.BONUS_PLAT_2)) {
-            console.log('points in plat 2')
             this.allBonusPointsTakenOnSecondPlatForm = this.arePointsTaken(C.BONUS_PLAT_2)
         }
         if (this.allBonusPoints.has(C.BONUS_PLAT_3)) {
             this.allBonusPointsTakenOnThirdPlatForm = this.arePointsTaken(C.BONUS_PLAT_3)
-            console.log(this.allBonusPointsTakenOnThirdPlatForm)
         }
 
 
-        // console.log('value of',this.allBonusPoints.get('startPlatformPoints'))
         // if (this.allBonusPoints.has('startPlatform').valueOf()
         // if (this.startPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.startPlatformBonusPoints, 0)
         // if (this.firstPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.firstPlatformBonusPoints, 1)
@@ -104,11 +77,21 @@ export default class BonusPointHandler {
             if (points[i].taken === false) {
                 break
             }
-            // console.log('ALl POINTS TAKEN ON', key)
             taken = true
         }
+
+        this.specialCasePlat2()
         return taken
     }
+
+    specialCasePlat2(key) {
+        if (key === C.BONUS_PLAT_2) {
+            $('#info7').fadeOut(2200);
+            $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
+        }
+    }
+
+    //TODO TRIGGER INFO ON ALL POINTS TAKEN PLAT 2
 
     // checkBonusPointsInPlatform(platform, decider) {
     //     for (let i = 0; i < platform.length; i++) {
@@ -120,8 +103,6 @@ export default class BonusPointHandler {
     //         if (!taken) break;
     //         if (decider === 0 && !this.allBonusPointsTakenOnStartPlatForm) {
     //             this.allBonusPointsTakenOnStartPlatForm = true
-    //             $('#info7').fadeOut(2200);
-    //             $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
     //         }
     //
     //         if (decider === 1 && !this.allBonusPointsTakenOnFirstPlatForm) {
