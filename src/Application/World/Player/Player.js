@@ -206,7 +206,6 @@ export default class Player {
                         console.log("contact:", contactBody.threeMesh.name)
                         if (typeof contactBody.threeMesh.collisionResponse === 'function')
                             contactBody.threeMesh.collisionResponse(contactBody.threeMesh)
-
                     }
                 }
             }
