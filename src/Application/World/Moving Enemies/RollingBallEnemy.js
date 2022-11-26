@@ -10,6 +10,7 @@ export default class RollingBallEnemy {
         this.physics = this.application.physics
         this.mass = mass
         this.isActivated = false
+        this.startPosition = position
         this.position = position
         this.scale = scale
         this.name = name
@@ -22,18 +23,19 @@ export default class RollingBallEnemy {
 
         this.setTextures()
         this.setGeometry()
-        this.setMesh(position, scale, name)
-        this.setPhysics(position)
+        this.setMesh(this.startPosition, scale, name)
+        this.setPhysics(this.startPosition)
         this.application.scene.add(this.mesh)
     }
 
     reset() {
-        this.application.scene.remove(this.mesh)
-        this.setGeometry()
-        this.setTextures()
-        this.setMesh(this.position, this.scale, this.name)
-        this.setPhysics(this.position)
-        this.application.scene.add(this.mesh)
+
+        // this.application.scene.remove(this.mesh)
+        // this.setGeometry()
+        // this.setTextures()
+        // this.setMesh(this.startPosition, this.scale, this.name)
+        // this.setPhysics(this.startPosition)
+        // this.application.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -71,6 +73,9 @@ export default class RollingBallEnemy {
             let hero = this.application.world.player.t
             if (hero !== undefined) {
                 this.takeDamageOnHero(hero)
+                if (!this.application.audio.playerHit.isPlaying) {
+                    this.application.audio.playerHit.play();
+                }
             }
         };
     }
@@ -139,7 +144,6 @@ export default class RollingBallEnemy {
         return hero.getOrigin().z() - this.mesh.position.z;
     }
 
-
     checkHeroAndThisInteraction(hero) {
         this.updatePositions(hero)
 
@@ -156,9 +160,11 @@ export default class RollingBallEnemy {
     takeDamageOnHero() {
         if (this.application.world.player.health > 0) {
             this.application.world.player.health -= 2
-        } else {
-            this.deactivateEnemy();
-            this.reset();
+            if (this.application.world.player.health <= 0) {
+                this.deactivateEnemy();
+                this.reset();
+            }
         }
     }
+
 }
