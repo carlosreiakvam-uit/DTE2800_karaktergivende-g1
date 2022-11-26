@@ -16,7 +16,7 @@ export default class BonusPointHandler {
 
     spawnBonusPoints(nPoints, platformName, pos, spread) {
         let points = []
-        for (let i = 0; i < nPoints + 1; i++) {
+        for (let i = 0; i < nPoints ; i++) {
             points.push(new BonusPoint({
                 x: pos.x - (i * spread.x),
                 y: pos.y,
@@ -33,22 +33,10 @@ export default class BonusPointHandler {
             $('#info5').fadeOut(2200);
             $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
         }
-
-
     }
 
-// spawnStartPlatformBonusPoints() {
-//     for (let i = 0; i < 4; i++) {
-//         let name = "starter"
-//         this.startPlatformBonusPoints[i] = new BonusPoint(
-//             {x: -3 - i, y: 1, z: 20},
-//             1, 0x00FF00, 0.1,
-//             name)
-//     }
-// }
 
     update() {
-        // check if in map
         if (this.allBonusPoints.has(C.BONUS_START_PLAT)) {
             this.allBonusPointsTakenOnStartPlatForm = this.arePointsTaken(C.BONUS_START_PLAT)
         }
@@ -61,19 +49,12 @@ export default class BonusPointHandler {
         if (this.allBonusPoints.has(C.BONUS_PLAT_3)) {
             this.allBonusPointsTakenOnThirdPlatForm = this.arePointsTaken(C.BONUS_PLAT_3)
         }
-
-
-        // if (this.allBonusPoints.has('startPlatform').valueOf()
-        // if (this.startPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.startPlatformBonusPoints, 0)
-        // if (this.firstPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.firstPlatformBonusPoints, 1)
-        // if (this.secondPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.secondPlatformBonusPoints, 2)
-        // if (this.thirdPlatformBonusPoints.length > 0) this.checkBonusPointsInPlatform(this.thirdPlatformBonusPoints, 3)
     }
 
     arePointsTaken(key) {
         let taken = false
         let points = this.allBonusPoints.get(key).valueOf()
-        for (let i = 0; i < points.length; i++) {
+        for (let i = 0; i < points.length ; i++) {
             if (points[i].taken === false) {
                 break
             }
@@ -90,34 +71,4 @@ export default class BonusPointHandler {
             $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
         }
     }
-
-    //TODO TRIGGER INFO ON ALL POINTS TAKEN PLAT 2
-
-    // checkBonusPointsInPlatform(platform, decider) {
-    //     for (let i = 0; i < platform.length; i++) {
-    //         platform[i].update();
-    //     }
-    //
-    //     for (let i = 0; i < platform.length; i++) {
-    //         let taken = platform[i].taken;
-    //         if (!taken) break;
-    //         if (decider === 0 && !this.allBonusPointsTakenOnStartPlatForm) {
-    //             this.allBonusPointsTakenOnStartPlatForm = true
-    //         }
-    //
-    //         if (decider === 1 && !this.allBonusPointsTakenOnFirstPlatForm) {
-    //             this.allBonusPointsTakenOnFirstPlatForm = true
-    //         }
-    //
-    //         if (decider === 2 && !this.allBonusPointsTakenOnSecondPlatForm) {
-    //             this.allBonusPointsTakenOnSecondPlatForm = true
-    //         }
-    //
-    //         if (decider === 3 && !this.allBonusPointsTakenOnThirdPlatForm) {
-    //             this.allBonusPointsTakenOnThirdPlatForm = true
-    //         }
-    //
-    //         platform = [];
-    //     }
-    // }
 }
