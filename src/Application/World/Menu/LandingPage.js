@@ -39,7 +39,6 @@ export async function addLandingPageMenu(application) {
     let modeMediumPosition = {x: 0, y: 10, z: zText}
 
 
-
     fontLoader.load(
         url3,
         (loadedFont) => {
@@ -47,7 +46,7 @@ export async function addLandingPageMenu(application) {
             header = addTextElement(titleSize, headerText, headerPosition, headerName)
             start = addTextElement(subSize, startText, startPosition, startName)
             menu = addTextElement(subSize, menuText, menuPosition, menuName)
-
+            addMenuLight()
 
             function addTextElement(size, text, position, name, height = 4) {
                 const textGeometry = new TextGeometry(
@@ -73,6 +72,14 @@ export async function addLandingPageMenu(application) {
 
                 return textMesh
             }
+
+            function addMenuLight() {
+                let menuLIght = new THREE.AmbientLight('#ffffff', 0.5)
+                menuLIght.position.set(0, 0, 10)
+                menuLIght.name = 'menuLight'
+                application.scene.add(menuLIght);
+            }
+
 
             function addMouseEvents() {
                 let raycaster = new THREE.Raycaster();
@@ -106,6 +113,8 @@ export async function addLandingPageMenu(application) {
                     if (intersects.length > 0) {
                         // start game
                         if (intersects[0].object.name === startName) {
+                            let menuLight = this.application.scene.getObjectByName('menuLight')
+                            application.scene.remove(menuLight)
                             application.world.addWorldToScene()
                             application.camera.instance.position.set(-15, 20, 30)
                             application.camera.lookAtHero = true

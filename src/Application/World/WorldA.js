@@ -13,6 +13,7 @@ import Cylinder from "./Platforms/PlatformShapes/Cylinder";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import EventHandler from "./Handlers/EventHandler";
 import Narvik from "./Platforms/Narvik.js";
+import * as THREE from "three";
 
 export default class WorldA {
     constructor() {
@@ -29,6 +30,7 @@ export default class WorldA {
             this.globs = new ThreeAmmoGlobalObjects()
             await addLandingPageMenu(this.application)
             addSkyBox(this.scene, this.resources)
+            // this.addMenuLight()
             this.createWorld() // creating world without adding it to scene
         })
 
@@ -58,6 +60,7 @@ export default class WorldA {
         this.addPlatforms()
         this.ready = true;
     }
+
 
     addPlatforms() {
         let balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0})
@@ -106,7 +109,7 @@ export default class WorldA {
 
         const i = new Box({
             position: {x: -2, y: -0.2, z: 6.75},
-            scale: {x: 1, y: 0.2, z:8.5},
+            scale: {x: 1, y: 0.2, z: 8.5},
             name: "startIntroWalker",
             material: this.globs.spacePlatformMaterial,
         })
