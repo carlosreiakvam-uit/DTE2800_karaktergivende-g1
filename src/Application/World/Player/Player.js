@@ -1,6 +1,6 @@
 import Application from "../../Application.js";
 import * as THREE from 'three'
-import * as Constant from "../../Utils/constants.js";
+import * as Constants from "../../Utils/constants.js";
 
 
 export default class Player {
@@ -89,8 +89,8 @@ export default class Player {
 
         this.controller.setGravity(9.81)
 
-        this.physics.world.addCollisionObject(this.ghostObject, Constant.COL_GROUP_PLAYER,
-            Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BOX | Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_ENEMY | Constant.COL_GROUP_BONUS_POINTS);
+        this.physics.world.addCollisionObject(this.ghostObject, Constants.COL_GROUP_PLAYER,
+            Constants.COL_GROUP_PLANE | Constants.COL_GROUP_BOX | Constants.COL_GROUP_PLAYER | Constants.COL_GROUP_ENEMY | Constants.COL_GROUP_BONUS_POINTS);
         this.physics.world.addAction(this.controller)
         this.controller.canJump(true);
         this.controller.setMaxJumpHeight(2);
@@ -176,6 +176,11 @@ export default class Player {
         this.mixer.update(this.application.time.delta)
         this.checkFlashLight()
         this.checkCollisions()
+
+        // Log origin
+        console.log('x:',this.t.getOrigin().x())
+        console.log('y:', this.t.getOrigin().y())
+        console.log('z:', this.t.getOrigin().z())
     }
 
     makePlayerRespawn() {
