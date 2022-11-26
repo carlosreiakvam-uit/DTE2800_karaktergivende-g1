@@ -11,6 +11,7 @@ export default class Box {
                     name,
                     mass = 0,
                     material,
+                    rotation = undefined,
                 }) {
 
         this.application = new Application()
@@ -18,6 +19,7 @@ export default class Box {
         this.mass = mass
         this.geometry = new ThreeAmmoGlobalObjects().boxGeometry
         this.material = material
+        this.rotation = rotation
 
         this.setMesh(position, scale, name)
         this.setPhysics(position, scale)
@@ -30,6 +32,11 @@ export default class Box {
         this.mesh.scale.set(scale.x, scale.y, scale.z)
         // this.mesh.position.set(position.x, position.y, position.z)
         this.mesh.castShadow = true
+        if(this.rotation !== undefined) {
+            this.mesh.rotateZ(this.rotation.z)
+            this.mesh.rotateY(this.rotation.y)
+            this.mesh.rotateX(this.rotation.x)
+        }
         this.mesh.receiveShadow = true;
     }
 

@@ -116,7 +116,7 @@ export async function addLandingPageMenu(application) {
                             let menuLight = this.application.scene.getObjectByName('menuLight')
                             application.scene.remove(menuLight)
                             application.world.addWorldToScene()
-                            application.camera.instance.position.set(-15, 20, 30)
+                            application.camera.instance.position.set(20, 20, 30)
                             application.camera.lookAtHero = true
                             application.world.player.active = true
                             application.world.player.activationTime = application.time.clock.getElapsedTime();

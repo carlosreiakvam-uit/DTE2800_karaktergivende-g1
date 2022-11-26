@@ -122,9 +122,13 @@ export default class EventHandler {
     }
 
     updateThirdPlatform() {
-        if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+        if(!this.thirdPlatformAdded) {
             this.spawnThirdPlatForm();
         }
+
+        // if(this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+        //     this.spawnThirdPlatForm();
+        // }
     }
 
     updateNarvik() {
@@ -163,11 +167,70 @@ export default class EventHandler {
             position: {x: 65, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
             name: "third",
+            rotation: { x:0, y: 0, z: 0},
             material: application.world.globs.spacePlatformMaterial,
         })
+
+        const c = new Box({
+            position: {x: 55, y: 2.5, z: 6.2},
+            scale: {x: 5, y: 0.2, z: 7.5},
+            name: "third",
+            rotation: {x: 0, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        const d = new Box({
+            position: {x: 55, y: 2.5, z: -6.2},
+            scale: {x: 5, y: 0.2, z: 7.5},
+            name: "third",
+            rotation: {x: 0, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        const e = new Box({
+            position: {x: 60, y: 2.5, z: 10},
+            scale: {x: 5, y: 0.2, z: 10},
+            name: "third",
+            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        const f = new Box({
+            position: {x: 70, y: 2.5, z: 10},
+            scale: {x: 5, y: 0.2, z: 10},
+            name: "third",
+            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        const g = new Box({
+            position: {x: 60, y: 2.5, z: -10},
+            scale: {x: 5, y: 0.2, z: 10},
+            name: "third",
+            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        const h = new Box({
+            position: {x: 70, y: 2.5, z: -10},
+            scale: {x: 5, y: 0.2, z: 10},
+            name: "third",
+            rotation: {x: Math.PI/2, y:0, z: Math.PI/2},
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
         this.thirdPlatformAdded = true
         this.bonusPointHandler.spawnThirdPlatformBonusPoints()
-        this.application.scene.add(b.mesh);
+        this.application.scene.add(
+            b.mesh,
+            c.mesh,
+            d.mesh,
+            e.mesh,
+            f.mesh,
+            g.mesh,
+            h.mesh
+            //d.mesh
+        );
     }
 
     spawnNarvik() {
