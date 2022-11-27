@@ -129,7 +129,7 @@ export default class EventHandler {
                 y: -2.3,
                 z: 7.1 - length / 2
             },
-            scale: {x: 4, y: 0.2, z: length},
+            scale: {x: 2, y: 0.2, z: length},
             name: "megabridge",
             material: application.world.globs.spacePlatformMaterial,
         })
