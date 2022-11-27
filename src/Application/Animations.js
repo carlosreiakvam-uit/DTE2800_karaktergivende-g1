@@ -4,8 +4,8 @@ export default class Animations {
 
     constructor() {
         this.application = new Application()
-        this.ambientVisible = true;
-        this.ambientIntensity = 0.01;
+        this.ambientVisible = false;
+        this.ambientIntensity = 0.02;
         this.ambientColor = 0xffffff;
         this.physics = this.application.physics
 
@@ -15,13 +15,11 @@ export default class Animations {
         this.rotationSpeed = 0.05;
         this.rotation = 0;
         this.isJumping = false;
-        // this.lastPos = 0.1 // temp variable
     }
 
     update(currentlyPressedKeys, deltaTime) {
         this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
         this.debug(currentlyPressedKeys)
-
     }
 
     debug(currentlyPressedKeys) {

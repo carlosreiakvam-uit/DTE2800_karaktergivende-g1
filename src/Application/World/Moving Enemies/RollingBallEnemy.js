@@ -115,15 +115,15 @@ export default class RollingBallEnemy {
 
     adjustTrajectoryOfThis() {
         if (this.xDifference > 0) {
-            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0.015, y: 0, z: 0})
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0.007, y: 0, z: 0})
         } else {
-            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.015, y: 0, z: 0})
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: -0.007, y: 0, z: 0})
         }
 
         if (this.zDifference > 0) {
-            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.015})
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: 0.007})
         } else {
-            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.015})
+            this.physics.applyImpulse(this.mesh.userData.physicsBody, {x: 0, y: 0, z: -0.007})
         }
     }
 

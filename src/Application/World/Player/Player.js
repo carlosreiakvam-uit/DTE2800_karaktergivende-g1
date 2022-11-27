@@ -4,7 +4,7 @@ import * as constant from "../../Utils/Constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 0, y: 0.5, z: 0}) {
+    constructor(position = {x: 70, y: 0.5, z: 0}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
@@ -38,8 +38,8 @@ export default class Player {
     importModel() {
         const player = this.resources.items.soldier;
         const samba = this.resources.items.hiphop;
-        // player.scene.castShadow = true;
-        // player.scene.receiveShadow = true
+        player.scene.castShadow = true;
+        player.scene.receiveShadow = true
 
         this.mixer = new THREE.AnimationMixer(player.scene.children[0])
 
@@ -232,7 +232,6 @@ export default class Player {
         flashLight.target.position.set(position.x, position.y + 0.5, position.z - 3);
         flashLight.position.set(position.x, position.y + 1, position.z);
         flashLight.visible = true;
-        //flashLight.castShadow = true;
 
         return flashLight;
     }
