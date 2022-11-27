@@ -115,7 +115,7 @@
 </div>
 
 <div id="infoBeenHereBefore" class="container">
-    <div class="typed-out-long">I feel like I have been here before...</div>
+    <div class="typed-out">You feel like you have been here before...</div>
 </div>
 
 
@@ -266,6 +266,7 @@
 
 
 
+
 </script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
@@ -306,6 +307,7 @@
             vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
             gl_FragColor = baseColor;// + vec4(color, 1.0);
         }
+
 
 
 
