@@ -189,6 +189,8 @@ export default class Player {
     makePlayerRespawn() {
         this.t.setOrigin(this.startPosition.x, this.startPosition.y, this.startPosition.z)
         this.health = 100
+        this.respawnEnemies()
+
         if (this.firstTimePlayerDies) {
             this.firstTimePlayerDies = false;
             // $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
@@ -265,5 +267,13 @@ export default class Player {
                 this.activationTime = this.application.time.clock.getElapsedTime()
             }
         }
+    }
+
+    respawnEnemies() {
+        let eventHandler = this.application.world.eventHandler
+        eventHandler.movingEnemy1.deactivateEnemy()
+        eventHandler.movingEnemy1.reset();
+        eventHandler.movingEnemy2.deactivateEnemy()
+        eventHandler.movingEnemy2.reset();
     }
 }
