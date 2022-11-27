@@ -19,6 +19,7 @@ export default class EventHandler {
         this.healthInfoTextShown = false;
         this.startPlatformPointsCollected = false
         this.narvikIsHere = false;
+        this.megabridgeSPawned = false;
 
         this.bonusPointHandler = new BonusPointHandler()
 
@@ -126,7 +127,8 @@ export default class EventHandler {
     }
 
     updateEnd() {
-        if (this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
+        if (!this.megabridgeSPawned && this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
+            this.megabridgeSPawned = true;
             this.spawnMegaBridge()
             console.log("FINITO")
         }
