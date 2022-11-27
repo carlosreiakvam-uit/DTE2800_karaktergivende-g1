@@ -10,7 +10,7 @@ export default class BonusPointHandler {
         this.allBonusPointsTakenOnStartPlatForm = false;
         this.allBonusPointsTakenOnFirstPlatForm = false;
         this.allBonusPointsTakenOnSecondPlatForm = false;
-        this.allBonusPointsTakenOnThirdPlatForm = false;
+        this.allBonusPointsTakenOnThirdPlatForm = true;
         this.allBonusPointsTakenOnNarvik = false;
         this.finalBonusPointTaken = false;
         this.allBonusPoints = new Map()

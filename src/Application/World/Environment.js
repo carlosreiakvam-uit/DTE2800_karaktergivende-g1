@@ -28,7 +28,6 @@ export default class Environment {
         this.scene.add(this.ambientLight1);
     }
 
-
     setEnvironmentMap() {
         this.environmentMap = {}
         this.environmentMap.intensity = 0.1

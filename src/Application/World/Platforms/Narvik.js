@@ -15,7 +15,7 @@ export default class Narvik {
         this.texture = texture;
         this.group = new THREE.Group();
         this.createTerrain();
-        this.addLight(position);
+        //this.addLight(position);
     }
 
     createTerrain() {
@@ -29,7 +29,6 @@ export default class Narvik {
         let scaleZ = this.length / (terrainHeight - 1);   //2 * 400 / (128-1) = 6
         heightFieldData.heightFieldShape.setLocalScaling(new Ammo.btVector3(scaleX, 1, scaleZ));
         heightFieldData.heightFieldShape.setMargin(0.05);
-
 
         // THREE
         // Størrelse på PlaneGeometry: with = height = 1024
@@ -50,7 +49,7 @@ export default class Narvik {
         // Oppdater normaler:
         terrainGeometry.computeVertexNormals();
 
-        const terrainMaterial = new THREE.MeshStandardMaterial({
+        const terrainMaterial = new THREE.MeshBasicMaterial({
             map: this.texture,
             side: THREE.DoubleSide,
             wireframe: false
