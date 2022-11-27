@@ -228,10 +228,6 @@ export default class Player {
                     this.flashLight.intensity = this.flashLightBattery;
                     if (this.flashLightBattery <= 0) {
                         this.flashLight.visible = false;
-                        if (this.firstTimeBatteryDies) {
-                            this.firstTimeBatteryDies = false
-                            $('#info13').fadeIn(2200).delay(8000).fadeOut(2200);
-                        }
                     }
                 }
             }
@@ -250,11 +246,16 @@ export default class Player {
 
     respawnEnemies() {
         let eventHandler = this.application.world.eventHandler
-        if(eventHandler.movingEnemy1 !== undefined &&eventHandler.movingEnemy2 !== undefined) {
+        if(eventHandler.movingEnemy1 !== undefined &&
+            eventHandler.movingEnemy2 !== undefined &&
+            eventHandler.movingEnemy3 !== undefined
+        ) {
             eventHandler.movingEnemy1.deactivateEnemy()
             eventHandler.movingEnemy1.reset();
             eventHandler.movingEnemy2.deactivateEnemy()
             eventHandler.movingEnemy2.reset();
+            eventHandler.movingEnemy3.deactivateEnemy()
+            eventHandler.movingEnemy3.reset();
         }
     }
 }

@@ -62,7 +62,7 @@ export default class Minion {
         this.mesh.collisionResponse = (_) => {
             if(!this.isActivated) {
                 if (!this.application.audio.minion.isPlaying) {
-                        this.application.audio.minion.play();
+                    this.application.audio.minion.play();
                 }
             }
             this.isActivated = true
@@ -83,6 +83,7 @@ export default class Minion {
             if(this.firstTimeActivated) {
                 this.firstTimeActivated = false
                 this.spotLight.intensity = 5;
+                $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
                 this.application.physics.applyCentralImpulse(this.rigidBody, 1,{x: 0, y: 1, z: 0});
                 let hero = this.application.world.player.t
                 if (hero !== undefined) {
@@ -147,7 +148,6 @@ export default class Minion {
         springConstraint.setDamping(0,  0.9);
         springConstraint.setDamping(1,  0.9);
         springConstraint.setDamping(2,  0.9);
-
         this.application.physics.world.addConstraint(springConstraint, false);
     }
 }

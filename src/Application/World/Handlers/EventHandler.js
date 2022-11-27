@@ -61,10 +61,12 @@ export default class EventHandler {
 
     updateSecondPlatform() {
         if (this.movingEnemy1 !== undefined &&
-            this.movingEnemy2 !== undefined
+            this.movingEnemy2 !== undefined &&
+            this.movingEnemy3 !== undefined
         ) {
             this.movingEnemy1.update();
             this.movingEnemy2.update();
+            this.movingEnemy3.update();
         }
 
         if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
@@ -80,6 +82,12 @@ export default class EventHandler {
                 {x: 45, y: 5, z: 5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy2"
+            )
+
+            this.movingEnemy3 = new RollingBallEnemy(
+                {x: 45, y: 5, z: -5},
+                0.5, 0xffff00, 0.1,
+                "movingEnemy3"
             )
         }
     }
@@ -229,6 +237,7 @@ export default class EventHandler {
             material: application.world.globs.spacePlatformMaterial,
         })
 
+
         this.firstPlatformAdded = true
         this.application.scene.add(e.mesh);
     }
@@ -242,6 +251,8 @@ export default class EventHandler {
         })
 
         this.secondPlatformAdded = true
+        console.log("second")
+
         this.bonusPointHandler.spawnBonusPoints(12, Constant.BONUS_PLAT_2, {x: 45, y: 1.5, z: 0}, {x: 1, z: 0})
         this.application.scene.add(a.mesh);
         this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_1) // remove check of collected bonus points
@@ -336,5 +347,6 @@ export default class EventHandler {
         let eventHandler = this.application.world.eventHandler
         eventHandler.movingEnemy1.deactivateEnemy()
         eventHandler.movingEnemy2.deactivateEnemy()
+        eventHandler.movingEnemy3.deactivateEnemy()
     }
 }
