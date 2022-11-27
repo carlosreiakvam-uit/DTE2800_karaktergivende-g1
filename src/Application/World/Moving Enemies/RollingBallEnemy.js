@@ -27,12 +27,14 @@ export default class RollingBallEnemy {
     }
 
     reset() {
-        // this.application.scene.remove(this.mesh)
-        // this.setGeometry()
-        // this.setTextures()
-        // this.setMesh(this.startPosition, this.scale, this.name)
-        // this.setPhysics(this.startPosition)
-        // this.application.scene.add(this.mesh)
+        console.log("reset")
+        this.application.scene.remove(this.mesh);
+        this.physics.world.removeRigidBody(this.rigidBody);
+        this.setGeometry()
+        this.setTextures()
+        this.setMesh(this.startPosition, this.scale, this.name)
+        this.setPhysics(this.startPosition)
+        this.application.scene.add(this.mesh)
     }
 
     setGeometry() {
@@ -157,10 +159,7 @@ export default class RollingBallEnemy {
     takeDamageOnHero() {
         if (this.application.world.player.health > 0) {
             this.application.world.player.health -= 2
-            if (this.application.world.player.health <= 0) {
-                this.deactivateEnemy();
-                this.reset();
-            }
+
         }
     }
 

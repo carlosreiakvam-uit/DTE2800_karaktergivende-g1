@@ -63,7 +63,6 @@ export class RotatingWall {
             let hero = this.application.world.player.controller
             if (hero !== undefined) {
                 let direction = new THREE.Vector3();
-                console.log(this.application.time.delta)
                 mesh1.getWorldDirection(direction);
                 hero.setVelocityForTimeInterval(
                     new Ammo.btVector3(direction.x * 5, 0, direction.z * 5),

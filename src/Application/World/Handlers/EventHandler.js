@@ -70,20 +70,16 @@ export default class EventHandler {
 
     updateSecondPlatform() {
         if (this.movingEnemy1 !== undefined &&
-            this.movingEnemy2 !== undefined &&
-            this.movingEnemy3 !== undefined &&
-            this.movingEnemy4 !== undefined
+            this.movingEnemy2 !== undefined
         ) {
             this.movingEnemy1.update();
             this.movingEnemy2.update();
-            this.movingEnemy3.update();
-            this.movingEnemy4.update();
         }
 
         if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
             this.spawnSecondPlatform()
             this.movingEnemy1 = new RollingBallEnemy(
-                {x: 45, y: 5, z: -5},
+                {x: 40, y: 5, z: -5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy1"
             )
@@ -92,18 +88,6 @@ export default class EventHandler {
                 {x: 45, y: 5, z: 5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy2"
-            )
-
-            this.movingEnemy3 = new RollingBallEnemy(
-                {x: 40, y: 5, z: -5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy3"
-            )
-
-            this.movingEnemy4 = new RollingBallEnemy(
-                {x: 40, y: 5, z: 5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy4"
             )
         }
     }
