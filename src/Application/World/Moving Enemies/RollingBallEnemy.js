@@ -27,14 +27,15 @@ export default class RollingBallEnemy {
     }
 
     reset() {
-        console.log("reset")
-        this.application.scene.remove(this.mesh);
-        this.physics.world.removeRigidBody(this.rigidBody);
-        this.setGeometry()
-        this.setTextures()
-        this.setMesh(this.startPosition, this.scale, this.name)
-        this.setPhysics(this.startPosition)
-        this.application.scene.add(this.mesh)
+        if(!this.application.world.eventHandler.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm) {
+            this.application.scene.remove(this.mesh);
+            this.physics.world.removeRigidBody(this.rigidBody);
+            this.setGeometry()
+            this.setTextures()
+            this.setMesh(this.startPosition, this.scale, this.name)
+            this.setPhysics(this.startPosition)
+            this.application.scene.add(this.mesh)
+        }
     }
 
     setGeometry() {

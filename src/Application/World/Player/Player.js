@@ -250,9 +250,11 @@ export default class Player {
 
     respawnEnemies() {
         let eventHandler = this.application.world.eventHandler
-        eventHandler.movingEnemy1.deactivateEnemy()
-        eventHandler.movingEnemy1.reset();
-        eventHandler.movingEnemy2.deactivateEnemy()
-        eventHandler.movingEnemy2.reset();
+        if(eventHandler.movingEnemy1 !== undefined &&eventHandler.movingEnemy2 !== undefined) {
+            eventHandler.movingEnemy1.deactivateEnemy()
+            eventHandler.movingEnemy1.reset();
+            eventHandler.movingEnemy2.deactivateEnemy()
+            eventHandler.movingEnemy2.reset();
+        }
     }
 }
