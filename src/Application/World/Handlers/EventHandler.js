@@ -62,7 +62,6 @@ export default class EventHandler {
 
     updateFirstPlatform() {
         if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && this.bonusPointHandler.allBonusPoints.has(Constant.BONUS_START_PLAT)) {
-            console.log('updateFirstPlatform')
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_START_PLAT) // remove check of collected bonus points
             this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 9}, {x: 1, z: 0})
         }
