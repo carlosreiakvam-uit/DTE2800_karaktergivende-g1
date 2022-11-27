@@ -109,15 +109,13 @@ export default class EventHandler {
     }
 
     runEndingCredits() {
-        let del = 100000
+        let del = 5000
         let fa = 5000
         $('#credits1').fadeIn(0).delay(del * 2).fadeOut(fa);
         $('#credits2').fadeIn(10000).delay(del).fadeOut(fa);
         $('#credits3').fadeIn(15000).delay(del).fadeOut(fa);
         $('#credits4').fadeIn(20000).delay(del).fadeOut(fa);
-        $('#credits5').fadeIn(30000).delay(del + 5000).fadeOut(fa);
-
-
+        $('#credits5').fadeIn(30000).delay(del).fadeOut(fa);
     }
 
     updateEnd() {
