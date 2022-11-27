@@ -20,6 +20,16 @@ export default class Animations {
 
     update(currentlyPressedKeys, deltaTime) {
         this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
+        this.debug(currentlyPressedKeys)
+
+    }
+
+    debug(currentlyPressedKeys) {
+        if (currentlyPressedKeys["KeyU"]) {
+            console.log('x:', this.application.world.player.t.getOrigin().x())
+            console.log('y:', this.application.world.player.t.getOrigin().y())
+            console.log('z:', this.application.world.player.t.getOrigin().z())
+        }
     }
 
     updateHero(currentlyPressedKeys) {
@@ -54,13 +64,13 @@ export default class Animations {
     }
 
     playMovingSound() {
-        if(!this.isJumping) {
-            if(this.isRunning) {
+        if (!this.isJumping) {
+            if (this.isRunning) {
                 if (!this.application.audio.walking.isPlaying) {
                     this.application.audio.walking.play();
                 }
-            } else{
-                if(!this.application.audio.walking.isPlaying){
+            } else {
+                if (!this.application.audio.walking.isPlaying) {
                     this.application.audio.walking.play();
                 }
             }

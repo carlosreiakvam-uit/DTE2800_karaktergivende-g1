@@ -1,13 +1,13 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Box from "./PlatformShapes/Box.js"
-import ThreeAmmoGlobalObjects from "../../Utils/ThreeAmmoGlobalObjects";
+import Globs from "../../Utils/Globs";
 import Cylinder from "./PlatformShapes/Cylinder";
 
 export default class BalancingPlatform {
     constructor(startPos = {x: 0, y: 0, z: 0}, name) {
         this.application = new Application()
-        this.globs = new ThreeAmmoGlobalObjects()
+        this.globs = new Globs()
         this.physics = this.application.physics
         this.mass = 1
 

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Application from "../Application";
 
-export default class ThreeAmmoGlobalObjects {
+export default class Globs {
     constructor() {
 
         this.application = new Application()
@@ -11,6 +11,19 @@ export default class ThreeAmmoGlobalObjects {
         this.cylinderGeometry = new THREE.CylinderGeometry(1, 1, 1, 32)
         this.dirtMaterial = this.createDirtMaterial(resItems)
         this.spacePlatformMaterial = this.createSpacePlatformMaterial(resItems)
+        // this.rndNarvikPointPositions = this.generateRndNarvikPointPositions()
+    }
+
+    generateRndNarvikPointPositions() {
+        let positions = []
+        for (let i = 0; i < 10; i++) {
+
+            let x = 86 + Math.random() * (170 - 86)
+            let y = 15
+            let z = -20 + Math.random() * (40 - (-20))
+            positions.push({x: x, y: y, z: z})
+        }
+        return positions
     }
 
     createDirtMaterial(resItems) {

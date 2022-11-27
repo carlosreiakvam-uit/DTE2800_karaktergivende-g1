@@ -19,8 +19,8 @@ export default class Narvik {
     }
 
     createTerrain() {
-        const terrainWidth=1024;
-        const terrainHeight=1024;
+        const terrainWidth = 1024;
+        const terrainHeight = 1024;
         const heightData = this.displacement;
 
         let heightFieldData = this.createHeightFieldShape(heightData, terrainWidth, terrainHeight);
@@ -61,13 +61,13 @@ export default class Narvik {
         const mesh = new THREE.Mesh(terrainGeometry, terrainMaterial);
         mesh.name = 'terrain';
         mesh.receiveShadow = true;
-        mesh.scale.set(0.1,0.1,0.1)
+        mesh.scale.set(0.1, 0.1, 0.1)
 
         const rigidBody = this.physics.createRigidBody(
             heightFieldData.heightFieldShape, mesh, 0.5, 0.3, this.position, 0);
 
         this.physics.world.addRigidBody(rigidBody, Constant.COL_GROUP_PLANE,
-            Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_PLANE)
+            Constant.COL_GROUP_PLAYER | Constant.COL_GROUP_PLANE | Constant.COL_GROUP_BONUS_POINTS)
 
 
         // this.scene.add(this.mesh);
@@ -140,13 +140,11 @@ export default class Narvik {
     }
 
 
-
-
     addLight(position) {
         const light = new THREE.SpotLight(0xFFFFFF, 10, 70, Math.PI * 0.9, 0.8, 0.1);
 
         light.target.position.set(position.x, position.y, position.z);
-        light.position.set(position.x, position.y+50, position.z);
+        light.position.set(position.x, position.y + 50, position.z);
         light.visible = true;
         //flashLight.castShadow = true;
 

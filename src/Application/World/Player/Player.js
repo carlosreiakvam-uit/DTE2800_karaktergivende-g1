@@ -32,9 +32,6 @@ export default class Player {
         this.group.add(this.flashLight.target)
 
         this.group.name = "hero"
-
-        // TODO ADD TO OBJECTMESHES
-        // this.application.scene.add(this.group)
     }
 
 
@@ -165,9 +162,9 @@ export default class Player {
             this.health += this.healthRegen
             if (this.lostHealthForTheFirstTime) {
                 if (this.healthRegen > 0) {
-                    $('#info10').fadeIn(2200).delay(8000).fadeOut(2200);
+                    // $('#info10').fadeIn(2200).delay(8000).fadeOut(2200);
                 } else {
-                    $('#info11').fadeIn(2200).delay(8000).fadeOut(2200);
+                    // $('#info11').fadeIn(2200).delay(8000).fadeOut(2200);
                 }
                 this.lostHealthForTheFirstTime = false
             }
@@ -178,9 +175,9 @@ export default class Player {
         this.checkCollisions()
 
         // Log origin
-        console.log('x:',this.t.getOrigin().x())
-        console.log('y:', this.t.getOrigin().y())
-        console.log('z:', this.t.getOrigin().z())
+        // console.log('x:',this.t.getOrigin().x())
+        // console.log('y:', this.t.getOrigin().y())
+        // console.log('z:', this.t.getOrigin().z())
     }
 
     makePlayerRespawn() {
@@ -188,7 +185,7 @@ export default class Player {
         this.health = 100
         if (this.firstTimePlayerDies) {
             this.firstTimePlayerDies = false;
-            $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
+            // $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
         }
     }
 

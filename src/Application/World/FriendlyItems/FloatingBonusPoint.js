@@ -1,15 +1,16 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/Constants.js";
+import {COL_GROUP_BONUS_POINTS} from "../../Utils/Constants.js";
 
 
-export default class BonusPoint {
-    constructor(position, scale, color, mass, name) {
+export default class FloatingBonusPoint {
+    constructor(position, scale, mass, name, floatingForceY = 0.02) {
+        this.floatingForceY = floatingForceY
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
         this.position = position
-        this.scale = scale
         this.name = name
         this.setGeometry()
         this.setTextures()
@@ -42,6 +43,7 @@ export default class BonusPoint {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = name
         this.mesh.position.set(position.x, position.y, position.z)
+        this.mesh.scale.set(1.5, 1.5, 1.5)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.application.scene.add(this.mesh)
@@ -60,38 +62,30 @@ export default class BonusPoint {
         this.rigidBody = this.physics.createRigidBody(shape, this.mesh, 0.7, 0.8, position, this.mass);
 
         this.mesh.userData.physicsBody = this.rigidBody;
-        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_BONUS_POINTS, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER);
+        this.physics.world.addRigidBody(this.rigidBody, Constant.COL_GROUP_BONUS_POINTS, Constant.COL_GROUP_PLANE | Constant.COL_GROUP_PLAYER | COL_GROUP_BONUS_POINTS);
 
         this.physics.rigidBodies.push(this.mesh);
         this.rigidBody.threeMesh = this.mesh;
     }
 
     update() {
-
         this.doFloatingAnimation()
         if (this.mesh.position.y > this.position.y + 10) {
+            // BONUS POINT IS COLLECTED
             this.physics.rigidBodies = this.physics.rigidBodies.filter(x => x !== this.mesh);
             this.taken = true;
             this.application.scene.remove(this.mesh);
             this.physics.world.removeRigidBody(this.rigidBody);
         }
-
-        if (
-            this.mesh.position.x > this.position.x + 1 || this.mesh.position.x < this.position.x - 1 ||
-            this.mesh.position.z > this.position.z + 1 || this.mesh.position.z < this.position.z - 1 ||
-            this.mesh.position.y > this.position.y + 5 || this.mesh.position.y < this.position.y - 5
-        ) {
-            this.makeThisFloatAway(this.mesh.userData.physicsBody)
-        }
     }
 
     doFloatingAnimation() {
         if (this.rigidBody.threeMesh.position.y < this.position.y - 0.5) {
-            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: 0.02, z: 0});
+            this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: this.floatingForceY, z: 0});
         }
     }
 
     makeThisFloatAway(rigidBody) {
-        this.application.physics.applyImpulse(rigidBody, {x: 0.1, y: 0.5, z: 0});
+        this.application.physics.applyImpulse(rigidBody, {x: 0.1, y: 1.0, z: 1});
     }
 }

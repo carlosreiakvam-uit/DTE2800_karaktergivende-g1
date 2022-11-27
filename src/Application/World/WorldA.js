@@ -7,7 +7,7 @@ import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
 import BalancingPlatform from "./Platforms/BalancingPlatform";
 import Box from "./Platforms/PlatformShapes/Box";
-import ThreeAmmoGlobalObjects from "../Utils/ThreeAmmoGlobalObjects";
+import Globs from "../Utils/Globs";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import EventHandler from "./Handlers/EventHandler";
 
@@ -24,7 +24,7 @@ export default class WorldA {
         this.resources.on('ready', async () => {
             await addLandingPageMenu(this.application)
             await addSkyBox(this.scene, this.resources)
-            this.globs = new ThreeAmmoGlobalObjects()
+            this.globs = new Globs()
             addSkyBox(this.scene, this.resources)
             this.createWorld() // creating world without adding it to scene
         })
@@ -117,7 +117,7 @@ export default class WorldA {
             g.mesh,
             h.mesh,
             i.mesh,
-            balancingPlatform.platform.mesh)
+        )
     }
 
     addMovingObstacles() {

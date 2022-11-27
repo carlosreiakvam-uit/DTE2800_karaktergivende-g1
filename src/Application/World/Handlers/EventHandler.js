@@ -16,15 +16,11 @@ export default class EventHandler {
         this.thirdPlatformAdded = false;
         this.firstPlatformAdded = false;
         this.healthInfoTextShown = false;
+        this.startPlatformPointsCollected = false
         this.narvikIsHere = false;
 
         this.bonusPointHandler = new BonusPointHandler()
 
-        // spawn initial bonus points
-        // this.bonusPointHandler.spawnBonusPoints(5, 'testingPlatform', {x: 18 , y: 1, z: 0})
-
-        // this.bonusPointHandler.spawnFirstPlatformBonusPoints();
-        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 0}, {x: 1, z: 0})
         this.companion = new Minion(
             {x: -5, y: 1, z: 15},
             1, 0xFFFFFF, 0.1,
@@ -32,27 +28,96 @@ export default class EventHandler {
     }
 
     update() {
+        this.updateStartPlatform();
+        this.updateFirstPlatform()
         this.updateSecondPlatform();
         this.updateThirdPlatform();
-        this.updateFirstPlatform();
-        this.playerStandsOnPlatformCloseToEnemies();
         this.updateNarvik();
+        this.playerStandsOnPlatformCloseToEnemies();
         this.companion.update();
         this.bonusPointHandler.update()
     }
 
-    updateFirstPlatform() {
+    updateStartPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
-            // console.log('update first plat ok') OK
-            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_START_PLAT, {x: -3, y: 1, z: 20}, {x: 1, z: 0})
-            // this.spawnBonusPoints()
             this.spawnFirstPlatform()
+            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_START_PLAT, {x: -3, y: 1, z: 20}, {x: 1, z: 0})
         }
     }
 
-    spawnBonusPoints() {
-        // this.bonusPointHandler.spawnStartPlatformBonusPoints();
+    updateFirstPlatform() {
+        if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && this.bonusPointHandler.allBonusPoints.has(Constant.BONUS_START_PLAT)) {
+            console.log('updateFirstPlatform')
+            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_START_PLAT) // remove check of collected bonus points
+            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 3}, {x: 1, z: 0})
+        }
     }
+
+    updateSecondPlatform() {
+        // if (this.movingEnemy1 !== undefined &&
+        //     this.movingEnemy2 !== undefined) {
+        //     this.movingEnemy1.update();
+        //     this.movingEnemy2.update();
+        // }
+
+        if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
+            this.spawnSecondPlatform()
+            this.movingEnemy1 = new RollingBallEnemy(
+                {x: 45, y: 5, z: -5},
+                0.5, 0xffff00, 0.1,
+                "movingEnemy1"
+            )
+
+            this.movingEnemy2 = new RollingBallEnemy(
+                {x: 45, y: 5, z: 5},
+                0.5, 0xffff00, 0.1,
+                "movingEnemy2"
+            )
+
+        }
+    }
+    updateThirdPlatform() {
+        // if (this.movingEnemy3 !== undefined &&
+        //     this.movingEnemy4 !== undefined) {
+        //     this.movingEnemy3.update();
+        //     this.movingEnemy4.update();
+        // }
+
+
+        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+            this.spawnThirdPlatForm();
+            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_2) // remove check of collected bonus points
+            this.movingEnemy3 = new RollingBallEnemy(
+                {x: 62, y: 5, z: -5},
+                0.5, 0xffff00, 0.1,
+                "movingEnemy3"
+            )
+
+            this.movingEnemy4 = new RollingBallEnemy(
+                {x: 62, y: 5, z: 5},
+                0.5, 0xffff00, 0.1,
+                "movingEnemy4"
+            )
+
+        }
+    }
+
+    updateNarvik() {
+        if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
+            console.log('update narvik gogo')
+            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_3) // remove check of collected bonus points
+            this.spawnNarvik();
+            this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
+
+        }
+    }
+
+    updateEnd(){
+        if (this.bonusPointHandler.allBonusPointsTakenOnNarvik){
+            console.log("FINITO")
+        }
+    }
+
 
     playerStandsOnPlatformCloseToEnemies() {
         if (this.healthInfoTextShown) return
@@ -93,61 +158,8 @@ export default class EventHandler {
         }
     }
 
-    updateSecondPlatform() {
-        if (this.movingEnemy1 !== undefined &&
-            this.movingEnemy2 !== undefined) {
-            this.movingEnemy1.update();
-            this.movingEnemy2.update();
-        }
-
-        if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && !this.secondPlatformAdded) {
-            console.log("HEISANN HOPPSANN SECOND PLATFORM")
-            this.spawnSecondPlatform()
-            this.movingEnemy1 = new RollingBallEnemy(
-                {x: 45, y: 5, z: -5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy1"
-            )
-
-            this.movingEnemy2 = new RollingBallEnemy(
-                {x: 45, y: 5, z: 5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy2"
-            )
-
-        }
-    }
-
-    updateThirdPlatform() {
-        if (this.movingEnemy3 !== undefined &&
-            this.movingEnemy4 !== undefined) {
-            this.movingEnemy3.update();
-            this.movingEnemy4.update();
-        }
 
 
-        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
-            this.spawnThirdPlatForm();
-            this.movingEnemy3 = new RollingBallEnemy(
-                {x: 62, y: 5, z: -5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy3"
-            )
-
-            this.movingEnemy4 = new RollingBallEnemy(
-                {x: 62, y: 5, z: 5},
-                0.5, 0xffff00, 0.1,
-                "movingEnemy4"
-            )
-
-        }
-    }
-
-    updateNarvik() {
-        if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
-            this.spawnNarvik();
-        }
-    }
 
     spawnFirstPlatform() {
         const e = new Box({
@@ -162,7 +174,6 @@ export default class EventHandler {
     }
 
     spawnSecondPlatform() {
-        console.log('Spawning second platform')
         const a = new Box({
             position: {x: 40, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
@@ -172,11 +183,12 @@ export default class EventHandler {
 
         this.secondPlatformAdded = true
         this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_2, {x: 38, y: 1, z: 0}, {x: 1, z: 1})
-        // this.bonusPointHandler.spawnSecondPlatformBonusPoints()
         this.application.scene.add(a.mesh);
+        this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_1) // remove check of collected bonus points
     }
 
     spawnThirdPlatForm() {
+        console.log('spawn third platform')
         const b = new Box({
             position: {x: 65, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},

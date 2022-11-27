@@ -13,7 +13,6 @@ import GUI from "lil-gui";
 import Physics from "./World/Physics.js";
 import Audio from "./Utils/Audio.js"
 import Stats from 'stats.js'
-import ThreeAmmoGlobalObjects from "./Utils/ThreeAmmoGlobalObjects";
 
 let instance = null
 
@@ -79,17 +78,6 @@ export default class Application {
 
     setupLilGui() {
         this.lilGui = new GUI();
-
-        // const sunFolder = this.lilGui.addFolder("Sun light");
-        // sunFolder.add(this.animations, 'theSunIsShining').name("On/Off");
-        //
-        // const ambientFolder = this.lilGui.addFolder('Ambient Light');
-        // ambientFolder.add(this.animations, 'ambientVisible').name("On/Off");
-        // ambientFolder.add(this.animations, 'ambientIntensity').min(0).max(1).step(0.01).name("Intensity");
-        // ambientFolder.addColor(this.animations, 'ambientColor').name("Color");
-        //
-        // const statEnemies = this.lilGui.addFolder("Static enemies");
-        // statEnemies.add(this.animations, 'ambientVisible').name("Yellow static enemy");
     }
 
     destroy() {

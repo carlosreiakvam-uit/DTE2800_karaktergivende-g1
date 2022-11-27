@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../../Application.js";
-import ThreeAmmoGlobalObjects from "../../../Utils/ThreeAmmoGlobalObjects";
+import Globs from "../../../Utils/Globs";
 import * as Constant from "../../../Utils/Constants";
 
 
@@ -18,7 +18,7 @@ export default class Cylinder {
         this.physics = this.application.physics
         this.mass = mass
         this.radius = radius
-        this.geometry = new ThreeAmmoGlobalObjects().cylinderGeometry
+        this.geometry = new Globs().cylinderGeometry
         this.material = material
 
         this.setMesh(position, scale, name)

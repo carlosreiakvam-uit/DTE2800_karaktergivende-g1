@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../../Application.js";
-import ThreeAmmoGlobalObjects from "../../../Utils/ThreeAmmoGlobalObjects";
+import Globs from "../../../Utils/Globs";
 import * as Constant from "../../../Utils/Constants";
 
 
@@ -17,7 +17,7 @@ export default class Box {
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
-        this.geometry = new ThreeAmmoGlobalObjects().boxGeometry
+        this.geometry = new Globs().boxGeometry
         this.material = material
         this.rotation = rotation
 

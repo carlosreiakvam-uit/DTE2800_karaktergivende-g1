@@ -124,11 +124,11 @@ export async function addLandingPageMenu(application) {
                             application.scene.remove(start)
                             application.scene.remove(menu)
                             window.removeEventListener('click', onMouseClick, false)
-                            $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
-                            $('#info2').delay(6000).fadeIn(2200).delay(4000).fadeOut(2200);
-                            $('#info3').delay(10000).fadeIn(2200).delay(4000).fadeOut(2200);
-                            $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
-                            $('#info5').delay(18000).fadeIn(2200);
+                            // $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info2').fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            // $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info5').delay(7000).fadeIn(2200).delay(2000).fadeOut(2200);
 
                         } else if (intersects[0].object.name === menuName) {
                             // application.scene.remove(header)
