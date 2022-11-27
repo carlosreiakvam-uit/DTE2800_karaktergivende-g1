@@ -45,7 +45,7 @@ export async function addLandingPageMenu(application) {
             menu = addTextElement(subSize, menuText, menuPosition, menuName)
             addMenuLight()
 
-            application.audio.gameSong.play()
+            // application.audio.gameSong.play()
 
             function addTextElement(size, text, position, name, height = 4) {
                 const textGeometry = new TextGeometry(
@@ -123,14 +123,17 @@ export async function addLandingPageMenu(application) {
                             application.scene.remove(start)
                             application.scene.remove(menu)
                             window.removeEventListener('click', onMouseClick, false)
-                            // $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
                             $('#menuInfo').fadeIn(1);
-                            // .delay(2000).fadeOut(2200);
                             $('#info2').fadeIn(2200).delay(4000).fadeOut(2200);
-                            application.audio.engulfed.play()
+                            setTimeout(function () {
+                                application.audio.engulfed.play()
+                            }, 500);
 
                             $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200); // locate minion
-                            application.audio.locateMinion.play(1000)
+                            setTimeout(function () {
+                                application.audio.locateMinion.play(0)
+                            }, 5000);
+
                             // $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
                         } else if (intersects[0].object.name === menuName) {
                             // application.scene.remove(header)

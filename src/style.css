@@ -252,6 +252,22 @@ body {
     margin-top: 300px;
 }
 
+#infoBeenHereBefore {
+    position: absolute;
+    padding: 10px;
+    top: 120px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
 #info14 {
     position: absolute;
     padding: 10px;
@@ -347,3 +363,4 @@ body {
     margin-top: 100px;
     margin-left: 600px;
 }
+

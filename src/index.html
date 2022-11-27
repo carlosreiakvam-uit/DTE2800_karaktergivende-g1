@@ -47,6 +47,7 @@
         $('#info12').hide();
         $('#info13').hide();
         $('#info14').hide();
+        $('#infoBeenHereBefore').hide();
         $('#credits1').hide();
         $('#credits2').hide();
         $('#credits3').hide();
@@ -112,6 +113,11 @@
 <div id="info13" class="container">
     <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div>
 </div>
+
+<div id="infoBeenHereBefore" class="container">
+    <div class="typed-out-long">I feel like I have been here before...</div>
+</div>
+
 
 <div id="info14" class="container">
     <div class="typed-out-long">You realise it was all a dream. The end.</div>
@@ -258,6 +264,8 @@
 
 
 
+
+
 </script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
@@ -298,6 +306,8 @@
             vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
             gl_FragColor = baseColor;// + vec4(color, 1.0);
         }
+
+
 
 
 

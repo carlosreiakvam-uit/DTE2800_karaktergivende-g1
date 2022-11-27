@@ -69,6 +69,7 @@ export default class EventHandler {
 
         if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
             this.spawnSecondPlatform()
+            this.application.audio.spawn.play()
             this.movingEnemy1 = new RollingBallEnemy(
                 {x: 40, y: 5, z: -5},
                 0.5, 0xffff00, 0.1,
@@ -92,6 +93,7 @@ export default class EventHandler {
 
         if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
             this.spawnThirdPlatForm();
+            this.application.audio.spawn.play()
             this.deactivateEnemies()
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_2) // remove check of collected bonus points
             this.fireWall = new FireWall({x: 60, y: 5, z: -9.5})
@@ -103,6 +105,7 @@ export default class EventHandler {
         if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_3) // remove check of collected bonus points
             this.spawnNarvik();
+            this.application.audio.spawn.play()
             // this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
 
         }
@@ -320,6 +323,13 @@ export default class EventHandler {
     spawnNarvik() {
         this.narvikIsHere = true;
         this.application.scene.add(this.application.resources.narvik.group);
+
+        $('#infoBeenHereBefore').fadeIn(1000).delay(10000).fadeOut(10000);
+        setTimeout(function () {
+            this.application.audio.beenHereBefore.play()
+        }, 1000);
+
+
     }
 
     deactivateEnemies() {

@@ -27,7 +27,7 @@ export default class RollingBallEnemy {
     }
 
     reset() {
-        if(!this.application.world.eventHandler.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm) {
+        if (!this.application.world.eventHandler.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm) {
             this.application.scene.remove(this.mesh);
             this.physics.world.removeRigidBody(this.rigidBody);
             this.setGeometry()
@@ -160,7 +160,8 @@ export default class RollingBallEnemy {
     takeDamageOnHero() {
         if (this.application.world.player.health > 0) {
             this.application.world.player.health -= 2
-
+            if (this.application.world.player.health > 2)
+                this.application.audio.hurt.play()
         }
     }
 
