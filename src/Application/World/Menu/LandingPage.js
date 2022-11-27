@@ -18,7 +18,7 @@ export async function addLandingPageMenu(application) {
     let modeHardName = "hard"
     let modeMediumName = "medium"
 
-    let headerText = "TRAPPED IN SPACE"
+    let headerText = "TRAPPED IN A DREAM"
     let startText = "START"
     let menuText = "MENU"
 
@@ -27,12 +27,12 @@ export async function addLandingPageMenu(application) {
     let modeMediumText = "MEDIUM"
 
     const zText = -10
-    const titleSize = 10
+    const titleSize = 15
     const subSize = 7
 
-    let headerPosition = {x: -90, y: 70, z: zText}
-    let startPosition = {x: 0, y: 50, z: zText}
-    let menuPosition = {x: 0, y: 30, z: zText}
+    let headerPosition = {x: -150, y: 70, z: zText}
+    let startPosition = {x: 0, y: 40, z: zText}
+    let menuPosition = {x: 0, y: 20, z: zText}
 
     let modePosition = {x: 0, y: 50, z: zText}
     let modeHardPosition = {x: 0, y: 30, z: zText}
@@ -130,7 +130,6 @@ export async function addLandingPageMenu(application) {
                             $('#info2').fadeIn(2200).delay(4000).fadeOut(2200);
                             application.audio.engulfed.play()
 
-
                             $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200);
                             application.audio.locateMinion.play(1000)
                             // $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
@@ -145,6 +144,8 @@ export async function addLandingPageMenu(application) {
                             medium = addTextElement(subSize, modeMediumText, modeMediumPosition, modeMediumName)
                         } else if (intersects[0].object.name === modeHardName) {
                             application.world.player.healthRegen = 0
+                            application.animations.theSunIsShining = false
+                            application.animations.ambientVisible = false
                             application.scene.remove(mode)
                             application.scene.remove(hard)
                             application.scene.remove(medium)
@@ -161,7 +162,6 @@ export async function addLandingPageMenu(application) {
                             menu = addTextElement(subSize, menuText, menuPosition, menuName)
                         }
                     }
-
                 }
             }
 
