@@ -5,11 +5,11 @@ import {addLandingPageMenu} from "./Menu/LandingPage";
 import {addSkyBox} from "./BackGroundSkyBox";
 import Time from "../Utils/Time";
 import Lava from "./StaticEnemies/Lava.js";
-import BalancingPlatform from "./Platforms/BalancingPlatform";
 import Box from "./Platforms/PlatformShapes/Box";
 import Globs from "../Utils/Globs";
 import {RotatingWall} from "./Moving Enemies/RotatingWall.js";
 import EventHandler from "./Handlers/EventHandler";
+import Environment from "./Environment";
 
 export default class WorldA {
     constructor() {
@@ -43,11 +43,10 @@ export default class WorldA {
 
     createWorld() {
         console.log("CREATING WORLD")
-        // this.fireWall = new FireWall(this.application)
         this.lava = new Lava({x: 15, y: -4.9, z: 0}, 15, 15)
         this.healthbar = new HealthBar(5, 5, {x: 30, y: 0, z: 0})
         this.eventHandler = new EventHandler();
-        // this.environment = new Environment()
+        this.environment = new Environment()
         this.player = new Player({x: 0, y: 0.5, z: 0})
         this.addMovingObstacles()
         this.addPlatforms()
@@ -57,7 +56,7 @@ export default class WorldA {
 
 
     addPlatforms() {
-        let balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0})
+        //let balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
@@ -122,9 +121,9 @@ export default class WorldA {
 
     addMovingObstacles() {
         this.rotatingWall = new RotatingWall({
-                position: {x: 16, y: -0.2, z: 6},
+                position: {x: 16, y: 0.2, z: 6},
                 scale: {x: 5, y: 2, z: 0.5},
-                texture: "lava1",
+                texture: "blackDirtyTexture",
                 name: "rotatingWall"
             }
         )
@@ -133,13 +132,12 @@ export default class WorldA {
 
     update() {
         if (this.ready) {
-            // this.environment.update();
+            this.environment.update();
             this.eventHandler.update();
             this.player.update();
             this.healthbar.update();
             this.lava.update();
             this.rotatingWall.update();
-            //this.fireWall.update();
         }
     }
 }

@@ -5,7 +5,7 @@ export default class Animations {
     constructor() {
         this.application = new Application()
         this.ambientVisible = true;
-        this.ambientIntensity = 0.01;
+        this.ambientIntensity = 0.7;
         this.ambientColor = 0xffffff;
         this.physics = this.application.physics
 
@@ -21,7 +21,6 @@ export default class Animations {
     update(currentlyPressedKeys, deltaTime) {
         this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
         this.debug(currentlyPressedKeys)
-
     }
 
     debug(currentlyPressedKeys) {

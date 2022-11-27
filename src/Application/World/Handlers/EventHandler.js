@@ -6,6 +6,7 @@ import Minion from "../FriendlyItems/Minion";
 import {assertPluginList} from "@babel/core/lib/config/validation/option-assertions";
 import Narvik from "../Platforms/Narvik.js";
 import * as Constant from "../../Utils/Constants.js";
+import FireWall from "../Moving Enemies/FireWall";
 
 
 export default class EventHandler {
@@ -61,15 +62,20 @@ export default class EventHandler {
         if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && this.bonusPointHandler.allBonusPoints.has(Constant.BONUS_START_PLAT)) {
             console.log('updateFirstPlatform')
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_START_PLAT) // remove check of collected bonus points
-            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 3}, {x: 1, z: 0})
+            this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 9}, {x: 1, z: 0})
         }
     }
 
     updateSecondPlatform() {
         if (this.movingEnemy1 !== undefined &&
-            this.movingEnemy2 !== undefined) {
+            this.movingEnemy2 !== undefined &&
+            this.movingEnemy3 !== undefined &&
+            this.movingEnemy4 !== undefined
+        ) {
             this.movingEnemy1.update();
             this.movingEnemy2.update();
+            this.movingEnemy3.update();
+            this.movingEnemy4.update();
         }
 
         if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
@@ -86,32 +92,32 @@ export default class EventHandler {
                 "movingEnemy2"
             )
 
-        }
-    }
-
-    updateThirdPlatform() {
-        if (this.movingEnemy3 !== undefined &&
-            this.movingEnemy4 !== undefined) {
-            this.movingEnemy3.update();
-            this.movingEnemy4.update();
-        }
-
-
-        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
-            this.spawnThirdPlatForm();
-            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_2) // remove check of collected bonus points
             this.movingEnemy3 = new RollingBallEnemy(
-                {x: 62, y: 5, z: -5},
+                {x: 40, y: 5, z: -5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy3"
             )
 
             this.movingEnemy4 = new RollingBallEnemy(
-                {x: 62, y: 5, z: 5},
+                {x: 40, y: 5, z: 5},
                 0.5, 0xffff00, 0.1,
                 "movingEnemy4"
             )
+        }
+    }
 
+    updateThirdPlatform() {
+
+        if(this.fireWall !== undefined && this.fireWall2 !== undefined) {
+            this.fireWall.update()
+            this.fireWall2.update()
+        }
+
+        if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
+            this.spawnThirdPlatForm();
+            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_2) // remove check of collected bonus points
+            this.fireWall = new FireWall({x: 60, y: 5, z: -9.5})
+            this.fireWall2 = new FireWall({x: 60, y: 5, z: -9.5}, true)
         }
     }
 
@@ -209,7 +215,7 @@ export default class EventHandler {
         })
 
         this.secondPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_2, {x: 38, y: 1.5, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(12, Constant.BONUS_PLAT_2, {x: 45, y: 1.5, z: 0}, {x: 1, z: 0})
         this.application.scene.add(a.mesh);
         this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_1) // remove check of collected bonus points
     }
@@ -218,7 +224,6 @@ export default class EventHandler {
         $('#info7').fadeOut(2200);
         // $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
 
-        console.log('spawn third platform')
         const b = new Box({
             position: {x: 65, y: 0, z: 0},
             scale: {x: 20, y: 0.2, z: 20},
@@ -276,7 +281,7 @@ export default class EventHandler {
         })
 
         this.thirdPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_3, {x: 68, y: 1.5, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(17, Constant.BONUS_PLAT_3, {x: 73, y: 1.5, z: 8}, {x: 1, z: 1})
         this.application.scene.add(
             b.mesh,
             c.mesh,
@@ -284,7 +289,7 @@ export default class EventHandler {
             e.mesh,
             f.mesh,
             g.mesh,
-            h.mesh
+            h.mesh,
             //d.mesh
         );
     }

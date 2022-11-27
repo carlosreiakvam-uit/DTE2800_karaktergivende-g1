@@ -4,7 +4,7 @@ import * as constant from "../../Utils/Constants.js";
 
 
 export default class Player {
-    constructor(position = {x: 0, y: 0.5, z: 0}) {
+    constructor(position = {x: 70, y: 0.5, z: 0}) {
         this.application = new Application()
         this.resources = this.application.resources
         this.physics = this.application.physics
@@ -171,7 +171,7 @@ export default class Player {
         }
 
         this.mixer.update(this.application.time.delta)
-        this.checkFlashLight()
+        this.checkFlashLight(this.position)
         this.checkCollisions()
 
         // Log origin
@@ -222,11 +222,10 @@ export default class Player {
 
     createFlashLight(position) {
         const flashLight = new THREE.SpotLight(0xFFFFFF, 7, 20, Math.PI * 0.15, 0.8, 0.5);
-
+        console.log(position.x)
         flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
         flashLight.position.set(position.x, position.y+1, position.z);
         flashLight.visible = true;
-        //flashLight.castShadow = true;
 
         return flashLight;
     }
