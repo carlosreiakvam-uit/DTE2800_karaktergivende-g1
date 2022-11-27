@@ -65,8 +65,7 @@ export class RotatingWall {
                 let direction = new THREE.Vector3();
                 mesh1.getWorldDirection(direction);
                 hero.setVelocityForTimeInterval(
-                    new Ammo.btVector3(direction.x * 5, 0, direction.z * 5),
-                    this.application.time.delta
+                    new Ammo.btVector3(direction.x * 5, 0, direction.z * 5), 1
                 )
             }
         };
@@ -75,7 +74,7 @@ export class RotatingWall {
         mesh.getWorldDirection(direction);  // NB! worldDIRECTION! Gir en vektor som peker mot +Z. FRA DOC: Returns a vector representing the direction of object's positive z-axis in world space.
 
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x / 2, scale.y / 2, scale.z / 2));
-        shape.setMargin(0.005);
+        shape.setMargin(0);
         const rigidBody = this.application.physics.createRigidBody(shape, mesh, 0.3, 0.0, position, mass);
         rigidBody.setActivationState(4);
         mesh.userData.physicsBody = rigidBody;
@@ -148,14 +147,17 @@ export class RotatingWall {
         if (!this.wall) {
             return;
         }
-        let direction = new THREE.Vector3();
-        this.wall.threeMesh.getWorldDirection(direction);
+        if (this.wall.getAngularVelocity().length() < 1) {
+            let direction = new THREE.Vector3();
+            this.wall.threeMesh.getWorldDirection(direction);
 
-        this.wall.activate(true);
+            this.wall.activate(true);
 
-        const relativeVector = new Ammo.btVector3(5, 0, 0);
-        const impulseVector = new Ammo.btVector3(direction.x * 0.01, 0, direction.z * 0.01);
-        this.wall.applyImpulse(impulseVector, relativeVector);
+            const relativeVector = new Ammo.btVector3(2.5, 0, 0);
+            const impulseVector = new Ammo.btVector3(direction.x, 0, direction.z);
+            this.wall.applyImpulse(impulseVector, relativeVector);
+        }
+
     }
 
     update() {

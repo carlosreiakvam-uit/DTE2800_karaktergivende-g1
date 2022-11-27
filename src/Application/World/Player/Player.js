@@ -60,7 +60,7 @@ export default class Player {
 
     setPhysics() {
 
-        let shape = new Ammo.btCapsuleShape(0.5, 0.8);
+        let shape = new Ammo.btCapsuleShape(0.2, 0.8);
         this.ghostObject = new Ammo.btPairCachingGhostObject();
 
         let transform = new Ammo.btTransform();
@@ -136,7 +136,7 @@ export default class Player {
             direction * Math.cos(this.group.rotation.y) * speed
         ));
         this.t = this.controller.getGhostObject().getWorldTransform();
-        this.group.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() - 0.85, this.t.getOrigin().z());
+        this.group.position.set(this.t.getOrigin().x(), this.t.getOrigin().y() - 0.5, this.t.getOrigin().z());
 
         this.application.animations.direction = 0;
         this.application.animations.rotation = 0;
