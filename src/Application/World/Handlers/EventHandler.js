@@ -10,6 +10,7 @@ import * as Constant from "../../Utils/Constants.js";
 
 export default class EventHandler {
     constructor() {
+        // this.beginningStarted = false
         this.application = new Application()
         this.physics = this.application.physics
         this.secondPlatformAdded = false;
@@ -28,6 +29,7 @@ export default class EventHandler {
     }
 
     update() {
+        // this.updateBeginning()
         this.updateStartPlatform();
         this.updateFirstPlatform()
         this.updateSecondPlatform();
@@ -38,6 +40,15 @@ export default class EventHandler {
         this.companion.update();
         this.bonusPointHandler.update()
     }
+
+    // updateBeginning() {
+    //     if (!this.beginningStarted) {
+    //         console.log('make')
+    //         this.application.audio.engulfed.play()
+    //     }
+    //     this.beginningStarted = true
+    //
+    // }
 
     updateStartPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {

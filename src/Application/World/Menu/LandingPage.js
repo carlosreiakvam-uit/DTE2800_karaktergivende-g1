@@ -48,6 +48,8 @@ export async function addLandingPageMenu(application) {
             menu = addTextElement(subSize, menuText, menuPosition, menuName)
             addMenuLight()
 
+            application.audio.gameSong.play()
+
             function addTextElement(size, text, position, name, height = 4) {
                 const textGeometry = new TextGeometry(
                     text,
@@ -126,7 +128,11 @@ export async function addLandingPageMenu(application) {
                             window.removeEventListener('click', onMouseClick, false)
                             // $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
                             $('#info2').fadeIn(2200).delay(4000).fadeOut(2200);
+                            application.audio.engulfed.play()
+
+
                             $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            application.audio.locateMinion.play(1000)
                             // $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
                             // $('#info5').delay(7000).fadeIn(2200).delay(2000).fadeOut(2200);
 
