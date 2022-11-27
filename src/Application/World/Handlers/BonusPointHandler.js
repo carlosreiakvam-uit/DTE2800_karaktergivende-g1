@@ -3,6 +3,7 @@ import Application from "../../Application.js";
 import FloatingBonusPoint from "../FriendlyItems/FloatingBonusPoint.js";
 import {position} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
 import * as constants from "../../Utils/Constants.js";
+import {FinalBonusPoint} from "../FriendlyItems/FinalBonusPoint.js";
 
 export default class BonusPointHandler {
     constructor() {
@@ -12,6 +13,7 @@ export default class BonusPointHandler {
         this.allBonusPointsTakenOnSecondPlatForm = false;
         this.allBonusPointsTakenOnThirdPlatForm = false;
         this.allBonusPointsTakenOnNarvik = false;
+        this.finalBonusPointTaken = false;
         this.allBonusPoints = new Map()
         this.genNarvikPointPositions()
     }
@@ -25,12 +27,17 @@ export default class BonusPointHandler {
     }
 
     spawnNarvikPoints(platformName) {
-        console.log('spawning narvik points')
         let points = []
         for (let i = 0; i < this.narvikPointPositions.length; i++) {
             let pos = this.narvikPointPositions[i]
-            points.push(new FloatingBonusPoint(pos, 1, 0.1, platformName, 0.02, 1))
+            points.push(new FloatingBonusPoint(pos, 1, 0.1, platformName, 0.02, 0.5))
         }
+        this.allBonusPoints.set(platformName, points)
+    }
+
+    spawnFinalBonusPoint(platformName, position) {
+        let points = []
+        points.push(new FinalBonusPoint(position, 5, 0.1, platformName, 0.02, 1));
         this.allBonusPoints.set(platformName, points)
     }
 
@@ -76,6 +83,10 @@ export default class BonusPointHandler {
         if (this.allBonusPoints.has(constants.BONUS_NARVIK)) {
             this.allBonusPointsTakenOnNarvik = this.arePointsTaken(constants.BONUS_NARVIK)
             this.updateLive(constants.BONUS_NARVIK)
+        }
+        if (this.allBonusPoints.has(constants.BONUS_FINAL)) {
+            this.finalBonusPointTaken = this.arePointsTaken(constants.BONUS_FINAL)
+            this.updateLive(constants.BONUS_FINAL)
         }
 
     }

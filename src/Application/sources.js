@@ -58,6 +58,11 @@ export default [
         path: `assets/models/soldier/Soldier.glb`
     },
     {
+        name: `hiphop`,
+        type: `fbxModel`,
+        path: `assets/models/soldier/hip-hop.fbx`
+    },
+    {
         name: `healthbar75`,
         type: `texture`,
         path: `textures//healthbar/healthbar75.png`

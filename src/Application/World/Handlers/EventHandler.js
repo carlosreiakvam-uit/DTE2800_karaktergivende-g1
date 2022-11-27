@@ -20,6 +20,8 @@ export default class EventHandler {
         this.healthInfoTextShown = false;
         this.startPlatformPointsCollected = false
         this.narvikIsHere = false;
+        this.megabridgeSpawned = false;
+        this.gameComplete = false;
 
         this.bonusPointHandler = new BonusPointHandler()
 
@@ -123,7 +125,6 @@ export default class EventHandler {
 
     updateNarvik() {
         if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
-            console.log('update narvik gogo')
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_3) // remove check of collected bonus points
             this.spawnNarvik();
             this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
@@ -132,9 +133,22 @@ export default class EventHandler {
     }
 
     updateEnd() {
-        if (this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
+        if (!this.megabridgeSpawned && this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
+            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_NARVIK) // remove check of collected bonus points
+            this.megabridgeSpawned = true;
             this.spawnMegaBridge()
-            console.log("FINITO")
+        }
+        if(this.megabridgeSpawned) {
+            if(this.bonusPointHandler.finalBonusPointTaken && !this.gameComplete) {
+                this.gameComplete = true;
+                const player = this.application.world.player;
+                player.active = false;
+                player.setAction(player.animationActions.dancing)
+                player.controller.setWalkDirection(new Ammo.btVector3(0, 0, 0));
+
+                const camera = this.application.camera;
+                camera.lookFrom.z = -camera.lookFrom.z;
+            }
         }
     }
 
@@ -150,7 +164,26 @@ export default class EventHandler {
             name: "megabridge",
             material: application.world.globs.spacePlatformMaterial,
         })
+
+        const endZone = new Box({
+            position: {
+                x: 114.4,
+                y: -2.3,
+                z: -length - 3
+            },
+            scale: {x: 20, y: 0.2, z: 20},
+            name: "endZone",
+            material: application.world.globs.spacePlatformMaterial,
+        })
+
+        this.bonusPointHandler.spawnFinalBonusPoint(Constant.BONUS_FINAL, {
+            x: 114.4,
+            y: 2,
+            z: -length - 3
+        })
+
         this.application.scene.add(a.mesh);
+        this.application.scene.add(endZone.mesh);
     }
 
 
