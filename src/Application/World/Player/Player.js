@@ -36,22 +36,24 @@ export default class Player {
 
 
     importModel() {
-        let player = this.resources.items.soldier
-        player.scene.castShadow = true;
-        player.scene.receiveShadow = true
+        const player = this.resources.items.soldier;
+        const samba = this.resources.items.hiphop;
+        // player.scene.castShadow = true;
+        // player.scene.receiveShadow = true
 
-        this.mixer = new THREE.AnimationMixer(player.scene)
+        this.mixer = new THREE.AnimationMixer(player.scene.children[0])
 
         this.animationActions = {
             idle: this.mixer.clipAction(player.animations[0]),
+            dancing: this.mixer.clipAction(samba.animations[0]),
             walking: this.mixer.clipAction(player.animations[1]),
             running: this.mixer.clipAction(player.animations[3])
         }
 
-        player.scene.traverse( function ( object ) {
-            if ( object.isMesh ) object.castShadow = true;
+        player.scene.traverse(function (object) {
+            if (object.isMesh) object.castShadow = true;
 
-        } );
+        });
         this.activeAction = this.animationActions.idle
         return player.scene.children[0]
     }
@@ -108,9 +110,14 @@ export default class Player {
     }
 
     update() {
-        if(this.active) {
+        if (this.active) {
             this.doUpdate();
         }
+        if (this.activeAction === this.animationActions.dancing) {
+            this.player.rotation.y = -Math.PI
+        }
+        this.mixer.update(this.application.time.delta)
+        this.checkFlashLight()
     }
 
     doUpdate() {
@@ -170,8 +177,7 @@ export default class Player {
             }
         }
 
-        this.mixer.update(this.application.time.delta)
-        this.checkFlashLight()
+
         this.checkCollisions()
 
         // Log origin
@@ -223,8 +229,8 @@ export default class Player {
     createFlashLight(position) {
         const flashLight = new THREE.SpotLight(0xFFFFFF, 7, 20, Math.PI * 0.15, 0.8, 0.5);
 
-        flashLight.target.position.set(position.x, position.y+0.5, position.z - 3);
-        flashLight.position.set(position.x, position.y+1, position.z);
+        flashLight.target.position.set(position.x, position.y + 0.5, position.z - 3);
+        flashLight.position.set(position.x, position.y + 1, position.z);
         flashLight.visible = true;
         //flashLight.castShadow = true;
 
@@ -242,7 +248,7 @@ export default class Player {
                     this.flashLight.intensity = this.flashLightBattery;
                     if (this.flashLightBattery <= 0) {
                         this.flashLight.visible = false;
-                        if(this.firstTimeBatteryDies) {
+                        if (this.firstTimeBatteryDies) {
                             this.firstTimeBatteryDies = false
                             $('#info13').fadeIn(2200).delay(8000).fadeOut(2200);
                         }
@@ -251,10 +257,10 @@ export default class Player {
             }
         }
 
-        if(this.flashLight.visible === false) {
+        if (this.flashLight.visible === false) {
             this.flashLightBattery += 0.015
 
-            if(this.flashLightBattery >= 7) {
+            if (this.flashLightBattery >= 7) {
                 this.flashLight.visible = true;
                 this.flashLight.intensity = 7
                 this.activationTime = this.application.time.clock.getElapsedTime()

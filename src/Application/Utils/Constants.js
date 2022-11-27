@@ -13,3 +13,4 @@ export const BONUS_PLAT_1 = 'bonusPlat1'
 export const BONUS_PLAT_2 = 'bonusPlat2'
 export const BONUS_PLAT_3 = 'bonusPlat3'
 export const BONUS_NARVIK = 'bonusNarvik'
+export const BONUS_FINAL = 'bonusFinal';
