@@ -44,7 +44,7 @@ export default class FloatingBonusPoint {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.name = name
         this.mesh.position.set(position.x, position.y, position.z)
-        this.mesh.scale.set(1.5, 1.5, 1.5)
+        this.mesh.scale.set(scale, scale, scale)
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true;
         this.application.scene.add(this.mesh)

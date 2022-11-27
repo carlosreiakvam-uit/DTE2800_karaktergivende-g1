@@ -13,6 +13,7 @@ export default class Camera {
         this.currentPosition = new THREE.Vector3();
         this.currentLookAt = new THREE.Vector3();
         this.lookAtHero = false
+        this.lookFrom = {x: 0, y: 5, z: 8};
 
         this.setInstance()
         this.setControls()
@@ -53,7 +54,7 @@ export default class Camera {
     }
 
     calculateIdealOffset(target) {
-        const idealOffset = new THREE.Vector3(0, 5, 8);
+        const idealOffset = new THREE.Vector3(this.lookFrom.x, this.lookFrom.y, this.lookFrom.z);
         idealOffset.applyQuaternion(target.quaternion);
         idealOffset.add(target.position);
         return idealOffset;
