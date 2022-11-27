@@ -19,7 +19,6 @@ export default class RollingBallEnemy {
         this.xDifference = undefined
         this.zDifference = undefined
         this.yDifference = undefined
-
         this.setTextures()
         this.setGeometry()
         this.setMesh(this.startPosition, scale, name)
@@ -28,7 +27,6 @@ export default class RollingBallEnemy {
     }
 
     reset() {
-
         // this.application.scene.remove(this.mesh)
         // this.setGeometry()
         // this.setTextures()
