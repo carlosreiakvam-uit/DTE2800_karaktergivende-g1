@@ -46,10 +46,8 @@ export default class Minion {
         this.spotLight = new THREE.PointLight(0xFFFFFF, 0, 8);
         this.spotLight.castShadow = true
         this.spotLight.visible = true;
-        //this.spotLight.target.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
         this.spotLight.position.set(this.position.x, this.position.y , this.position.z);
         this.group.add(this.spotLight)
-        //this.group.add(this.spotLight.target)
     }
 
     setGeometry() {
@@ -107,13 +105,13 @@ export default class Minion {
         this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
     }
 
-    doFloatingAnimation(hero) {
-        if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 4) {
-            this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
-        }
-        this.lastYPos = this.rigidBody.threeMesh.position.y
-        this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
-    }
+    // doFloatingAnimation(hero) {
+    //     if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 4) {
+    //         this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
+    //     }
+    //     this.lastYPos = this.rigidBody.threeMesh.position.y
+    //     this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
+    // }
 
     doFloatingAnimationStart() {
         if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < 1) {

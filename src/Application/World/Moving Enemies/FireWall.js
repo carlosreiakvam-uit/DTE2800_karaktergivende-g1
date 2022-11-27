@@ -1,16 +1,18 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Time from "../../Utils/Time";
+import TWEEN from "@tweenjs/tween.js";
 
 export default class FireWall {
-    constructor(position, scale, color, mass, name) {
+    constructor(position, revert) {
         this.application = new Application()
         this.time = new Time();
         this.mesh = undefined
-        this.setup()
+        this.revert = revert
+        this.setup(position)
     }
 
-    setup() {
+    setup(position) {
         let textures = {}
         textures.color = application.resources.items.lava1
         textures.color.encoding = THREE.sRGBEncoding
@@ -32,41 +34,78 @@ export default class FireWall {
         material.shininess = 0.6;
         const geo = new THREE.BoxGeometry(10, 10, 1);
         let fireWallMesh = new THREE.Mesh(geo, material);
-        this.mesh = fireWallMesh
 
-        const position = {x:10, y:5, z:-9}
+        console.log(position.x)
         fireWallMesh.name="fireWall1";
         fireWallMesh.position.y = position.y;
         fireWallMesh.position.x = position.x;
         fireWallMesh.position.z = position.z;
+        this.mesh = fireWallMesh
 
-        // application.scene.add(fireWallMesh)
+        application.scene.add(fireWallMesh)
 
         const TWEEN = require('/node_modules/@tweenjs/tween.js');
+        let tween1
+        if(this.revert) {
+            tween1 = new TWEEN.Tween({z: -position.z})
+                .to({z: position.z}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.z = position.z;
+                }).start()
+        } else {
+            tween1 = new TWEEN.Tween({z: position.z})
+                .to({z: -position.z}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.z = position.z;
+                }).start()
+        }
 
-        let tween1 = new TWEEN.Tween({z: position.z})
-            .to({z: -position.z}, 6000)
-            .onUpdate( function (position) {
-                fireWallMesh.position.z = position.z;
-            }).start()
+        let tween2
+        if(this.revert) {
+            tween2 = new TWEEN.Tween({x: position.x+10})
+                .to({x: position.x}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.x = position.x;
+                }).start()
+        } else {
+            tween2 = new TWEEN.Tween({x: position.x})
+                .to({x: position.x+10}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.x = position.x;
+                }).start()
+        }
 
-        let tween2 = new TWEEN.Tween({x: position.x})
-            .to({x: position.x+10}, 6000)
-            .onUpdate( function (position) {
-                fireWallMesh.position.x = position.x;
-            }).start()
+        let tween3
 
-        let tween3 = new TWEEN.Tween({z: -position.z})
-            .to({z: position.z}, 6000)
-            .onUpdate( function (position) {
-                fireWallMesh.position.z = position.z;
-            }).start()
+        if(this.revert) {
+            tween3 = new TWEEN.Tween({z: position.z})
+                .to({z: -position.z}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.z = position.z;
+                }).start()
+        } else {
+            tween3 = new TWEEN.Tween({z: -position.z})
+                .to({z: position.z}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.z = position.z;
+                }).start()
+        }
 
-        let tween4 = new TWEEN.Tween({x: position.x+10})
-            .to({x: position.x}, 6000)
-            .onUpdate( function (position) {
-                fireWallMesh.position.x = position.x;
-            }).start()
+        let tween4
+
+        if(this.revert) {
+            tween4 = new TWEEN.Tween({x: position.x})
+                .to({x: position.x+10}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.x = position.x;
+                }).start()
+        } else {
+            tween4 = new TWEEN.Tween({x: position.x+10})
+                .to({x: position.x}, 3000)
+                .onUpdate( function (position) {
+                    fireWallMesh.position.x = position.x;
+                }).start()
+        }
 
         tween1.chain(tween2)
         tween2.chain(tween1)
@@ -77,7 +116,7 @@ export default class FireWall {
 
     takeDamageOnHero() {
         if(this.application.world.player.health > 0) {
-            this.application.world.player.health -= 100
+            this.application.world.player.health -= 0
         }
     }
 
@@ -106,7 +145,6 @@ export default class FireWall {
         return (difference >= biggerThen && difference < 0) || (difference <= lessThen && difference > 0);
     }
 
-
     getXPositionDifference(hero) {
         let diff = hero.getOrigin().x() - this.mesh.position.x;
         return diff
@@ -125,9 +163,6 @@ export default class FireWall {
 
     checkHeroAndThisInteraction(hero) {
         this.updatePositions(hero)
-        // console.log("x  "+ this.xDifference)
-        // console.log("z  "+ this.zDifference)
-        // console.log("y  "+ this.yDifference)
 
         if(this.checkIfHeroAndThisEntityAreClose()) {
             this.takeDamageOnHero(hero)
