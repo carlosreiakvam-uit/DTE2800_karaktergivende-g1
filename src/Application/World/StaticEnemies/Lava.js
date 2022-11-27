@@ -4,6 +4,7 @@ import Time from "../../Utils/Time";
 import * as Constant from "../../Utils/Constants.js";
 
 
+//Dette er basert på Werner sin tekstur kode der man får se vann som beveger seg
 export default class Lava {
     constructor(position, xWidth, zDepth) {
         this.application = new Application()
@@ -31,7 +32,6 @@ export default class Lava {
         colorDebugObject.depthColor = '#186691';
         colorDebugObject.surfaceColor = '#9bd8ff';
 
-        //Definerer ekstra uniform-variabler:
         let uniforms = {
             baseTexture: {type: "t", value: lavaTexture},
             baseSpeed: {type: "f", value: 0.02},
@@ -74,10 +74,6 @@ export default class Lava {
                 this.takeDamageOnHero()
             }
         };
-
-
-
-        // application.scene.add(this.lavaMesh);
 
         let width = this.lavaMesh.geometry.parameters.width;
         let height = 0.4;

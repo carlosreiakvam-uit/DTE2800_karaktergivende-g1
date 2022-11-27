@@ -18,7 +18,6 @@ export default class EventHandler {
         this.thirdPlatformAdded = false;
         this.firstPlatformAdded = false;
         this.healthInfoTextShown = false;
-        this.startPlatformPointsCollected = false
         this.narvikIsHere = false;
         this.megabridgeSpawned = false;
         this.gameComplete = false;
@@ -43,15 +42,6 @@ export default class EventHandler {
         this.companion.update();
         this.bonusPointHandler.update()
     }
-
-    // updateBeginning() {
-    //     if (!this.beginningStarted) {
-    //         console.log('make')
-    //         this.application.audio.engulfed.play()
-    //     }
-    //     this.beginningStarted = true
-    //
-    // }
 
     updateStartPlatform() {
         if (this.companion.spotLight.intensity > 0 && !this.firstPlatformAdded) {
@@ -101,6 +91,7 @@ export default class EventHandler {
 
         if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
             this.spawnThirdPlatForm();
+            this.deactivateEnemies()
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_2) // remove check of collected bonus points
             this.fireWall = new FireWall({x: 60, y: 5, z: -9.5})
             this.fireWall2 = new FireWall({x: 60, y: 5, z: -9.5}, true)
@@ -128,6 +119,7 @@ export default class EventHandler {
                 const player = this.application.world.player;
                 player.active = false;
                 player.setAction(player.animationActions.dancing)
+                $('#info14').fadeIn(2200).delay(12000).fadeOut(2200);
                 player.controller.setWalkDirection(new Ammo.btVector3(0, 0, 0));
 
                 const camera = this.application.camera;
@@ -307,12 +299,17 @@ export default class EventHandler {
             f.mesh,
             g.mesh,
             h.mesh,
-            //d.mesh
         );
     }
 
     spawnNarvik() {
         this.narvikIsHere = true;
         this.application.scene.add(this.application.resources.narvik.group);
+    }
+
+    deactivateEnemies() {
+        let eventHandler = this.application.world.eventHandler
+        eventHandler.movingEnemy1.deactivateEnemy()
+        eventHandler.movingEnemy2.deactivateEnemy()
     }
 }

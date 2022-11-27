@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import Time from "../../Utils/Time";
-import TWEEN from "@tweenjs/tween.js";
+
 
 export default class FireWall {
     constructor(position, revert) {
@@ -116,7 +116,7 @@ export default class FireWall {
 
     takeDamageOnHero() {
         if(this.application.world.player.health > 0) {
-            this.application.world.player.health -= 0
+            this.application.world.player.health -= 100
         }
     }
 

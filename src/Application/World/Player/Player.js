@@ -14,7 +14,7 @@ export default class Player {
         this.player = this.importModel()
 
         this.activeAction.play();
-        this.setPhysics(position)
+        this.setPhysics()
         this.healthRegen = 0.02
         this.health = 100
         this.flashLightBattery = 7;
@@ -58,7 +58,7 @@ export default class Player {
         return player.scene.children[0]
     }
 
-    setPhysics(position) {
+    setPhysics() {
 
         let shape = new Ammo.btCapsuleShape(0.5, 0.8);
         this.ghostObject = new Ammo.btPairCachingGhostObject();
@@ -74,9 +74,6 @@ export default class Player {
         this.ghostObject.setCollisionFlags(16);
         this.ghostObject.setActivationState(4);
         this.ghostObject.activate(true);
-        // let btVecUserData = new Ammo.btVector3( 0, 0, 0 );
-        // btVecUserData.myData = {id:'ghost',name:"player"};
-        // ghostObject.setUserPointer(btVecUserData)
 
         this.controller = new Ammo.btKinematicCharacterController(
             this.ghostObject,
@@ -168,22 +165,10 @@ export default class Player {
         if (this.health < 100) {
             this.health += this.healthRegen
             if (this.lostHealthForTheFirstTime) {
-                if (this.healthRegen > 0) {
-                    // $('#info10').fadeIn(2200).delay(8000).fadeOut(2200);
-                } else {
-                    // $('#info11').fadeIn(2200).delay(8000).fadeOut(2200);
-                }
                 this.lostHealthForTheFirstTime = false
             }
         }
-
-
         this.checkCollisions()
-
-        // Log origin
-        // console.log('x:',this.t.getOrigin().x())
-        // console.log('y:', this.t.getOrigin().y())
-        // console.log('z:', this.t.getOrigin().z())
     }
 
     makePlayerRespawn() {
@@ -193,7 +178,6 @@ export default class Player {
 
         if (this.firstTimePlayerDies) {
             this.firstTimePlayerDies = false;
-            // $('#info12').fadeIn(2200).delay(8000).fadeOut(2200);
         }
     }
 
@@ -214,12 +198,7 @@ export default class Player {
                 if (contactObject != null) {
                     const contactBody = Ammo.castObject(contactObject, Ammo.btRigidBody);
                     if (contactBody != null && contactBody.threeMesh != null && contactBody.isActive()) {
-                        // play hit-sound
-                        // if (!this.application.audio.point.isPlaying) {
-                        //     this.application.audio.point.play();
-                        // }
 
-                        // console.log("contact:", contactBody.threeMesh.name)
                         if (typeof contactBody.threeMesh.collisionResponse === 'function')
                             contactBody.threeMesh.collisionResponse(contactBody.threeMesh)
                     }
@@ -271,9 +250,11 @@ export default class Player {
 
     respawnEnemies() {
         let eventHandler = this.application.world.eventHandler
-        eventHandler.movingEnemy1.deactivateEnemy()
-        eventHandler.movingEnemy1.reset();
-        eventHandler.movingEnemy2.deactivateEnemy()
-        eventHandler.movingEnemy2.reset();
+        if(eventHandler.movingEnemy1 !== undefined &&eventHandler.movingEnemy2 !== undefined) {
+            eventHandler.movingEnemy1.deactivateEnemy()
+            eventHandler.movingEnemy1.reset();
+            eventHandler.movingEnemy2.deactivateEnemy()
+            eventHandler.movingEnemy2.reset();
+        }
     }
 }

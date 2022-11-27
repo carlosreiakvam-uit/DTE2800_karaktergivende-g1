@@ -13,5 +13,4 @@ export class FinalBonusPoint extends FloatingBonusPoint {
         this.material.roughness = 0.0;
         this.material.shininess = 1;
     }
-
 }
