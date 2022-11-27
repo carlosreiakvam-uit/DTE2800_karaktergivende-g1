@@ -148,7 +148,6 @@ export default class Minion {
         springConstraint.setDamping(0,  0.9);
         springConstraint.setDamping(1,  0.9);
         springConstraint.setDamping(2,  0.9);
-
         this.application.physics.world.addConstraint(springConstraint, false);
     }
 }
