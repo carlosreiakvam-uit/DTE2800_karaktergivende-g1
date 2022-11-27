@@ -55,11 +55,11 @@ export default class EventHandler {
     }
 
     updateSecondPlatform() {
-        // if (this.movingEnemy1 !== undefined &&
-        //     this.movingEnemy2 !== undefined) {
-        //     this.movingEnemy1.update();
-        //     this.movingEnemy2.update();
-        // }
+        if (this.movingEnemy1 !== undefined &&
+            this.movingEnemy2 !== undefined) {
+            this.movingEnemy1.update();
+            this.movingEnemy2.update();
+        }
 
         if (this.bonusPointHandler.allBonusPointsTakenOnFirstPlatForm && !this.secondPlatformAdded) {
             this.spawnSecondPlatform()
@@ -77,12 +77,13 @@ export default class EventHandler {
 
         }
     }
+
     updateThirdPlatform() {
-        // if (this.movingEnemy3 !== undefined &&
-        //     this.movingEnemy4 !== undefined) {
-        //     this.movingEnemy3.update();
-        //     this.movingEnemy4.update();
-        // }
+        if (this.movingEnemy3 !== undefined &&
+            this.movingEnemy4 !== undefined) {
+            this.movingEnemy3.update();
+            this.movingEnemy4.update();
+        }
 
 
         if (this.bonusPointHandler.allBonusPointsTakenOnSecondPlatForm && !this.thirdPlatformAdded) {
@@ -113,10 +114,26 @@ export default class EventHandler {
         }
     }
 
-    updateEnd(){
-        if (this.bonusPointHandler.allBonusPointsTakenOnNarvik){
+    updateEnd() {
+        if (this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
+            this.spawnMegaBridge()
             console.log("FINITO")
         }
+    }
+
+    spawnMegaBridge() {
+        let length = 100
+        const a = new Box({
+            position: {
+                x: 114.4,
+                y: -2.3,
+                z: 7.1 - length / 2
+            },
+            scale: {x: 4, y: 0.2, z: length},
+            name: "megabridge",
+            material: application.world.globs.spacePlatformMaterial,
+        })
+        this.application.scene.add(a.mesh);
     }
 
 
@@ -160,8 +177,6 @@ export default class EventHandler {
     }
 
 
-
-
     spawnFirstPlatform() {
         const e = new Box({
             position: {x: 8, y: -0.2, z: 3},
@@ -183,7 +198,7 @@ export default class EventHandler {
         })
 
         this.secondPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_2, {x: 38, y: 1, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_2, {x: 38, y: 1.5, z: 0}, {x: 1, z: 1})
         this.application.scene.add(a.mesh);
         this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_1) // remove check of collected bonus points
     }
@@ -250,7 +265,7 @@ export default class EventHandler {
         })
 
         this.thirdPlatformAdded = true
-        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_3, {x: 68, y: 1, z: 0}, {x: 1, z: 1})
+        this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_3, {x: 68, y: 1.5, z: 0}, {x: 1, z: 1})
         this.application.scene.add(
             b.mesh,
             c.mesh,
