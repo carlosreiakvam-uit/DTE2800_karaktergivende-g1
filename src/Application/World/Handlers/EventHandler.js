@@ -33,6 +33,7 @@ export default class EventHandler {
         this.updateSecondPlatform();
         this.updateThirdPlatform();
         this.updateNarvik();
+        this.updateEnd()
         this.playerStandsOnPlatformCloseToEnemies();
         this.companion.update();
         this.bonusPointHandler.update()
@@ -188,6 +189,9 @@ export default class EventHandler {
     }
 
     spawnThirdPlatForm() {
+        $('#info7').fadeOut(2200);
+        // $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
+
         console.log('spawn third platform')
         const b = new Box({
             position: {x: 65, y: 0, z: 0},

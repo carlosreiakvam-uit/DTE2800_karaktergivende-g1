@@ -18,7 +18,9 @@ export default class BonusPointHandler {
 
     genNarvikPointPositions() {
         this.narvikPointPositions = [
-            {x: 150.1, y: 6.1, z: 9.9,}, {x: 116.5, y: -1.1, z: 7.7,}, {x: 102.7, y: -2.0, z: 6.1,}
+            {x: 102.7, y: -2, z: 6.1,}, // in the sea
+            {x: 116.5, y: -1, z: 7.7,}, // UIT
+            {x: 150.1, y: 6, z: 9.9,} // top of mountain
         ]
     }
 
@@ -27,7 +29,7 @@ export default class BonusPointHandler {
         let points = []
         for (let i = 0; i < this.narvikPointPositions.length; i++) {
             let pos = this.narvikPointPositions[i]
-            points.push(new FloatingBonusPoint(pos, 1, 0.1, platformName))
+            points.push(new FloatingBonusPoint(pos, 1, 0.1, platformName, 0.02, 1))
         }
         this.allBonusPoints.set(platformName, points)
     }
@@ -86,22 +88,12 @@ export default class BonusPointHandler {
     }
 
     arePointsTaken(key) {
-        let taken = false
         let points = this.allBonusPoints.get(key).valueOf()
-        for (let i = 0; i < points.length; i++) {
-            if (points[i].taken === false) {
-                break
-            }
-            taken = true
-        }
-        this.specialCasePlat2()
-        return taken
+        return points.every(element => element.taken === true);
     }
 
-    specialCasePlat2(key) {
+    checkSpecialCasePlat2(key) {
         if (key === constants.BONUS_PLAT_2) {
-            $('#info7').fadeOut(2200);
-            $('#info8').fadeIn(2200).delay(4000).fadeOut(2200);
         }
     }
 }

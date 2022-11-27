@@ -5,8 +5,9 @@ import {COL_GROUP_BONUS_POINTS} from "../../Utils/Constants.js";
 
 
 export default class FloatingBonusPoint {
-    constructor(position, scale, mass, name, floatingForceY = 0.02) {
+    constructor(position, scale, mass, name, floatingForceY = 0.02, upFloatThreshold = 0.5) {
         this.floatingForceY = floatingForceY
+        this.upFloatThreshold = upFloatThreshold
         this.application = new Application()
         this.physics = this.application.physics
         this.mass = mass
@@ -80,7 +81,7 @@ export default class FloatingBonusPoint {
     }
 
     doFloatingAnimation() {
-        if (this.rigidBody.threeMesh.position.y < this.position.y - 0.5) {
+        if (this.rigidBody.threeMesh.position.y < this.position.y - this.upFloatThreshold) {
             this.application.physics.applyImpulse(this.rigidBody, {x: 0, y: this.floatingForceY, z: 0});
         }
     }
