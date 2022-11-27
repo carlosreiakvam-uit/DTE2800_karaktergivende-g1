@@ -15,7 +15,7 @@ export default class Narvik {
         this.texture = texture;
         this.group = new THREE.Group();
         this.createTerrain();
-        this.addLight(position);
+        // this.addLight(position);
     }
 
     createTerrain() {
