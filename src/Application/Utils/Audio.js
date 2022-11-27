@@ -25,7 +25,7 @@ export default class Audio {
 
         this.audioLoader.load('audio/voiceOver/beenHereBefore.ogg', function (buffer) {
             beenHereBefore.setBuffer(buffer);
-            beenHereBefore.setVolume(1);
+            beenHereBefore.setVolume(0.7);
         });
 
         this.audioLoader.load('audio/hero/hurt.ogg', function (buffer) {

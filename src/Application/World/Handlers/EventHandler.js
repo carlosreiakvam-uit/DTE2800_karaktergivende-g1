@@ -327,7 +327,7 @@ export default class EventHandler {
         $('#infoBeenHereBefore').fadeIn(1000).delay(10000).fadeOut(10000);
         setTimeout(function () {
             this.application.audio.beenHereBefore.play()
-        }, 1000);
+        }, 2000);
 
 
     }
