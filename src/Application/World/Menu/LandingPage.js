@@ -162,7 +162,6 @@ export async function addLandingPageMenu(application) {
                             menu = addTextElement(subSize, menuText, menuPosition, menuName)
                         }
                     }
-
                 }
             }
 
