@@ -197,7 +197,6 @@ export default class Player {
         return this.group.position.y < -25;
     }
 
-
     checkCollisions() {
         let numContacts = this.ghostObject.getNumOverlappingObjects();
         if (numContacts > 0) {
