@@ -28,7 +28,6 @@ export default class RollingBallEnemy {
     }
 
     reset() {
-
         // this.application.scene.remove(this.mesh)
         // this.setGeometry()
         // this.setTextures()
