@@ -21,11 +21,6 @@ export default [
         type: `texture`,
         path: `textures/dirt/normal.jpg`
     },
-    // {
-    //     name: `dirtDisplacement`,
-    //     type: `texture`,
-    //     path: `textures/displacementFromMap/jotunheimen_01.png`
-    // },
     {
         name: `spacePlatformTexture`,
         type: `texture`,

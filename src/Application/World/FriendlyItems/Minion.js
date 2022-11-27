@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import Application from "../../Application.js";
 import * as Constant from "../../Utils/Constants.js";
 
-
 export default class Minion {
     constructor(position, scale, color = 0x00FF00, mass = 0.0, name = "Minion") {
         this.application = new Application()
@@ -19,7 +18,6 @@ export default class Minion {
         this.firstTimeActivated = true
         this.isActivated = false;
         this.addSpotLight()
-        // this.application.scene.add(this.group)
         this.setGeometry()
         this.setTextures()
         this.setMesh(position, scale, name)
@@ -104,14 +102,6 @@ export default class Minion {
         this.lastZPos = this.rigidBody.threeMesh.position.z
         this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
     }
-
-    // doFloatingAnimation(hero) {
-    //     if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < hero.getOrigin().y() + 4) {
-    //         this.application.physics.applyCentralImpulse(this.rigidBody, 0.1,{x: 0, y: 1, z: 0});
-    //     }
-    //     this.lastYPos = this.rigidBody.threeMesh.position.y
-    //     this.spotLight.position.set(this.lastXPos, this.lastYPos, this.lastZPos);
-    // }
 
     doFloatingAnimationStart() {
         if((this.lastYPos > this.rigidBody.threeMesh.position.y) && this.rigidBody.threeMesh.position.y < 1) {

@@ -28,8 +28,6 @@ export default class WorldA {
             addSkyBox(this.scene, this.resources)
             this.createWorld() // creating world without adding it to scene
         })
-
-
     }
 
     // kalles fra LandingPage.js
@@ -56,7 +54,6 @@ export default class WorldA {
 
 
     addPlatforms() {
-        //let balancingPlatform = new BalancingPlatform({x: -10, y: -0.5, z: 0})
 
         const a = new Box({
             position: {x: 15, y: -5, z: 0},
@@ -64,13 +61,6 @@ export default class WorldA {
             name: "first",
             material: this.globs.spacePlatformMaterial,
         })
-
-        // const b = new Cylinder({
-        //     position: {x: -20, y: -0.1, z: 0},
-        //     scale: {x: 3, y: 0.2, z: 3},
-        //     material: this.globs.spacePlatformMaterial,
-        //     radius: 1
-        // })
 
         const d = new Box({
             position: {x: 0, y: -0.2, z: 0},
@@ -107,10 +97,7 @@ export default class WorldA {
             material: this.globs.spacePlatformMaterial,
         })
 
-
         this.objectMeshes.push(a.mesh,
-            //b.mesh,
-            // e.mesh,
             d.mesh,
             f.mesh,
             g.mesh,

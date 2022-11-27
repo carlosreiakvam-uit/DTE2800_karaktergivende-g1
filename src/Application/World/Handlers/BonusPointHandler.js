@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import Application from "../../Application.js";
 import FloatingBonusPoint from "../FriendlyItems/FloatingBonusPoint.js";
-import {position} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
 import * as constants from "../../Utils/Constants.js";
 import {FinalBonusPoint} from "../FriendlyItems/FinalBonusPoint.js";
 
@@ -22,7 +21,7 @@ export default class BonusPointHandler {
         this.narvikPointPositions = [
             {x: 102.7, y: -2, z: 6.1,}, // in the sea
             {x: 116.5, y: -1, z: 7.7,}, // UIT
-            {x: 150.1, y: 6, z: 9.9,} // top of mountain
+            {x: 109.1, y: 6, z: 9.9,} // top of mountain
         ]
     }
 
@@ -58,7 +57,6 @@ export default class BonusPointHandler {
     specialCasePlat1(platformName) {
         if (platformName === constants.BONUS_START_PLAT) {
             $('#info5').fadeOut(2200);
-            // $('#info6').fadeIn(2200).delay(8000).fadeOut(2200);
         }
     }
 
@@ -87,6 +85,7 @@ export default class BonusPointHandler {
         if (this.allBonusPoints.has(constants.BONUS_FINAL)) {
             this.finalBonusPointTaken = this.arePointsTaken(constants.BONUS_FINAL)
             this.updateLive(constants.BONUS_FINAL)
+
         }
 
     }
@@ -101,10 +100,5 @@ export default class BonusPointHandler {
     arePointsTaken(key) {
         let points = this.allBonusPoints.get(key).valueOf()
         return points.every(element => element.taken === true);
-    }
-
-    checkSpecialCasePlat2(key) {
-        if (key === constants.BONUS_PLAT_2) {
-        }
     }
 }

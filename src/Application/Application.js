@@ -27,7 +27,6 @@ export default class Application {
         window.application = this // global access
         this.canvas = _canvas
 
-
         // fps stats
         this.stats = new Stats()
         this.stats.showPanel(0, 1, 2); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -104,6 +103,5 @@ export default class Application {
 
         this.camera.controls.dispose()
         this.renderer.instance.dispose()
-
     }
 }

@@ -220,3 +220,19 @@ body {
     display:block;
     margin-top: 300px;
 }
+
+#info14 {
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 12px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display:block;
+    margin-top: 100px;
+    margin-left: 600px;
+}

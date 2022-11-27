@@ -73,13 +73,10 @@ export class RotatingWall {
 
         const direction = new THREE.Vector3();
         mesh.getWorldDirection(direction);  // NB! worldDIRECTION! Gir en vektor som peker mot +Z. FRA DOC: Returns a vector representing the direction of object's positive z-axis in world space.
-        // addArrowHelper(mesh, direction.normalize(), new THREE.Vector3( 0, 0, 0 ), 'worlddirection_arrow', 0xff0000, 5);
-
 
         const shape = new Ammo.btBoxShape(new Ammo.btVector3(scale.x / 2, scale.y / 2, scale.z / 2));
         shape.setMargin(0.005);
         const rigidBody = this.application.physics.createRigidBody(shape, mesh, 0.3, 0.0, position, mass);
-        //rigidBody.setDamping(0.1, 0.5);
         rigidBody.setActivationState(4);
         mesh.userData.physicsBody = rigidBody;
 

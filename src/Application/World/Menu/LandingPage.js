@@ -4,8 +4,6 @@ import {FontLoader} from "three/examples/jsm/loaders/FontLoader.js";
 
 export async function addLandingPageMenu(application) {
 
-    // const letterTexture = application.resources.items.blackDirtyTexture
-    // const letterColor = new MeshStandardMaterial({color: color.red})
     let url3 = "fonts/gamefont.json"
 
     const fontLoader = new FontLoader()
@@ -37,7 +35,6 @@ export async function addLandingPageMenu(application) {
     let modePosition = {x: 0, y: 50, z: zText}
     let modeHardPosition = {x: 0, y: 30, z: zText}
     let modeMediumPosition = {x: 0, y: 10, z: zText}
-
 
     fontLoader.load(
         url3,
