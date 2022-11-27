@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import Application from "../../Application.js";
 import FloatingBonusPoint from "../FriendlyItems/FloatingBonusPoint.js";
 import * as constants from "../../Utils/Constants.js";
-import {FinalBonusPoint} from "../FriendlyItems/FinalBonusPoint.js";
+import {FinalBonusPoint} from "../FriendlyItems/FinalBonusPoint";
 
 export default class BonusPointHandler {
     constructor() {
@@ -11,27 +11,8 @@ export default class BonusPointHandler {
         this.allBonusPointsTakenOnFirstPlatForm = false;
         this.allBonusPointsTakenOnSecondPlatForm = false;
         this.allBonusPointsTakenOnThirdPlatForm = false;
-        this.allBonusPointsTakenOnNarvik = false;
         this.finalBonusPointTaken = false;
         this.allBonusPoints = new Map()
-        this.genNarvikPointPositions()
-    }
-
-    genNarvikPointPositions() {
-        this.narvikPointPositions = [
-            {x: 102.7, y: -2, z: 6.1,}, // in the sea
-            {x: 116.5, y: -1, z: 7.7,}, // UIT
-            {x: 109.1, y: 6, z: 9.9,} // top of mountain
-        ]
-    }
-
-    spawnNarvikPoints(platformName) {
-        let points = []
-        for (let i = 0; i < this.narvikPointPositions.length; i++) {
-            let pos = this.narvikPointPositions[i]
-            points.push(new FloatingBonusPoint(pos, 1, 0.1, platformName, 0.02, 0.5))
-        }
-        this.allBonusPoints.set(platformName, points)
     }
 
     spawnFinalBonusPoint(platformName, position) {
@@ -51,7 +32,6 @@ export default class BonusPointHandler {
             }, 1, 0.1, platformName))
         }
         this.allBonusPoints.set(platformName, points)
-
     }
 
 

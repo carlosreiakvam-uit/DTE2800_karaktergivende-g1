@@ -120,7 +120,7 @@
 
 
 <div id="info14" class="container">
-    <div class="typed-out-long">You realise it was all a dream. The end.</div>
+    <div class="typed-out">You realise it was all a dream. The end.</div>
 </div>
 
 
@@ -267,6 +267,7 @@
 
 
 
+
 </script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
@@ -307,6 +308,7 @@
             vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
             gl_FragColor = baseColor;// + vec4(color, 1.0);
         }
+
 
 
 

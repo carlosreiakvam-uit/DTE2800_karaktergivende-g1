@@ -106,7 +106,6 @@ export default class EventHandler {
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_3) // remove check of collected bonus points
             this.spawnNarvik();
             this.application.audio.spawn.play()
-            // this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
 
         }
     }
@@ -123,7 +122,6 @@ export default class EventHandler {
 
     updateEnd() {
         if (!this.megabridgeSpawned && this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm) {
-            // this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_NARVIK) // remove check of collected bonus points
             this.megabridgeSpawned = true;
             this.spawnMegaBridge()
         }
