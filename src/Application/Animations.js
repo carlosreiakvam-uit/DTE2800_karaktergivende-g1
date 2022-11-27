@@ -14,12 +14,16 @@ export default class Animations {
         this.directionSpeed = 0.05;
         this.rotationSpeed = 0.05;
         this.rotation = 0;
+        this.showInGameMenu = false
+        this.escapeReadyForNext = false
         this.isJumping = false;
+        this.ct = 0
     }
 
     update(currentlyPressedKeys, deltaTime) {
         this.updateHero(currentlyPressedKeys) // metode plassert her med forbehold om flere ting som skal oppdateres ved keypress
         this.debug(currentlyPressedKeys)
+        this.inGameMenuHandler(currentlyPressedKeys)
     }
 
     debug(currentlyPressedKeys) {
@@ -27,6 +31,20 @@ export default class Animations {
             console.log('x:', this.application.world.player.t.getOrigin().x())
             console.log('y:', this.application.world.player.t.getOrigin().y())
             console.log('z:', this.application.world.player.t.getOrigin().z())
+        }
+    }
+
+    toggle() {
+        this.showInGameMenu ? console.log('on') : console.log('off')
+        this.showInGameMenu = !this.showInGameMenu;
+    }
+
+    inGameMenuHandler(currentlyPressedKeys) {
+        let x = document.getElementById("inGameMenu");
+        if (currentlyPressedKeys["Escape"]) {
+            x.style.display = "block";
+        } else if (!currentlyPressedKeys["Escape"]) {
+            x.style.display = "none";
         }
     }
 

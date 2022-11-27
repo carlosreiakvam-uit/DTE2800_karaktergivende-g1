@@ -51,13 +51,7 @@ export default class BonusPointHandler {
             }, 1, 0.1, platformName))
         }
         this.allBonusPoints.set(platformName, points)
-        this.specialCasePlat1(platformName)
-    }
 
-    specialCasePlat1(platformName) {
-        if (platformName === constants.BONUS_START_PLAT) {
-            $('#info5').fadeOut(2200);
-        }
     }
 
 

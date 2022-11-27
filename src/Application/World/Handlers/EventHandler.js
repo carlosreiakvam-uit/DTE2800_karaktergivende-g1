@@ -20,6 +20,7 @@ export default class EventHandler {
         this.healthInfoTextShown = false;
         this.narvikIsHere = false;
         this.megabridgeSpawned = false;
+        this.inGameMenuVisible = false
         this.gameComplete = false;
 
         this.bonusPointHandler = new BonusPointHandler()
@@ -54,6 +55,7 @@ export default class EventHandler {
         if (this.bonusPointHandler.allBonusPointsTakenOnStartPlatForm && this.bonusPointHandler.allBonusPoints.has(Constant.BONUS_START_PLAT)) {
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_START_PLAT) // remove check of collected bonus points
             this.bonusPointHandler.spawnBonusPoints(5, Constant.BONUS_PLAT_1, {x: 18, y: 1, z: 9}, {x: 1, z: 0})
+
         }
     }
 
@@ -83,7 +85,7 @@ export default class EventHandler {
 
     updateThirdPlatform() {
 
-        if(this.fireWall !== undefined && this.fireWall2 !== undefined) {
+        if (this.fireWall !== undefined && this.fireWall2 !== undefined) {
             this.fireWall.update()
             this.fireWall2.update()
         }
@@ -106,23 +108,39 @@ export default class EventHandler {
         }
     }
 
+    runEndingCredits() {
+        let del = 100000
+        let fa = 5000
+        $('#credits1').fadeIn(0).delay(del * 2).fadeOut(fa);
+        $('#credits2').fadeIn(10000).delay(del).fadeOut(fa);
+        $('#credits3').fadeIn(15000).delay(del).fadeOut(fa);
+        $('#credits4').fadeIn(20000).delay(del).fadeOut(fa);
+        $('#credits5').fadeIn(30000).delay(del + 5000).fadeOut(fa);
+
+
+    }
+
     updateEnd() {
         if (!this.megabridgeSpawned && this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm) {
             // this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_NARVIK) // remove check of collected bonus points
             this.megabridgeSpawned = true;
             this.spawnMegaBridge()
         }
-        if(this.megabridgeSpawned) {
-            if(this.bonusPointHandler.finalBonusPointTaken && !this.gameComplete) {
+        if (this.megabridgeSpawned) {
+            if (this.bonusPointHandler.finalBonusPointTaken && !this.gameComplete) {
+                $('#info14').fadeIn(2200).delay(12000).fadeOut(2200);
                 this.gameComplete = true;
+                this.application.audio.gameSong.stop()
+                this.application.audio.endingSong.play()
                 const player = this.application.world.player;
                 player.active = false;
                 player.setAction(player.animationActions.dancing)
-                $('#info14').fadeIn(2200).delay(12000).fadeOut(2200);
                 player.controller.setWalkDirection(new Ammo.btVector3(0, 0, 0));
 
                 const camera = this.application.camera;
                 camera.lookFrom.z = -camera.lookFrom.z;
+                this.gameComplete = true;
+                this.runEndingCredits()
             }
         }
     }
@@ -142,7 +160,7 @@ export default class EventHandler {
 
         const endZone = new Box({
             position: {
-                x:  85 + length,
+                x: 85 + length,
                 y: 0,
                 z: 0
             },
@@ -152,7 +170,7 @@ export default class EventHandler {
         })
 
         this.bonusPointHandler.spawnFinalBonusPoint(Constant.BONUS_FINAL, {
-            x:  85 + length,
+            x: 85 + length,
             y: 2,
             z: 0
         })

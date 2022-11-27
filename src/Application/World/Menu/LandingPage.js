@@ -16,7 +16,7 @@ export async function addLandingPageMenu(application) {
     let modeHardName = "hard"
     let modeMediumName = "medium"
 
-    let headerText = "TRAPPED IN A DREAM"
+    let headerText = "TRAPPED IN SPACE"
     let startText = "START"
     let menuText = "MENU"
 
@@ -124,14 +124,14 @@ export async function addLandingPageMenu(application) {
                             application.scene.remove(menu)
                             window.removeEventListener('click', onMouseClick, false)
                             // $('#info').delay(2000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#menuInfo').fadeIn(1);
+                            // .delay(2000).fadeOut(2200);
                             $('#info2').fadeIn(2200).delay(4000).fadeOut(2200);
                             application.audio.engulfed.play()
 
-                            $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200);
+                            $('#info3').delay(5000).fadeIn(2200).delay(4000).fadeOut(2200); // locate minion
                             application.audio.locateMinion.play(1000)
                             // $('#info4').delay(14000).fadeIn(2200).delay(4000).fadeOut(2200);
-                            // $('#info5').delay(7000).fadeIn(2200).delay(2000).fadeOut(2200);
-
                         } else if (intersects[0].object.name === menuName) {
                             // application.scene.remove(header)
                             application.scene.remove(start)

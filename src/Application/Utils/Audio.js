@@ -11,13 +11,21 @@ export default class Audio {
         this.fallScream = new THREE.Audio(this.listener)
         this.engulfed = new THREE.Audio(this.listener)
         this.gameSong = new THREE.Audio(this.listener)
+        this.endingSong = new THREE.Audio(this.listener)
         this.locateMinion = new THREE.Audio(this.listener)
         this.audioLoader = new THREE.AudioLoader()
-        this.load(this.point, this.fallScream, this.walking, this.minion, this.playerHit, this.engulfed, this.locateMinion,
-            this.gameSong)
+        this.load(this.point, this.fallScream, this.walking, this.minion, this.playerHit, this.engulfed,
+            this.locateMinion, this.gameSong, this.endingSong)
     }
 
-    load(point, fallScream, walking, minion, playerHit, engulfed, voLocateMinion, gameSong) {
+    load(point, fallScream, walking, minion, playerHit, engulfed, voLocateMinion, gameSong, endingSong) {
+
+        this.audioLoader.load('audio/music/tunetank.com_5800_purple-chair_by_automaticbananas.mp3', function (buffer) {
+            endingSong.setBuffer(buffer);
+            endingSong.setVolume(0.4);
+            endingSong.loop = true
+        });
+
 
         this.audioLoader.load('audio/music/Myuu-The-Orders-Theme.mp3', function (buffer) {
             gameSong.setBuffer(buffer);

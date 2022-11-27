@@ -45,7 +45,6 @@ export default class Application {
         this.world = new WorldA()
         this.animations = new Animations()
         this.keypress = new KeyPress()
-        this.setupLilGui();
 
         // Resize event
         this.sizes.on('resize', () => {
@@ -75,9 +74,6 @@ export default class Application {
         this.stats.end();
     }
 
-    setupLilGui() {
-        this.lilGui = new GUI();
-    }
 
     destroy() {
         this.sizes.off('resize')

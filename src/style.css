@@ -23,37 +23,68 @@ body {
     transform-origin: top left;
     transition: transform 0.1s;
 }
-.loading{
+
+.loading {
     top: 50%;
     position: absolute;
     width: 100%;
 }
 
-#p_loading{
+#p_loading {
     margin-left: 20px;
     color: #888888;
 
 }
 
-.container{
+.container {
     display: inline-block;
 }
-.typed-out{
+
+
+.typed-out {
     overflow: hidden;
     border-right: .15em solid orange;
     white-space: nowrap;
     animation: typing 3.5s steps(50, end) forwards, blinking .8s infinite;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     width: 0;
 }
 
-.typed-out-long{
+.typed-out2 {
+    overflow: hidden;
+    border-right: .15em solid orange;
+    white-space: nowrap;
+    animation: typing 3.0s steps(50, end) forwards, blinking .8s infinite;
+    font-size: 0.8rem;
+    width: 0;
+}
+
+
+.typed-out-long {
     overflow: hidden;
     border-right: .15em solid orange;
     white-space: nowrap;
     animation: typing 8s steps(200, end) forwards, blinking .8s infinite;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     width: 0;
+}
+
+#inGameMenu {
+    overflow: hidden;
+    position: absolute;
+    padding: 10px;
+    top: 5px;
+    left: 50%;
+    color: white;
+    background: black;
+    font-size: 15px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: none;
+    margin-top: 10px;
+
+
 }
 
 #info {
@@ -116,11 +147,11 @@ body {
     margin-top: 250px;
 }
 
-#info5 {
+#menuInfo {
     position: absolute;
     padding: 10px;
-    top: 10px;
-    left: 10px;
+    top: 0px;
+    right: 0px;
     color: white;
     background: black;
     font-size: 12px;
@@ -128,7 +159,7 @@ body {
     z-index: 100;
     opacity: 0.5;
     display: block;
-    margin-top: 100px;
+    margin-top: 4px;
 }
 
 #info6 {
@@ -217,22 +248,102 @@ body {
     text-align: left;
     z-index: 100;
     opacity: 0.5;
-    display:block;
+    display: block;
     margin-top: 300px;
 }
 
 #info14 {
     position: absolute;
     padding: 10px;
-    top: 10px;
-    left: 10px;
+    top: 0px;
+    left: 0px;
     color: white;
     background: black;
     font-size: 12px;
     text-align: left;
     z-index: 100;
     opacity: 0.5;
-    display:block;
+    display: block;
+    margin-top: 10px;
+    margin-left: 200px;
+}
+
+#credits1 {
+    position: absolute;
+    padding: 10px;
+    top: 0px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+#credits2 {
+    position: absolute;
+    padding: 10px;
+    top: 30px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+#credits3 {
+    position: absolute;
+    padding: 10px;
+    top: 60px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+#credits4 {
+    position: absolute;
+    padding: 10px;
+    top: 90px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+#credits5 {
+    position: absolute;
+    padding: 10px;
+    top: 120px;
+    left: 10px;
+    color: white;
+    background: black;
+    font-size: 9px;
+    text-align: left;
+    z-index: 100;
+    opacity: 0.5;
+    display: block;
     margin-top: 100px;
     margin-left: 600px;
 }

@@ -20,20 +20,24 @@
     }
 
     @keyframes blinking {
-        from { border-color: transparent }
-        to { border-color: white; }
+        from {
+            border-color: transparent
+        }
+        to {
+            border-color: white;
+        }
     }
 </style>
 <body>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#info').hide();
         $('#info2').hide();
         $('#info3').hide();
         $('#info4').hide();
-        $('#info5').hide();
+        $('#menuInfo').hide();
         $('#info6').hide();
         $('#info7').hide();
         $('#info8').hide();
@@ -43,8 +47,20 @@
         $('#info12').hide();
         $('#info13').hide();
         $('#info14').hide();
+        $('#credits1').hide();
+        $('#credits2').hide();
+        $('#credits3').hide();
+        $('#credits4').hide();
+        $('#credits5').hide();
     });
 </script>
+
+<div id="inGameMenu" class="container">
+    <div>Move: WASD</div>
+    <div>Jump: Space</div>
+    <div>Run: Shift</div>
+</div>
+
 
 <div id="info" class="container">
     <div class="typed-out">Welcome to Trapped In Space.</div>
@@ -54,19 +70,22 @@
     <div class="typed-out">You are engulfed in darkness...</div>
 </div>
 
-<div id="info3"  class="container">
-    <div class="typed-out">Locate your minion, before your flashlight dies...</div></div>
+<div id="info3" class="container">
+    <div class="typed-out">Locate your minion, before your flashlight dies...</div>
+</div>
 
 <div id="info4" class="container">
     <div class="typed-out">But watch your step...</div>
 </div>
 
-<div id="info5" class="container">
-    <div class="typed-out">Use WASD to move around.</div>
+<div id="menuInfo" class="container">
+    press esc for controls
 </div>
 
-<div id="info6"  class="container">
-    <div class="typed-out-long">Your minion will provide some light. Collect power-ups to unlock new areas to explore.</div></div>
+<div id="info6" class="container">
+    <div class="typed-out-long">Your minion will provide some light. Collect power-ups to unlock new areas to explore.
+    </div>
+</div>
 
 <div id="info8" class="container">
     <div class="typed-out-long">Press Spacebar to jump, hold Shift to sprint and jump even further</div>
@@ -80,17 +99,40 @@
     <div class="typed-out-long">You have taken damage, lose it all and you die. Your health regenerates over time.</div>
 </div>
 
-<div id="info11"  class="container">
-    <div class="typed-out-long">You have taken damage, lose it all and you die. On Hard-mode your health does not regenerate....</div></div>
+<div id="info11" class="container">
+    <div class="typed-out-long">You have taken damage, lose it all and you die. On Hard-mode your health does not
+        regenerate....
+    </div>
+</div>
 
-<div id="info12"  class="container">
-    <div class="typed-out-long">You have died and respawned.</div></div>
+<div id="info12" class="container">
+    <div class="typed-out-long">You have died and respawned.</div>
+</div>
 
-<div id="info13"  class="container">
-    <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div></div>
+<div id="info13" class="container">
+    <div class="typed-out-long">Your flashlight has died... your exosuite will recharge it over time.</div>
+</div>
 
-<div id="info14"  class="container">
-    <div class="typed-out-long">You realise it was all a dream. The end.</div></div>
+<div id="info14" class="container">
+    <div class="typed-out-long">You realise it was all a dream. The end.</div>
+</div>
+
+
+<div id="credits1" class="container">
+    <div class="typed-out2">CREDITS</div>
+</div>
+<div id="credits2" class="container">
+    <div class="typed-out2">Made by Thomas Ytterdal, Patrick Dahl & Carlos Reiakvam</div>
+</div>
+<div id="credits3" class="container">
+    <div class="typed-out2">Game song: The Orderer's Theme by Myuu</div>
+</div>
+<div id="credits4" class="container">
+    <div class="typed-out2">Ending song: Purple Chair by automaticbananas</div>
+</div>
+<div id="credits5" class="container">
+    <div class="typed-out2">Special thanks goes out to Werner Farstad and UIT Narvik 😻👏🍏</div>
+</div>
 
 
 <canvas class="webgl"></canvas>
@@ -210,6 +252,12 @@
             vTime = uTime;
             vElevation = elevation;
         }
+
+
+
+
+
+
 </script>
 
 <script type="x-shader/x-fragment" id="fragmentshader">
@@ -250,7 +298,13 @@
             vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
             gl_FragColor = baseColor;// + vec4(color, 1.0);
         }
-    </script>
+
+
+
+
+
+
+</script>
 
 <canvas class="webgl"></canvas>
 
