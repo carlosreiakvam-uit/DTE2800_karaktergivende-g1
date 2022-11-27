@@ -101,14 +101,14 @@ export default class EventHandler {
         if (this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm && !this.narvikIsHere) {
             this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_PLAT_3) // remove check of collected bonus points
             this.spawnNarvik();
-            this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
+            // this.bonusPointHandler.spawnNarvikPoints(Constant.BONUS_NARVIK)
 
         }
     }
 
     updateEnd() {
-        if (!this.megabridgeSpawned && this.bonusPointHandler.allBonusPointsTakenOnNarvik) {
-            this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_NARVIK) // remove check of collected bonus points
+        if (!this.megabridgeSpawned && this.bonusPointHandler.allBonusPointsTakenOnThirdPlatForm) {
+            // this.bonusPointHandler.allBonusPoints.delete(Constant.BONUS_NARVIK) // remove check of collected bonus points
             this.megabridgeSpawned = true;
             this.spawnMegaBridge()
         }
@@ -131,20 +131,20 @@ export default class EventHandler {
         let length = 100
         const a = new Box({
             position: {
-                x: 114.4,
-                y: -2.3,
-                z: 7.1 - length / 2
+                x: 75 + (length / 2),
+                y: 0,
+                z: 0
             },
-            scale: {x: 2, y: 0.2, z: length},
+            scale: {x: length, y: 0.2, z: 2},
             name: "megabridge",
             material: application.world.globs.spacePlatformMaterial,
         })
 
         const endZone = new Box({
             position: {
-                x: 114.4,
-                y: -2.3,
-                z: -length - 3
+                x:  85 + length,
+                y: 0,
+                z: 0
             },
             scale: {x: 20, y: 0.2, z: 20},
             name: "endZone",
@@ -152,9 +152,9 @@ export default class EventHandler {
         })
 
         this.bonusPointHandler.spawnFinalBonusPoint(Constant.BONUS_FINAL, {
-            x: 114.4,
+            x:  85 + length,
             y: 2,
-            z: -length - 3
+            z: 0
         })
 
         this.application.scene.add(a.mesh);
